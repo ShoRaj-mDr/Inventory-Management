@@ -1,0 +1,10 @@
+type Pet @model {
+  id: ID!
+  name: String!
+  description: String
+}
+type Itemz @model {
+  id: ID!
+  name: String!
+  description: String
+}

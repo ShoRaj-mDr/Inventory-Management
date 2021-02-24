@@ -1,0 +1,73 @@
+# this is an auto generated file. This will be overwritten
+mutation CreatePet(
+  $input: CreatePetInput!
+  $condition: ModelPetConditionInput
+) {
+  createPet(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePet(
+  $input: UpdatePetInput!
+  $condition: ModelPetConditionInput
+) {
+  updatePet(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePet(
+  $input: DeletePetInput!
+  $condition: ModelPetConditionInput
+) {
+  deletePet(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateItemz(
+  $input: CreateItemzInput!
+  $condition: ModelItemzConditionInput
+) {
+  createItemz(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateItemz(
+  $input: UpdateItemzInput!
+  $condition: ModelItemzConditionInput
+) {
+  updateItemz(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteItemz(
+  $input: DeleteItemzInput!
+  $condition: ModelItemzConditionInput
+) {
+  deleteItemz(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}

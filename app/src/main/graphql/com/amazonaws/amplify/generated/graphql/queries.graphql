@@ -1,0 +1,47 @@
+# this is an auto generated file. This will be overwritten
+query GetPet($id: ID!) {
+  getPet(id: $id) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+query ListPets($filter: ModelPetFilterInput, $limit: Int, $nextToken: String) {
+  listPets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetItemz($id: ID!) {
+  getItemz(id: $id) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+query ListItemzs(
+  $filter: ModelItemzFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listItemzs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

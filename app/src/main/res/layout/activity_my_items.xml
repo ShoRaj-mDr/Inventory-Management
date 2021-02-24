@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:background="#1B1B1B"
+    tools:context=".myItems">
+
+    <LinearLayout
+        android:id="@+id/mainLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome "
+            android:textSize="29sp"
+            android:textColor="@color/cardview_light_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mainLayout3"
+        android:layout_below="@id/mainLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp">
+
+        <TextView
+            android:id="@+id/txtSavingsGoal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:text="Today's Budget: "
+            android:textColor="#F264E612"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+
+    <View
+        android:layout_below="@+id/mainLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dp"
+        android:background="#FFFFFF" />
+
+    <LinearLayout
+        android:id="@+id/mainLayout2"
+        android:layout_below="@id/mainLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Today's Expense: "
+            android:textColor="#F0E62128"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+
+    <View
+        android:layout_below="@+id/mainLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dp"
+        android:background="#FFFFFF" />
+
+    <LinearLayout
+        android:id="@+id/mainLayout4"
+        android:layout_below="@id/mainLayout2"
+        android:gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp">
+
+        <TextView
+            android:id="@+id/txtDailySavings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Daily Savings: "
+            android:textColor="#F7B5891C"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/lineLayout"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/mainLayout4"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dp"
+        android:background="#FFFFFF"/>
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_below="@id/lineLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DAD1C4"
+        android:layout_marginTop="3dp"
+        tools:ignore="NestedScrolling" />
+
+</RelativeLayout>
+
+
+    <!--    android:background="@color/cardview_dark_background"-->
+    <!--    android:background="#DAD1C4"-->
+    <!--    android:background="#cbccc6 "-->
