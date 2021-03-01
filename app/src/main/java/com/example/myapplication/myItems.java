@@ -55,87 +55,6 @@ public class myItems extends AppCompatActivity {
         nameMain = findViewById(R.id.textView2);
         txtDailySavings = findViewById(R.id.txtDailySavings);
         ClientFactory.init(this);
-
-        //mydb = new DBHelper(this);
-        int x = 0;
-
-        // Retrieve the username from the MainActivity
-
-//        Intent intent = getIntent();
-//        String message = intent.getStringExtra("first message");
-//        ourID = intent.getIntExtra("itemid",0);
-
-        // Update the text on the welcome screen
-//        String todayDate = date();
-//        int o = mydb.getSumDaily(ourID,0, todayDate);
-
-        // show the user's name
-//        String ourName = mydb.getOurName(ourID);
-//        nameMain.setText(nameMain.getText().toString() + ourName);
-//
-//        String ourGoal = mydb.getOurIncome(ourID);
-//        String ourGoal2 = mydb.getOurIncome(ourID);
-
-        //Pulling values from the DB to fill in the main menu summary.
-//        String myIncome = mydb.getOurGoal(ourID);
-//        Double dailyExp = (Double.valueOf(myIncome)/365) - o;
-//        Double d1=Double.valueOf(ourGoal);
-//        Double d2=Double.valueOf(o);
-//        Double dailyExp2=(d1-d2);
-//        String result = currencyFormat(String.valueOf(Double.toString(dailyExp)));
-//        String todaysExpense = currencyFormat(Integer.toString(o));
-//        expenseMain.setText(expenseMain.getText().toString() + "$" + todaysExpense);
-//
-//        ourGoal = currencyFormat(ourGoal);
-//        savingsGoal.setText(savingsGoal.getText().toString() + " $" + ourGoal2);
-//
-//        String result2 = currencyFormat(String.valueOf(Double.toString(dailyExp2)));
-//        txtDailySavings.setText(txtDailySavings.getText().toString() + " $" + result2);
-
-        //String dummyDate="2020-07-2";
-//        final ArrayList array_list = mydb.getAllItemsNameWithDate(ourID, todayDate);
-//        ArrayList array_list2 = new ArrayList();
-//        final ArrayList lastAL = new ArrayList();
-//
-//        //This loop will concatenate all our item names with their associated price.
-//        for (int i = 0; i < array_list.size(); i++) {
-//            float here = mydb.getAllExpensesForOneDayAndOneItem(ourID, array_list.get(i).toString(), todayDate);
-//            String formating = currencyFormat(String.valueOf(here));
-//            array_list2.add(i, formating);
-//            lastAL.add(i, array_list.get(i).toString() + "    $" + array_list2.get(i));
-//        }
-//
-//        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lastAL);
-//        obj = findViewById(R.id.listView1);
-//        obj.setAdapter(arrayAdapter);
-//        obj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-//                int id_To_Search = position + 1;
-//
-//                Bundle dataBundle = new Bundle();
-//                dataBundle.putInt("id", id_To_Search);
-//
-//                Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
-//                intent.putExtra("ourID", ourID);
-////                Toast.makeText(getApplicationContext(), array_list.get(id_To_Search-1).toString(),
-////                        Toast.LENGTH_SHORT).show();
-//
-//                Cursor u = mydb.getItemID(ourID, array_list.get(id_To_Search - 1).toString());
-//                if (u.getCount() > 0) {
-//                    u.moveToFirst();
-//                    while (!u.isAfterLast()) {
-//                        xx = u.getInt(u.getColumnIndex(DBHelper.ITEMS_COLUMN_ID));
-//                        u.moveToNext();
-//                    }
-//                }
-//
-//                intent.putExtra("itemid", xx);
-//                intent.putExtras(dataBundle);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 
     @Override
@@ -196,7 +115,7 @@ public class myItems extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item1:
                 Bundle dataBundle = new Bundle();
-                dataBundle.putInt("id", 0);
+                dataBundle.putInt("id", 1);
                 Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
                 intent.putExtras(dataBundle);
                 intent.putExtra("ourID", ourID);
@@ -259,21 +178,10 @@ public class myItems extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
                 intent.putExtra("ourID", ourID);
+                intent.putExtra("itemID",mPets.get(position).id());
                 intent.putExtra("itemName",mPets.get(position).name());
                 intent.putExtra("itemDes",mPets.get(position).description());
-//                Toast.makeText(getApplicationContext(), array_list.get(id_To_Search-1).toString(),
-//                        Toast.LENGTH_SHORT).show();
 
-//                Cursor u = mydb.getItemID(ourID, array_list.get(id_To_Search - 1).toString());
-//                if (u.getCount() > 0) {
-//                    u.moveToFirst();
-//                    while (!u.isAfterLast()) {
-//                        xx = u.getInt(u.getColumnIndex(DBHelper.ITEMS_COLUMN_ID));
-//                        u.moveToNext();
-//                    }
-//                }
-
-                //intent.putExtra("itemid", xx);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }
