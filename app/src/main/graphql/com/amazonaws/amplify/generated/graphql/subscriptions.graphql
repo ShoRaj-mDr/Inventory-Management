@@ -53,3 +53,36 @@ subscription OnDeleteItemz {
     updatedAt
   }
 }
+subscription OnCreateItems {
+  onCreateItems {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateItems {
+  onUpdateItems {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteItems {
+  onDeleteItems {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}

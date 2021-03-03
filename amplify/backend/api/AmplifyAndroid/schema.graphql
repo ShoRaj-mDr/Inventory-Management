@@ -8,3 +8,10 @@ type Itemz @model {
   name: String!
   description: String
 }
+type Items @model {
+  id: ID!
+  name: String!
+  description: String
+  quantity: Int
+  price: Float
+}

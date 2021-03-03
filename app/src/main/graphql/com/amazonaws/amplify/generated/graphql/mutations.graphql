@@ -71,3 +71,45 @@ mutation DeleteItemz(
     updatedAt
   }
 }
+mutation CreateItems(
+  $input: CreateItemsInput!
+  $condition: ModelItemsConditionInput
+) {
+  createItems(input: $input, condition: $condition) {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateItems(
+  $input: UpdateItemsInput!
+  $condition: ModelItemsConditionInput
+) {
+  updateItems(input: $input, condition: $condition) {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteItems(
+  $input: DeleteItemsInput!
+  $condition: ModelItemsConditionInput
+) {
+  deleteItems(input: $input, condition: $condition) {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}

@@ -45,3 +45,32 @@ query ListItemzs(
     nextToken
   }
 }
+query GetItems($id: ID!) {
+  getItems(id: $id) {
+    id
+    name
+    description
+    quantity
+    price
+    createdAt
+    updatedAt
+  }
+}
+query ListItemss(
+  $filter: ModelItemsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listItemss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      quantity
+      price
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
