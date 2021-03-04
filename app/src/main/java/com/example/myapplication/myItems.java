@@ -34,14 +34,12 @@ import javax.annotation.Nonnull;
 public class myItems extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "MESSAGE";
     private ListView obj;
-    // private DBHelper mydb;
 
     private TextView expenseMain;
     private TextView savingsGoal;
     private TextView nameMain;
     private TextView txtDailySavings;
-    int ourID;
-    int xx;
+
 
     private ArrayList<ListItemzsQuery.Item> mPets;
     private final String TAG = MainActivity.class.getSimpleName();
@@ -60,7 +58,6 @@ public class myItems extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         // Query list data when we return to the screen
         query();
     }
@@ -78,15 +75,10 @@ public class myItems extends AppCompatActivity {
             mPets = new ArrayList<>(response.data().listItemzs().items());
 
             Log.i(TAG, "Retrieved list items: " + mPets.toString());
-            //myFunc(mPets);
-
-
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //mAdapter.setItems(mPets);
-                    //mAdapter.notifyDataSetChanged();
 
                     myFunc(mPets);
 
@@ -118,8 +110,6 @@ public class myItems extends AppCompatActivity {
                 dataBundle.putInt("id", 1);
                 Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
                 intent.putExtras(dataBundle);
-                intent.putExtra("ourID", ourID);
-                intent.putExtra("itemid", xx);
                 startActivity(intent);
                 return true;
 
@@ -149,18 +139,12 @@ public class myItems extends AppCompatActivity {
 
 
     public void myFunc(List<ListItemzsQuery.Item> items) {
-        //final ArrayList lastAL = new ArrayList();
-        List<ListItemzsQuery.Item> items2=new ArrayList<>();
-        //items2=items;
 
-                //This loop will concatenate all our item names with their associated price.
+     //This loop will concatenate all our item names with their associated price.
      final ArrayList lastAL = new ArrayList();
         for (int i = 0; i < items.size(); i++) {
-
             lastAL.add(i, items.get(i).name() + "    " + items.get(i).description());
         }
-
-
 
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lastAL);
@@ -170,14 +154,12 @@ public class myItems extends AppCompatActivity {
         obj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                int id_To_Search = position + 1;
 
                 Bundle dataBundle = new Bundle();
-                String itemID=mPets.get(position+0).id();
+                String itemID=mPets.get(position).id();
                 dataBundle.putString("id", itemID);
 
                 Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
-                intent.putExtra("ourID", ourID);
                 intent.putExtra("itemID",mPets.get(position).id());
                 intent.putExtra("itemName",mPets.get(position).name());
                 intent.putExtra("itemDes",mPets.get(position).description());
@@ -193,16 +175,5 @@ public class myItems extends AppCompatActivity {
             moveTaskToBack(true);
         }
         return super.onKeyDown(keycode, event);
-    }
-
-    public String date() {
-        Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        return ft.format(dNow);
-    }
-
-    public static String currencyFormat(String amount) {
-        DecimalFormat formatter = new DecimalFormat("###,###,##0.00");
-        return formatter.format(Double.parseDouble(amount));
     }
 }

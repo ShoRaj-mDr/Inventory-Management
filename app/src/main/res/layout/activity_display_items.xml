@@ -66,9 +66,8 @@
                 android:layout_marginStart="149dp"
                 android:layout_marginTop="5dp"
                 android:ems="10"
-                android:hint="Grocery"
-                android:inputType="text"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -87,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/editTextName"
                 android:layout_alignParentStart="true"
-                android:text="Item Name"
+                android:text="Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 tools:ignore="PrivateResource" />
 
@@ -97,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/textView1"
                 android:layout_alignBottom="@+id/editTextEmail"
-                android:text="new_expense"
+                android:text="Quantity"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -106,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/textView1"
                 android:layout_alignBottom="@+id/editTextPhone"
-                android:text="description"
+                android:text="Description"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -115,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/editTextEmail"
                 android:layout_alignStart="@+id/textView5"
-                android:text="current_expense"
+                android:text="Price"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -134,14 +133,13 @@
                 android:id="@+id/editTextPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/editTextStreet"
                 android:layout_below="@+id/editTextName"
+                android:layout_alignStart="@+id/editTextStreet"
                 android:layout_marginTop="10dp"
+                android:autofillHints="Specify what type of item this is"
                 android:ems="10"
                 android:inputType=""
-                android:hint="Add More Description"
-                tools:ignore="LabelFor,PrivateResource,TextFields"
-                android:autofillHints="Specify what type of item this is" />
+                tools:ignore="LabelFor,PrivateResource,TextFields" />
 
         </RelativeLayout>
 
@@ -149,11 +147,11 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="17dp"
-            android:onClick="run"
-            android:background="#5BC3EB"
+            android:layout_below="@+id/itemRelativeLayout7"
             android:layout_marginStart="35dp"
+            android:layout_marginTop="45dp"
+            android:background="#5BC3EB"
+            android:onClick="run"
             android:text="save" />
 
         <Button
@@ -161,12 +159,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/itemRelativeLayout7"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="47dp"
             android:layout_toEndOf="@+id/button1"
-            android:onClick="run2"
             android:background="#E55812"
-            android:text="delete_item" />
+            android:onClick="run2"
+            android:text="Delete" />
+
+        <Button
+            android:id="@+id/addBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemRelativeLayout7"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/button"
+            android:onClick="add"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/subBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addBTN"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/button"
+            android:onClick="sub"
+            android:text="-" />
 
     </RelativeLayout>
 
