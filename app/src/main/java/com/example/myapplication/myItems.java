@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amazonaws.amplify.generated.graphql.ListItemssQuery;
 import com.amazonaws.amplify.generated.graphql.ListItemzsQuery;
 import com.amazonaws.amplify.generated.graphql.ListPetsQuery;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
@@ -42,7 +43,8 @@ public class myItems extends AppCompatActivity {
 
 
     private ArrayList<ListItemzsQuery.Item> mPets;
-    private final String TAG = MainActivity.class.getSimpleName();
+    private ArrayList<ListItemssQuery.Item> mItems;
+    private final String TAG = myItems.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,24 +65,26 @@ public class myItems extends AppCompatActivity {
     }
 
     public void query() {
-        ClientFactory.appSyncClient().query(ListItemzsQuery.builder().build())
+        ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
     }
 
-    private GraphQLCall.Callback<ListItemzsQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemzsQuery.Data>() {
+    private GraphQLCall.Callback<ListItemssQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemssQuery.Data>() {
         @Override
-        public void onResponse(@Nonnull Response<ListItemzsQuery.Data> response) {
+        public void onResponse(@Nonnull Response<ListItemssQuery.Data> response) {
 
-            mPets = new ArrayList<>(response.data().listItemzs().items());
+            //mPets = new ArrayList<>(response.data().listItemzs().items());
+            mItems = new ArrayList<>(response.data().listItemss().items());
 
-            Log.i(TAG, "Retrieved list items: " + mPets.toString());
+
+            Log.i(TAG, "Retrieved list items: " + mItems.toString());
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
 
-                    myFunc(mPets);
+                    myFunc(mItems);
 
                 }
             });
@@ -138,12 +142,12 @@ public class myItems extends AppCompatActivity {
     }
 
 
-    public void myFunc(List<ListItemzsQuery.Item> items) {
+    public void myFunc(List<ListItemssQuery.Item> items) {
 
      //This loop will concatenate all our item names with their associated price.
      final ArrayList lastAL = new ArrayList();
         for (int i = 0; i < items.size(); i++) {
-            lastAL.add(i, items.get(i).name() + "    " + items.get(i).description());
+            lastAL.add(i, items.get(i).name() + "    " + items.get(i).quantity());
         }
 
 
@@ -156,13 +160,15 @@ public class myItems extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
 
                 Bundle dataBundle = new Bundle();
-                String itemID=mPets.get(position).id();
-                dataBundle.putString("id", itemID);
+                String itemID=mItems.get(position).id();
+                dataBundle.putInt("id", 0);
 
                 Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
-                intent.putExtra("itemID",mPets.get(position).id());
-                intent.putExtra("itemName",mPets.get(position).name());
-                intent.putExtra("itemDes",mPets.get(position).description());
+                intent.putExtra("itemID",mItems.get(position).id());
+                intent.putExtra("itemName",mItems.get(position).name());
+                intent.putExtra("itemDes",mItems.get(position).description());
+                intent.putExtra("itemPrice",mItems.get(position).price());
+                intent.putExtra("itemQuantity",mItems.get(position).quantity());
 
                 intent.putExtras(dataBundle);
                 startActivity(intent);

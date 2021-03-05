@@ -121,11 +121,12 @@
                 android:id="@+id/editTextStreet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/editTextName"
                 android:layout_below="@+id/editTextPhone"
-                android:ems="10"
+                android:layout_alignStart="@+id/editTextName"
                 android:layout_marginTop="10dp"
-                android:inputType="number">
+                android:ems="10"
+                android:inputType="number|numberDecimal">
+
                 <requestFocus />
             </EditText>
 

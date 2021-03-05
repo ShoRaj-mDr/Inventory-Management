@@ -14,9 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.amplify.generated.graphql.CreateItemsMutation;
 import com.amazonaws.amplify.generated.graphql.CreateItemzMutation;
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
+import com.amazonaws.amplify.generated.graphql.DeleteItemsMutation;
 import com.amazonaws.amplify.generated.graphql.DeleteItemzMutation;
+import com.amazonaws.amplify.generated.graphql.UpdateItemsMutation;
 import com.amazonaws.amplify.generated.graphql.UpdateItemzMutation;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
@@ -27,9 +30,12 @@ import java.util.Date;
 
 import javax.annotation.Nonnull;
 
+import type.CreateItemsInput;
 import type.CreateItemzInput;
 import type.CreatePetInput;
+import type.DeleteItemsInput;
 import type.DeleteItemzInput;
+import type.UpdateItemsInput;
 import type.UpdateItemzInput;
 
 public class DisplayItems extends Activity {
@@ -40,8 +46,11 @@ public class DisplayItems extends Activity {
     private TextView newExpense;
 
     String itemID;
+    String itemName;
+    String itemDescription;
     int itemQuantity;
-    float itemPrice;
+    double itemPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +62,15 @@ public class DisplayItems extends Activity {
         newExpense = findViewById(R.id.editTextEmail);
 
         Bundle extras = getIntent().getExtras();
-        int exp = 0;//Default value for a field---Delete later
 
         //We passed all data associated with an item with intents.
         //Here we grab all those intents and assign them to local variables.
         itemID = getIntent().getStringExtra("itemID");
-        String itemName = getIntent().getStringExtra("itemName");
-        String itemDescription = getIntent().getStringExtra("itemDes");
-        itemQuantity=10;
-        itemPrice=20;
+        itemName = getIntent().getStringExtra("itemName");
+        itemDescription = getIntent().getStringExtra("itemDes");
+        itemPrice=getIntent().getDoubleExtra("itemPrice",0);
+        itemQuantity=getIntent().getIntExtra("itemQuantity",0);
+
 
         //If Value > 0 we are creating an item
         //If Value == 0 we are updating an item
@@ -113,7 +122,7 @@ public class DisplayItems extends Activity {
         newExpense.setText(String.valueOf(itemQuantity));//Display new quantity
     }
     public void sub(View view) { //-1
-        if(itemQuantity!=0) {//Make sure we dont have negative items.
+        if(itemQuantity!=0) {//Make sure we don't have negative items.
             itemQuantity--;//--quantity, no DB update until save button is pressed.
             newExpense.setText(String.valueOf(itemQuantity));////Display new quantity
         }
@@ -146,17 +155,19 @@ public class DisplayItems extends Activity {
     private void update(String id) {
         final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
         final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
+        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
+        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
 
-        UpdateItemzInput input= UpdateItemzInput.builder().id(id).name(name).description(description).build();
+        UpdateItemsInput input= UpdateItemsInput.builder().id(id).name(name).description(description).price(price).quantity(quantity).build();
 
-        UpdateItemzMutation updateItemzMutation= UpdateItemzMutation.builder().input(input).build();
-        ClientFactory.appSyncClient().mutate(updateItemzMutation).enqueue(mutateCallback3);
+        UpdateItemsMutation updateItemsMutation= UpdateItemsMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updateItemsMutation).enqueue(mutateCallback3);
     }
 
     // Mutation callback code
-    private GraphQLCall.Callback<UpdateItemzMutation.Data> mutateCallback3 = new GraphQLCall.Callback<UpdateItemzMutation.Data>() {
+    private GraphQLCall.Callback<UpdateItemsMutation.Data> mutateCallback3 = new GraphQLCall.Callback<UpdateItemsMutation.Data>() {
         @Override
-        public void onResponse(@Nonnull final Response<UpdateItemzMutation.Data> response) {
+        public void onResponse(@Nonnull final Response<UpdateItemsMutation.Data> response) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -183,16 +194,16 @@ public class DisplayItems extends Activity {
 
     //========================================================================================DELETE
     private void delete(String id) {
-        DeleteItemzInput input =DeleteItemzInput.builder().id(id).build();
+        DeleteItemsInput input =DeleteItemsInput.builder().id(id).build();
 
-        DeleteItemzMutation deleteItemMutation= DeleteItemzMutation.builder().input(input).build();
+        DeleteItemsMutation deleteItemMutation= DeleteItemsMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(deleteItemMutation).enqueue(mutateCallback2);
     }
 
     // Mutation callback code
-    private GraphQLCall.Callback<DeleteItemzMutation.Data> mutateCallback2 = new GraphQLCall.Callback<DeleteItemzMutation.Data>() {
+    private GraphQLCall.Callback<DeleteItemsMutation.Data> mutateCallback2 = new GraphQLCall.Callback<DeleteItemsMutation.Data>() {
         @Override
-        public void onResponse(@Nonnull final Response<DeleteItemzMutation.Data> response) {
+        public void onResponse(@Nonnull final Response<DeleteItemsMutation.Data> response) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -220,23 +231,25 @@ public class DisplayItems extends Activity {
     private void save() {
         final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
         final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
+        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
+        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
 
 //        CreatePetInput input = CreatePetInput.builder()
 //                .name(name)
 //                .description(description)
 //                .build();
-        CreateItemzInput input = CreateItemzInput.builder().name(name).description(description).build();
+        CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
 //        CreatePetMutation addPetMutation = CreatePetMutation.builder()
 //                .input(input)
 //                .build();
-        CreateItemzMutation addItemMutation = CreateItemzMutation.builder().input(input).build();
+        CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback);
     }
 
     // Mutation callback code
-    private GraphQLCall.Callback<CreateItemzMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateItemzMutation.Data>() {
+    private GraphQLCall.Callback<CreateItemsMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateItemsMutation.Data>() {
         @Override
-        public void onResponse(@Nonnull final Response<CreateItemzMutation.Data> response) {
+        public void onResponse(@Nonnull final Response<CreateItemsMutation.Data> response) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
