@@ -195,16 +195,7 @@ public class myItems extends AppCompatActivity {
                 return true;
 
             case R.id.item5:
-                //Settings
 
-
-                String userPoolId="testPoolID";
-                String username= "testuser";
-                String amazonAWSAccessKey="AKIAJ4MTKEBESHQ6NFOA";
-                String amazonAWSSecretKey="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";
-
-
-                Toast.makeText(myItems.this, "IDK", Toast.LENGTH_LONG).show();
 
 //https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
 
