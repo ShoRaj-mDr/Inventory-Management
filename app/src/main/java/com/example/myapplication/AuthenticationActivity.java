@@ -111,6 +111,11 @@ public class AuthenticationActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+
+//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
+//                                startActivity(i2);
+
+
                                 //Check our 3 DB tables to see what type of user is logging in.
                                 isAdmin(currentUser.id);
 
@@ -334,6 +339,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                 public void run() {
                     //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
                     // DisplayItems.this.finish();
+                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
+
                 }
             });
         }

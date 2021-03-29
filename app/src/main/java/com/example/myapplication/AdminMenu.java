@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
@@ -23,6 +24,7 @@ import com.apollographql.apollo.exception.ApolloException;
 
 import javax.annotation.Nonnull;
 
+import type.CreatePetInput;
 import type.UpdatePetInput;
 
 public class AdminMenu extends AppCompatActivity {
@@ -52,7 +54,7 @@ public class AdminMenu extends AppCompatActivity {
 //        employee_toolbar = findViewById(R.id.employee_toolbar);
 //        setSupportActionBar(employee_toolbar);
 
-
+        save();
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
         employeeMenu_listView.setAdapter(adapter);
         employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -171,7 +173,55 @@ public class AdminMenu extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
         startActivity(i);
     }
+    //=============================================================================CREATE
+    private void save() {
+//        final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
+//        final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
+//        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
+//        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
 
+        CreatePetInput input = CreatePetInput.builder()
+                .id(currentUser.id)
+                .name(currentUser.name)
+                .description("admin")
+                .build();
+        //CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
+        CreatePetMutation addPetMutation = CreatePetMutation.builder()
+                .input(input)
+                .build();
+        //CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
+        //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
+        ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
+    }
+
+    // Mutation callback code
+    private GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
+                    // DisplayItems.this.finish();
+                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                    currentUser.admin=true;
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddPetMutation", e);
+                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
+    //=============================================================================================CREATE
     //========================================================================================UPDATE
     private void setAdminView(String id, String view) {
         UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
