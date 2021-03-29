@@ -14,11 +14,43 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.amplify.generated.graphql.ListItemssQuery;
 import com.amazonaws.amplify.generated.graphql.ListItemzsQuery;
 import com.amazonaws.amplify.generated.graphql.ListPetsQuery;
+import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
+import com.amazonaws.auth.AWSBasicCognitoIdentityProvider;
+import com.amazonaws.auth.AWSCognitoIdentityProvider;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AnonymousAWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.mobile.auth.core.IdentityManager;
+import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
+import com.amazonaws.mobileconnectors.appsync.sigv4.BasicCognitoUserPoolsAuthProvider;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSettings;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoIdentityProviderException;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoUserToken;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.util.CognitoIdentityProviderClientConfig;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.cognitoidentity.model.GetIdRequest;
+import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProvider;
+import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
+import com.amazonaws.services.cognitoidentityprovider.model.AdminAddUserToGroupRequest;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
@@ -31,6 +63,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+
+import type.UpdatePetInput;
 
 public class myItems extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "MESSAGE";
@@ -45,6 +79,7 @@ public class myItems extends AppCompatActivity {
     private ArrayList<ListItemzsQuery.Item> mPets;
     private ArrayList<ListItemssQuery.Item> mItems;
     private final String TAG = myItems.class.getSimpleName();
+    String s="something";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +90,11 @@ public class myItems extends AppCompatActivity {
         nameMain = findViewById(R.id.textView2);
         txtDailySavings = findViewById(R.id.txtDailySavings);
         ClientFactory.init(this);
+        s = getIntent().getStringExtra("cogUser");
+
+        Toast.makeText(myItems.this, s, Toast.LENGTH_SHORT).show();
+
+
     }
 
     @Override
@@ -118,30 +158,101 @@ public class myItems extends AppCompatActivity {
                 return true;
 
             case R.id.item3:    // report 1 pie chart
+                Toast.makeText(myItems.this, "33333333333", Toast.LENGTH_LONG).show();
+                currentUser.customer=false;
+                currentUser.employee=false;
+                moveToAuthentication();
 
                 return true;
 
-            case R.id.item6:    // report 2 line graph
-
+            case R.id.item6:    //Customer
+                //setAdminView(currentUser.id,"customer");
+                currentUser.customer=true;
+                currentUser.employee=false;
+                moveToAuthentication();
                 return true;
 
-            case R.id.item7: // report 3
+            case R.id.item7: // Employee
+                Toast.makeText(myItems.this, "77777777777777777777777777777", Toast.LENGTH_LONG).show();
+                //setAdminView(currentUser.id,"employee");
+                currentUser.employee=true;
+                currentUser.customer=false;
+                moveToAuthentication();
+
 
                 return true;
 
             case R.id.item4:
+                Toast.makeText(myItems.this, "Bye2", Toast.LENGTH_LONG).show();
+                AWSMobileClient.getInstance().signOut();
+                //Bundle dataBundle = new Bundle();
+                //dataBundle.putInt("id", 1);
+                Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                //intent.putExtras(dataBundle);
+                startActivity(i);
+                //IdentityManager.getDefaultIdentityManager().signOut();
 
                 return true;
 
             case R.id.item5:
+                //Settings
+
+
+                String userPoolId="testPoolID";
+                String username= "testuser";
+                String amazonAWSAccessKey="AKIAJ4MTKEBESHQ6NFOA";
+                String amazonAWSSecretKey="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";
+
+
+                Toast.makeText(myItems.this, "IDK", Toast.LENGTH_LONG).show();
+
+//https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
+
+                return true;
+
 
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+    private void moveToAuthentication(){
+        Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
+        startActivity(i);
+    }
+    //========================================================================================UPDATE
+    private void setAdminView(String id,String view) {
+        UpdatePetInput input=UpdatePetInput.builder().id(id).description(view).build();
+        UpdatePetMutation updatePetMutation= UpdatePetMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
+    }
 
+    // Mutation callback code
+    private GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(myItems.this, "Updated admin view", Toast.LENGTH_LONG).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
 
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform UpdateItemMutation", e);
+                    Toast.makeText(myItems.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
+    //=============================================================================UPDATE
     public void myFunc(List<ListItemssQuery.Item> items) {
 
      //This loop will concatenate all our item names with their associated price.
@@ -179,6 +290,18 @@ public class myItems extends AppCompatActivity {
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(true);
+            if(currentUser.employee) {
+                Intent i = new Intent(myItems.this, EmployeeMenu.class);
+                startActivity(i);
+            }
+            else if(currentUser.customer) {
+                Intent i = new Intent(myItems.this, CustomerMenu.class);
+                startActivity(i);
+            }
+            else{
+                Intent i = new Intent(myItems.this, AdminMenu.class);
+                startActivity(i);
+            }
         }
         return super.onKeyDown(keycode, event);
     }

@@ -86,3 +86,123 @@ subscription OnDeleteItems {
     updatedAt
   }
 }
+subscription OnCreateTestingTable {
+  onCreateTestingTable {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTestingTable {
+  onUpdateTestingTable {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTestingTable {
+  onDeleteTestingTable {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateShift {
+  onCreateShift {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateShift {
+  onUpdateShift {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteShift {
+  onDeleteShift {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateCustomers {
+  onCreateCustomers {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCustomers {
+  onUpdateCustomers {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCustomers {
+  onDeleteCustomers {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateEmployees {
+  onCreateEmployees {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateEmployees {
+  onUpdateEmployees {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteEmployees {
+  onDeleteEmployees {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}

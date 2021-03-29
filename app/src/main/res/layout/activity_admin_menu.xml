@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AdminMenu">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/employee_appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:liftOnScroll="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/employee_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/testtxt"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_below="@+id/employee_appbar_layout"
+        android:gravity="center"
+        android:text="Admin"
+        android:textSize="25dp" />
+
+    <ListView
+        android:id="@+id/employee_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/testtxt"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+        android:divider="#E9EAEC"
+        android:dividerHeight="5dp" />
+
+</RelativeLayout>

@@ -74,3 +74,111 @@ query ListItemss(
     nextToken
   }
 }
+query GetTestingTable($id: ID!) {
+  getTestingTable(id: $id) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+query ListTestingTables(
+  $filter: ModeltestingTableFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTestingTables(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetShift($id: ID!) {
+  getShift(id: $id) {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+query ListShifts(
+  $filter: ModelshiftFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listShifts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      employeeID
+      shiftDate
+      start
+      end
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetCustomers($id: ID!) {
+  getCustomers(id: $id) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+query ListCustomerss(
+  $filter: ModelcustomersFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCustomerss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      email
+      password
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetEmployees($id: ID!) {
+  getEmployees(id: $id) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+query ListEmployeess(
+  $filter: ModelemployeesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEmployeess(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      email
+      password
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

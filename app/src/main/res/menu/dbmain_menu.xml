@@ -6,15 +6,15 @@
     </item>
 
     <item android:id="@+id/item3"
-        android:title="report_1" >
+        android:title="Admin View" >
     </item>
 
     <item android:id="@+id/item6"
-        android:title="report_2" >
+        android:title="Customer View" >
     </item>
 
     <item android:id="@+id/item7"
-        android:title="report_3" >
+        android:title="Employee View" >
     </item>
 
     <item android:id="@+id/item5"

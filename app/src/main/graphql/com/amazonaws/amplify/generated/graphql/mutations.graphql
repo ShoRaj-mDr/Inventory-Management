@@ -113,3 +113,159 @@ mutation DeleteItems(
     updatedAt
   }
 }
+mutation CreateTestingTable(
+  $input: CreateTestingTableInput!
+  $condition: ModeltestingTableConditionInput
+) {
+  createTestingTable(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTestingTable(
+  $input: UpdateTestingTableInput!
+  $condition: ModeltestingTableConditionInput
+) {
+  updateTestingTable(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTestingTable(
+  $input: DeleteTestingTableInput!
+  $condition: ModeltestingTableConditionInput
+) {
+  deleteTestingTable(input: $input, condition: $condition) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateShift(
+  $input: CreateShiftInput!
+  $condition: ModelshiftConditionInput
+) {
+  createShift(input: $input, condition: $condition) {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateShift(
+  $input: UpdateShiftInput!
+  $condition: ModelshiftConditionInput
+) {
+  updateShift(input: $input, condition: $condition) {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteShift(
+  $input: DeleteShiftInput!
+  $condition: ModelshiftConditionInput
+) {
+  deleteShift(input: $input, condition: $condition) {
+    id
+    employeeID
+    shiftDate
+    start
+    end
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateCustomers(
+  $input: CreateCustomersInput!
+  $condition: ModelcustomersConditionInput
+) {
+  createCustomers(input: $input, condition: $condition) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateCustomers(
+  $input: UpdateCustomersInput!
+  $condition: ModelcustomersConditionInput
+) {
+  updateCustomers(input: $input, condition: $condition) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteCustomers(
+  $input: DeleteCustomersInput!
+  $condition: ModelcustomersConditionInput
+) {
+  deleteCustomers(input: $input, condition: $condition) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateEmployees(
+  $input: CreateEmployeesInput!
+  $condition: ModelemployeesConditionInput
+) {
+  createEmployees(input: $input, condition: $condition) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateEmployees(
+  $input: UpdateEmployeesInput!
+  $condition: ModelemployeesConditionInput
+) {
+  updateEmployees(input: $input, condition: $condition) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteEmployees(
+  $input: DeleteEmployeesInput!
+  $condition: ModelemployeesConditionInput
+) {
+  deleteEmployees(input: $input, condition: $condition) {
+    id
+    name
+    email
+    password
+    createdAt
+    updatedAt
+  }
+}
