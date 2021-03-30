@@ -44,3 +44,32 @@ type employees @model {
     email: String
     password: String
 }
+
+type testingTable @model {
+    id: ID!
+    name: String!
+    description: String
+}
+
+
+type shift @model {
+    id: ID!
+    employeeID: Int
+    shiftDate: String
+    start: String
+    end: String
+}
+
+type customers @model {
+    id: ID!
+    name: String
+    email: String
+    password: String
+}
+
+type employees @model {
+    id: ID!
+    name: String
+    email: String
+    password: String
+}

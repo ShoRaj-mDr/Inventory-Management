@@ -18,7 +18,7 @@
     </item>
 
     <item android:id="@+id/item5"
-        android:title="settings" >
+        android:title="Profile" >
     </item>
 
     <item android:id="@+id/item4"

@@ -17,18 +17,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AdminMenuAdapter"></activity>
+        <activity android:name=".Profile.Profile" />
         <activity android:name=".CustomerMenuAdapter" />
-        <activity android:name=".AdminMenu" />
+        <activity android:name=".AdminMenu"
+            android:label="Admin Menu" />
         <activity
             android:name=".CustomerMenu"
-            android:label="@string/title_activity_customer_menu" />
+            android:label="Customer Menu" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
         <activity android:name=".DisplayItems" />
         <activity android:name=".myItems" />
-        <activity android:name=".EmployeeMenu" />
+        <activity android:name=".EmployeeMenu"
+            android:label="Employee Menu" />
         <activity android:name=".DisplayCustomer" />
         <activity android:name=".AddPetActivity" />
         <activity

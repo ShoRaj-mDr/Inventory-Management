@@ -20,6 +20,7 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.Profile.Profile;
 
 import javax.annotation.Nonnull;
 
@@ -49,8 +50,8 @@ public class CustomerMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_menu);
         employeeMenu_listView = findViewById(R.id.employee_listView);
-//        employee_toolbar = findViewById(R.id.employee_toolbar);
-//        setSupportActionBar(employee_toolbar);
+        employee_toolbar = findViewById(R.id.employee_toolbar);
+        setSupportActionBar(employee_toolbar);
 
 
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
@@ -144,7 +145,8 @@ public class CustomerMenu extends AppCompatActivity {
 
             case R.id.item5:
                 //Settings
-
+                Intent profile = new Intent(getApplicationContext(), Profile.class);
+                startActivity(profile);
 
 //https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
 

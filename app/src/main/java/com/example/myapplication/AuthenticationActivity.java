@@ -122,7 +122,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 //                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
 //                                startActivity(i2);
 
-
                                 //Check our 3 DB tables to see what type of user is logging in.
 
                                 isAdmin(currentUser.id);

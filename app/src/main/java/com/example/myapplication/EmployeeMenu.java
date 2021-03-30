@@ -59,8 +59,8 @@ public class EmployeeMenu extends AppCompatActivity {
         setContentView(R.layout.activity_employee_menu);
 
         employeeMenu_listView = findViewById(R.id.employee_listView);
-//        employee_toolbar = findViewById(R.id.employee_toolbar);
-//        setSupportActionBar(employee_toolbar);
+        employee_toolbar = findViewById(R.id.employee_toolbar);
+        setSupportActionBar(employee_toolbar);
 
 
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
