@@ -49,39 +49,39 @@ public class CustomerMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_menu);
-        employeeMenu_listView = findViewById(R.id.employee_listView);
+//        employeeMenu_listView = findViewById(R.id.employee_listView);
         employee_toolbar = findViewById(R.id.employee_toolbar);
         setSupportActionBar(employee_toolbar);
 
 
-        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
-        employeeMenu_listView.setAdapter(adapter);
-        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i == 0) {           // Manage Inventory
-                    Intent startManageInventory = new Intent(CustomerMenu.this, myItems.class);
-                    startActivity(startManageInventory);
-
-                } else if (i == 1) {   // Order List
-//                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
-//                    startActivity(startOrderList);
-
-                } else if (i == 2) {   // Shift Management
-                    displayToast("Shift Management Clicked! ");
-
-                } else if (i == 3) {   // Suppliers
-//                    Intent startAddSupplier = new Intent(EmployeeMenu.this, add_supplier.class);
-//                    startActivity(startAddSupplier);
-
-                } else if (i == 4) {   // Customers
-                    Intent startCustomer = new Intent(CustomerMenu.this, DisplayCustomer.class);
-                    startActivity(startCustomer);
-
-                }
-            }
-        });
+//        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
+//        employeeMenu_listView.setAdapter(adapter);
+//        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                if (i == 0) {           // Manage Inventory
+//                    Intent startManageInventory = new Intent(CustomerMenu.this, myItems.class);
+//                    startActivity(startManageInventory);
+//
+//                } else if (i == 1) {   // Order List
+////                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
+////                    startActivity(startOrderList);
+//
+//                } else if (i == 2) {   // Shift Management
+//                    displayToast("Shift Management Clicked! ");
+//
+//                } else if (i == 3) {   // Suppliers
+////                    Intent startAddSupplier = new Intent(EmployeeMenu.this, add_supplier.class);
+////                    startActivity(startAddSupplier);
+//
+//                } else if (i == 4) {   // Customers
+//                    Intent startCustomer = new Intent(CustomerMenu.this, DisplayCustomer.class);
+//                    startActivity(startCustomer);
+//
+//                }
+//            }
+//        });
 
     }
 
@@ -166,6 +166,22 @@ public class CustomerMenu extends AppCompatActivity {
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * onClick method when the user clicks the shopping cart in customer main menu
+     *
+     * @param view
+     */
+    public void getToSCR(View view) {
+        if (view.getId() == R.id.customer_menu_shopping_cart) {
+//            Intent toEmployeeMainMenuIntent = new Intent(this, ShoppingCart.class);
+//            startActivity(toEmployeeMainMenuIntent);
+            displayToast("Shopping Cart button clicked");
+        }
+        else if(view.getId() == R.id.customer_menu_report) {
+            displayToast("Report button clicked");
+        }
     }
 
 

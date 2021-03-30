@@ -23,7 +23,8 @@
             android:label="Admin Menu" />
         <activity
             android:name=".CustomerMenu"
-            android:label="Customer Menu" />
+            android:label=""
+            />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

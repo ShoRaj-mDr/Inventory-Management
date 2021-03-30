@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:textAlignment="center"
         app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
@@ -20,23 +21,52 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/testtxt"
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:layout_below="@+id/employee_appbar_layout"
-        android:gravity="center"
-        android:text="Customer"
-        android:textSize="25dp" />
 
-    <ListView
-        android:id="@+id/employee_listView"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/testtxt"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="50dp"
-        android:divider="#E9EAEC"
-        android:dividerHeight="5dp" />
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Menu"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/testtxt"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/employee_appbar_layout"
+            android:gravity="center"
+            android:text="Customer"
+            android:textSize="25dp" />
+
+        <ImageView
+            android:id="@+id/customer_menu_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/shoppingcartbutton2"
+            android:onClick="getToSCR"/>
+
+        <ImageView
+            android:id="@+id/customer_menu_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/reportbutton2"
+            android:onClick="getToSCR"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
