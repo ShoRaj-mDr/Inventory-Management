@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.amazonaws.amplify.generated.graphql.CreateItemsMutation;
 import com.amazonaws.amplify.generated.graphql.CreateItemzMutation;
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
+import com.amazonaws.amplify.generated.graphql.CreateShiftMutation;
 import com.amazonaws.amplify.generated.graphql.DeleteItemsMutation;
 import com.amazonaws.amplify.generated.graphql.DeleteItemzMutation;
 import com.amazonaws.amplify.generated.graphql.UpdateItemsMutation;
@@ -33,6 +34,7 @@ import javax.annotation.Nonnull;
 import type.CreateItemsInput;
 import type.CreateItemzInput;
 import type.CreatePetInput;
+import type.CreateShiftInput;
 import type.DeleteItemsInput;
 import type.DeleteItemzInput;
 import type.UpdateItemsInput;
@@ -195,7 +197,6 @@ public class DisplayItems extends Activity {
     //========================================================================================DELETE
     private void delete(String id) {
         DeleteItemsInput input =DeleteItemsInput.builder().id(id).build();
-
         DeleteItemsMutation deleteItemMutation= DeleteItemsMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(deleteItemMutation).enqueue(mutateCallback2);
     }

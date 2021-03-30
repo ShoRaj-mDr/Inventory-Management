@@ -43,6 +43,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import com.auth0.jwt.interfaces.RSAKeyProvider;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -111,12 +112,19 @@ public class AuthenticationActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
+//                                Map m2= new HashMap();
+//                                m2.put("given_name","cesar2");
+//                                try {
+//                                    AWSMobileClient.getInstance().updateUserAttributes(m2);
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
 //                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
 //                                startActivity(i2);
 
 
                                 //Check our 3 DB tables to see what type of user is logging in.
+
                                 isAdmin(currentUser.id);
 
                                 isEmployee(currentUser.id);
