@@ -7,7 +7,7 @@
     tools:context=".DisplayCustomer">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/customer_appbar_layout"
+        android:id="@+id/customer_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -24,8 +24,7 @@
         android:id="@+id/customer_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/customer_appbar_layout"
+        android:layout_below="@+id/customer_appbar"
         android:smoothScrollbar="true" />
-
 
 </RelativeLayout>

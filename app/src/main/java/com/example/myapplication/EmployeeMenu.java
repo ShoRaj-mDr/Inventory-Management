@@ -20,16 +20,13 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.Orderlist.OrderList;
+import com.example.myapplication.Supplier.AddSupplier;
 
 import javax.annotation.Nonnull;
 
 import type.UpdatePetInput;
 
-//import com.example.warehousemanagmentsystem491b.Inventory.ManageInventory;
-//import com.example.warehousemanagmentsystem491b.Orderlist.OrderList;
-//import com.example.warehousemanagmentsystem491b.Profile.Profile;
-//import com.example.warehousemanagmentsystem491b.R;
-//import com.example.warehousemanagmentsystem491b.Supplier.add_supplier;
 
 public class EmployeeMenu extends AppCompatActivity {
 
@@ -52,6 +49,40 @@ public class EmployeeMenu extends AppCompatActivity {
             R.drawable.employee_mainmenu_customer
     };
 
+    // Mutation callback code
+    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(EmployeeMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
+                    //DisplayItems.this.finish();
+                    moveToAuthentication();
+
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform UpdateItemMutation", e);
+                    Toast.makeText(EmployeeMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.dbmain_menu, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +90,8 @@ public class EmployeeMenu extends AppCompatActivity {
         setContentView(R.layout.activity_employee_menu);
 
         employeeMenu_listView = findViewById(R.id.employee_listView);
-        employee_toolbar = findViewById(R.id.employee_toolbar);
+        employee_toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(employee_toolbar);
-
 
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
         employeeMenu_listView.setAdapter(adapter);
@@ -74,33 +104,47 @@ public class EmployeeMenu extends AppCompatActivity {
                     startActivity(startManageInventory);
 
                 } else if (i == 1) {   // Order List
-//                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
-//                    startActivity(startOrderList);
+                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
+                    startActivity(startOrderList);
 
                 } else if (i == 2) {   // Shift Management
                     displayToast("Shift Management Clicked! ");
 
                 } else if (i == 3) {   // Suppliers
-//                    Intent startAddSupplier = new Intent(EmployeeMenu.this, add_supplier.class);
-//                    startActivity(startAddSupplier);
+                    Intent startAddSupplier = new Intent(EmployeeMenu.this, AddSupplier.class);
+                    startActivity(startAddSupplier);
 
                 } else if (i == 4) {   // Customers
                     Intent startCustomer = new Intent(EmployeeMenu.this, DisplayCustomer.class);
                     startActivity(startCustomer);
-
                 }
             }
         });
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.dbmain_menu, menu);
-        return true;
+    /**
+     * Displays a Toast with the message.
+     *
+     * @param message Message to display
+     */
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message,
+                Toast.LENGTH_SHORT).show();
     }
 
+
+    private void moveToAuthentication() {
+        Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
+        startActivity(i);
+    }
+
+    //========================================================================================UPDATE
+    private void setAdminView(String id, String view) {
+        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
+        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
+    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -151,10 +195,7 @@ public class EmployeeMenu extends AppCompatActivity {
                 return true;
 
             case R.id.item5:
-
-
-//https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
-
+// https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
                 return true;
 
 
@@ -162,57 +203,6 @@ public class EmployeeMenu extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    /**
-     * Displays a Toast with the message.
-     *
-     * @param message Message to display
-     */
-    public void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message,
-                Toast.LENGTH_SHORT).show();
-    }
-
-
-    private void moveToAuthentication() {
-        Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-        startActivity(i);
-    }
-
-    //========================================================================================UPDATE
-    private void setAdminView(String id, String view) {
-        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
-        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
-        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
-    }
-
-    // Mutation callback code
-    private GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(EmployeeMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
-                    //DisplayItems.this.finish();
-                    moveToAuthentication();
-
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform UpdateItemMutation", e);
-                    Toast.makeText(EmployeeMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
 }
 //=============================================================================UPDATE
 
@@ -220,13 +210,4 @@ public class EmployeeMenu extends AppCompatActivity {
      Website Referenced:
          - https://www.javatpoint.com/android-custom-listview
          - https://stackoverflow.com/questions/19662233/how-open-new-activity-clicking-an-item-in-listview
- */
-
-
-/**
- * Customer:
- * first name
- * last name
- * shipping address -> [strt number, city, zip]
- * CreditCard-> [number, expiration, cvv]
  */

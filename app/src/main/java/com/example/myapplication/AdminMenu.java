@@ -21,7 +21,9 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.Orderlist.OrderList;
 import com.example.myapplication.Profile.Profile;
+import com.example.myapplication.Supplier.AddSupplier;
 
 import javax.annotation.Nonnull;
 
@@ -29,6 +31,7 @@ import type.CreatePetInput;
 import type.UpdatePetInput;
 
 public class AdminMenu extends AppCompatActivity {
+
     private ListView employeeMenu_listView;
     private Toolbar employee_toolbar;
 
@@ -47,45 +50,34 @@ public class AdminMenu extends AppCompatActivity {
             R.drawable.employee_mainmenu_supplier,
             R.drawable.employee_mainmenu_customer
     };
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_menu);
-        employeeMenu_listView = findViewById(R.id.employee_listView);
-        employee_toolbar = findViewById(R.id.employee_toolbar);
-        setSupportActionBar(employee_toolbar);
 
-        //save();
-        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
-        employeeMenu_listView.setAdapter(adapter);
-        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i == 0) {           // Manage Inventory
-                    Intent startManageInventory = new Intent(AdminMenu.this, myItems.class);
-                    startActivity(startManageInventory);
-
-                } else if (i == 1) {   // Order List
-//                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
-//                    startActivity(startOrderList);
-
-                } else if (i == 2) {   // Shift Management
-                    displayToast("Shift Management Clicked! ");
-
-                } else if (i == 3) {   // Suppliers
-//                    Intent startAddSupplier = new Intent(EmployeeMenu.this, add_supplier.class);
-//                    startActivity(startAddSupplier);
-
-                } else if (i == 4) {   // Customers
-                    Intent startCustomer = new Intent(AdminMenu.this, DisplayCustomer.class);
-                    startActivity(startCustomer);
-
+    // Mutation callback code
+    private final GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
+                    // DisplayItems.this.finish();
+                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                    currentUser.admin=true;
                 }
-            }
-        });
+            });
+        }
 
-    }
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddPetMutation", e);
+                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -199,44 +191,8 @@ public class AdminMenu extends AppCompatActivity {
         //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
         ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
     }
-
     // Mutation callback code
-    private GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
-                    // DisplayItems.this.finish();
-                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                    currentUser.admin=true;
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform AddPetMutation", e);
-                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
-    //=============================================================================================CREATE
-    //========================================================================================UPDATE
-    private void setAdminView(String id, String view) {
-        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
-        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
-        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
-    }
-
-    // Mutation callback code
-    private GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
         @Override
         public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
             runOnUiThread(new Runnable() {
@@ -260,6 +216,53 @@ public class AdminMenu extends AppCompatActivity {
             });
         }
     };
+    //=============================================================================================CREATE
+    //========================================================================================UPDATE
+    private void setAdminView(String id, String view) {
+        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
+        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_admin_menu);
+        employeeMenu_listView = findViewById(R.id.employee_listView);
+        employee_toolbar = findViewById(R.id.create_item_toolbar);
+        setSupportActionBar(employee_toolbar);
+
+        //save();
+        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
+        employeeMenu_listView.setAdapter(adapter);
+        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i == 0) {           // Manage Inventory
+                    Intent startManageInventory = new Intent(AdminMenu.this, myItems.class);
+                    startActivity(startManageInventory);
+
+                } else if (i == 1) {   // Order List
+                    Intent startOrderList = new Intent(AdminMenu.this, OrderList.class);
+                    startActivity(startOrderList);
+
+                } else if (i == 2) {   // Shift Management
+                    displayToast("Shift Management Clicked! ");
+
+                } else if (i == 3) {   // Suppliers
+                    Intent startAddSupplier = new Intent(AdminMenu.this, AddSupplier.class);
+                    startActivity(startAddSupplier);
+
+                } else if (i == 4) {   // Customers
+                    Intent startCustomer = new Intent(AdminMenu.this, DisplayCustomer.class);
+                    startActivity(startCustomer);
+
+                }
+            }
+        });
+
+    }
 
 }
 

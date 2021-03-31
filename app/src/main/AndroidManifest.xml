@@ -16,22 +16,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminMenuAdapter"></activity>
+        <activity android:name=".Orderlist.OrderList"></activity>
+        <activity android:name=".Orderlist.CreateItem" />
+        <activity android:name=".Supplier.AddSupplier" />
+        <activity android:name=".AdminMenuAdapter" />
         <activity android:name=".Profile.Profile" />
         <activity android:name=".CustomerMenuAdapter" />
-        <activity android:name=".AdminMenu"
+        <activity
+            android:name=".AdminMenu"
             android:label="Admin Menu" />
         <activity
             android:name=".CustomerMenu"
-            android:label=""
-            />
+            android:label="" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
         <activity android:name=".DisplayItems" />
         <activity android:name=".myItems" />
-        <activity android:name=".EmployeeMenu"
+        <activity
+            android:name=".EmployeeMenu"
             android:label="Employee Menu" />
         <activity android:name=".DisplayCustomer" />
         <activity android:name=".AddPetActivity" />

@@ -47,6 +47,7 @@ dependencies {
 //    implementation('com.amazonaws:aws-android-sdk-auth-ui:2.8.+@aar') { transitive = true }
 ////    implementation 'com.amplifyframework:aws-auth-cognito:1.17.1'//Maybe not need
 ////    compile 'com.amazonaws:aws-java-sdk:+'
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     //implementation 'com.google.android.material:material:1.2.1'
@@ -57,6 +58,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.3'
     implementation 'androidx.navigation:navigation-ui:2.3.3'
     implementation 'androidx.wear:wear:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -75,18 +77,13 @@ dependencies {
 
     implementation 'androidx.cardview:cardview:1.0.0'               // CardView used in Login Design
     implementation 'com.basgeekball:awesome-validation:4.2'         // Awesome Validation from github used in Register to check invalid inputs
-
     implementation 'com.google.android.material:material:<version>' // Material Design from github for better UI design
 
+    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
 
     //JWT
     implementation 'com.auth0:java-jwt:3.14.0'
     implementation 'com.auth0:jwks-rsa:0.4.0'
-    compileOnly 'com.google.android.wearable:wearable:2.6.0'
 
-
-    implementation 'androidx.cardview:cardview:1.0.0'               // CardView used in Login Design
-    implementation 'com.basgeekball:awesome-validation:4.2'         // Awesome Validation from github used in Register to check invalid inputs
-
-    implementation 'com.google.android.material:material:<version>' // Material Design from github for better UI design
 }

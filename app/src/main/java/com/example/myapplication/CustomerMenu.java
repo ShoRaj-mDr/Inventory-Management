@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,45 +44,31 @@ public class CustomerMenu extends AppCompatActivity {
             R.drawable.employee_mainmenu_supplier,
             R.drawable.employee_mainmenu_customer
     };
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_menu);
-//        employeeMenu_listView = findViewById(R.id.employee_listView);
-        employee_toolbar = findViewById(R.id.employee_toolbar);
-        setSupportActionBar(employee_toolbar);
+    // Mutation callback code
+    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(CustomerMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
 
-
-//        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
-//        employeeMenu_listView.setAdapter(adapter);
-//        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                if (i == 0) {           // Manage Inventory
-//                    Intent startManageInventory = new Intent(CustomerMenu.this, myItems.class);
-//                    startActivity(startManageInventory);
-//
-//                } else if (i == 1) {   // Order List
-////                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
-////                    startActivity(startOrderList);
-//
-//                } else if (i == 2) {   // Shift Management
-//                    displayToast("Shift Management Clicked! ");
-//
-//                } else if (i == 3) {   // Suppliers
-////                    Intent startAddSupplier = new Intent(EmployeeMenu.this, add_supplier.class);
-////                    startActivity(startAddSupplier);
-//
-//                } else if (i == 4) {   // Customers
-//                    Intent startCustomer = new Intent(CustomerMenu.this, DisplayCustomer.class);
-//                    startActivity(startCustomer);
-//
-//                }
-//            }
-//        });
-
-    }
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform UpdateItemMutation", e);
+                    Toast.makeText(CustomerMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -197,29 +182,43 @@ public class CustomerMenu extends AppCompatActivity {
         ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
     }
 
-    // Mutation callback code
-    private GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(CustomerMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_customer_menu);
+//        employeeMenu_listView = findViewById(R.id.employee_listView);
+        employee_toolbar = findViewById(R.id.create_item_toolbar);
+        setSupportActionBar(employee_toolbar);
 
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform UpdateItemMutation", e);
-                    Toast.makeText(CustomerMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
+
+//        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
+//        employeeMenu_listView.setAdapter(adapter);
+//        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                if (i == 0) {           // Manage Inventory
+//                    Intent startManageInventory = new Intent(CustomerMenu.this, myItems.class);
+//                    startActivity(startManageInventory);
+//
+//                } else if (i == 1) {   // Order List
+////                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
+////                    startActivity(startOrderList);
+//
+//                } else if (i == 2) {   // Shift Management
+//                    displayToast("Shift Management Clicked! ");
+//
+//                } else if (i == 3) {   // Suppliers
+////                    Intent startAddSupplier = new Intent(EmployeeMenu.this, add_supplier.class);
+////                    startActivity(startAddSupplier);
+//
+//                } else if (i == 4) {   // Customers
+//                    Intent startCustomer = new Intent(CustomerMenu.this, DisplayCustomer.class);
+//                    startActivity(startCustomer);
+//
+//                }
+//            }
+//        });
+
+    }
 }
