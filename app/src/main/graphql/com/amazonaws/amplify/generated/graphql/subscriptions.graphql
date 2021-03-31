@@ -206,3 +206,36 @@ subscription OnDeleteEmployees {
     updatedAt
   }
 }
+subscription OnCreateSuppliers {
+  onCreateSuppliers {
+    id
+    name
+    email
+    phone
+    address
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateSuppliers {
+  onUpdateSuppliers {
+    id
+    name
+    email
+    phone
+    address
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteSuppliers {
+  onDeleteSuppliers {
+    id
+    name
+    email
+    phone
+    address
+    createdAt
+    updatedAt
+  }
+}

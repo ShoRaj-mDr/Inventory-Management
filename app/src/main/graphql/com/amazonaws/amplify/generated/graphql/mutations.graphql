@@ -269,3 +269,45 @@ mutation DeleteEmployees(
     updatedAt
   }
 }
+mutation CreateSuppliers(
+  $input: CreateSuppliersInput!
+  $condition: ModelsuppliersConditionInput
+) {
+  createSuppliers(input: $input, condition: $condition) {
+    id
+    name
+    email
+    phone
+    address
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateSuppliers(
+  $input: UpdateSuppliersInput!
+  $condition: ModelsuppliersConditionInput
+) {
+  updateSuppliers(input: $input, condition: $condition) {
+    id
+    name
+    email
+    phone
+    address
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteSuppliers(
+  $input: DeleteSuppliersInput!
+  $condition: ModelsuppliersConditionInput
+) {
+  deleteSuppliers(input: $input, condition: $condition) {
+    id
+    name
+    email
+    phone
+    address
+    createdAt
+    updatedAt
+  }
+}
