@@ -20,6 +20,7 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.Inventory.ManageInventory;
 import com.example.myapplication.Orderlist.OrderList;
 import com.example.myapplication.Supplier.AddSupplier;
 
@@ -100,7 +101,8 @@ public class EmployeeMenu extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if (i == 0) {           // Manage Inventory
-                    Intent startManageInventory = new Intent(EmployeeMenu.this, myItems.class);
+//                    Intent startManageInventory = new Intent(EmployeeMenu.this, myItems.class);
+                    Intent startManageInventory = new Intent(EmployeeMenu.this, ManageInventory.class);
                     startActivity(startManageInventory);
 
                 } else if (i == 1) {   // Order List
