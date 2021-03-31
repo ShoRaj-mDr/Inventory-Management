@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Inventory.ManageInventory"></activity>
+        <activity android:name=".shiftActivity"></activity>
+        <activity android:name=".Inventory.ManageInventory" />
         <activity android:name=".Orderlist.OrderList" />
         <activity android:name=".Orderlist.CreateItem" />
         <activity android:name=".Supplier.AddSupplier" />
