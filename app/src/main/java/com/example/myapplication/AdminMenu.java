@@ -1,9 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +11,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.DisplayCustomer.DisplayCustomer;
 import com.example.myapplication.Orderlist.OrderList;
 import com.example.myapplication.Profile.Profile;
 import com.example.myapplication.Supplier.AddSupplier;
@@ -216,8 +217,8 @@ public class AdminMenu extends AppCompatActivity {
             });
         }
     };
-    //=============================================================================================CREATE
-    //========================================================================================UPDATE
+    //============================================================================================= CREATE
+    //======================================================================================== UPDATE
     private void setAdminView(String id, String view) {
         UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
         UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();

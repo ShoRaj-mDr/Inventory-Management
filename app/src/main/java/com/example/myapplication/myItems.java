@@ -1,9 +1,6 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,50 +13,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.ClientConfiguration;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.amazonaws.amplify.generated.graphql.ListItemssQuery;
-import com.amazonaws.amplify.generated.graphql.ListItemzsQuery;
-import com.amazonaws.amplify.generated.graphql.ListPetsQuery;
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
-import com.amazonaws.auth.AWSBasicCognitoIdentityProvider;
-import com.amazonaws.auth.AWSCognitoIdentityProvider;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.AnonymousAWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.mobile.auth.core.IdentityManager;
-import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
-import com.amazonaws.mobileconnectors.appsync.sigv4.BasicCognitoUserPoolsAuthProvider;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSettings;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.exceptions.CognitoIdentityProviderException;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoUserToken;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.util.CognitoIdentityProviderClientConfig;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.cognitoidentity.model.GetIdRequest;
-import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProvider;
-import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
-import com.amazonaws.services.cognitoidentityprovider.model.AdminAddUserToGroupRequest;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -75,42 +39,9 @@ public class myItems extends AppCompatActivity {
     private TextView nameMain;
     private TextView txtDailySavings;
 
-
-    private ArrayList<ListItemzsQuery.Item> mPets;
     private ArrayList<ListItemssQuery.Item> mItems;
     private final String TAG = myItems.class.getSimpleName();
-    String s="something";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_items);
-        expenseMain = findViewById(R.id.textView);
-        savingsGoal = findViewById(R.id.txtSavingsGoal);
-        nameMain = findViewById(R.id.textView2);
-        txtDailySavings = findViewById(R.id.txtDailySavings);
-        ClientFactory.init(this);
-        s = getIntent().getStringExtra("cogUser");
-
-        Toast.makeText(myItems.this, s, Toast.LENGTH_SHORT).show();
-
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Query list data when we return to the screen
-        query();
-    }
-
-    public void query() {
-        ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
-                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
-                .enqueue(queryCallback);
-    }
-
-    private GraphQLCall.Callback<ListItemssQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemssQuery.Data>() {
+    private final GraphQLCall.Callback<ListItemssQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemssQuery.Data>() {
         @Override
         public void onResponse(@Nonnull Response<ListItemssQuery.Data> response) {
 
@@ -135,6 +66,45 @@ public class myItems extends AppCompatActivity {
             Log.e(TAG, e.toString());
         }
     };
+    // Mutation callback code
+    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(myItems.this, "Updated admin view", Toast.LENGTH_LONG).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform UpdateItemMutation", e);
+                    Toast.makeText(myItems.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Query list data when we return to the screen
+        query();
+    }
+
+    public void query() {
+        ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(queryCallback);
+    }
+    String s = "something";
 
 
     @Override
@@ -218,31 +188,22 @@ public class myItems extends AppCompatActivity {
         ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
     }
 
-    // Mutation callback code
-    private GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(myItems.this, "Updated admin view", Toast.LENGTH_LONG).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_items);
+        expenseMain = findViewById(R.id.textView);
+        savingsGoal = findViewById(R.id.txtSavingsGoal);
+        nameMain = findViewById(R.id.textView2);
+        txtDailySavings = findViewById(R.id.txtDailySavings);
 
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform UpdateItemMutation", e);
-                    Toast.makeText(myItems.this, "Failed to update item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
+        ClientFactory.init(this);
+        s = getIntent().getStringExtra("cogUser");
+
+        Toast.makeText(myItems.this, s, Toast.LENGTH_SHORT).show();
+
+
+    }
     //=============================================================================UPDATE
     public void myFunc(List<ListItemssQuery.Item> items) {
 

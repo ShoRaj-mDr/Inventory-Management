@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayCustomer">
+    tools:context=".DisplayCustomer.DisplayCustomer">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/customer_appbar"
@@ -13,18 +13,25 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/custom_toolbar"
+            android:id="@+id/customer_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Customer List" />
+            app:title="Customer" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ListView
-        android:id="@+id/customer_listview"
+<!--    <ListView-->
+<!--        android:id="@+id/customer_listview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/customer_appbar"-->
+<!--        android:smoothScrollbar="true" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/customer_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/customer_appbar"
-        android:smoothScrollbar="true" />
+        android:layout_below="@id/customer_appbar"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>

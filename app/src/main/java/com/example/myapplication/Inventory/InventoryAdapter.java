@@ -19,7 +19,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.View
 //    private List<Item> items;   // ListItemssQuery.Item
     private final List<ListItemssQuery.Item> items;
 
-    public InventoryAdapter(List<ListItemssQuery.Item>items) {
+    public InventoryAdapter(List<ListItemssQuery.Item> items) {
         this.items = items;
     }
 
