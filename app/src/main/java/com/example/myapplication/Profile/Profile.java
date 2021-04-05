@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.services.cognitoidentity.model.NotAuthorizedException;
 import com.example.myapplication.R;
 import com.example.myapplication.currentUser;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,6 +38,8 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        System.out.println("TEST");
+
         userName = findViewById(R.id.username);
         email = findViewById(R.id.email);
         fullName = findViewById(R.id.profile_name);
@@ -50,6 +53,42 @@ public class Profile extends AppCompatActivity {
         email.setText(currentUser.email);
         fullName.setText(currentUser.name);
         phoneNumber.setText(currentUser.phone);
+
+        Button button = (Button) findViewById(R.id.profile_save_button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.getId() == R.id.profile_save_button) {
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Map m1 = new HashMap();
+                            String tempName = fullName.getText().toString();
+                            String tempEmail = email.getText().toString();
+                            String tempNumber = phoneNumber.getText().toString();
+                            test1 = tempName;
+                            test2 = tempEmail;
+                            test3 = tempNumber;
+                            //String tempUsername = userName.getText().toString();
+                            m1.put("given_name", tempName);
+                            m1.put("email", tempEmail);
+                            m1.put("phone_number", tempNumber);
+//                    m1.put("preferred_username", tempUsername); //LATER
+                            try {
+                                System.out.println("ADDING");
+                                AWSMobileClient.getInstance().updateUserAttributes(m1);
+                                currentUser.name = test1;
+                                currentUser.email = test2;
+                                currentUser.phone = test3;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                    finish();
+                }
+            }
+        });
     }
 
     /**
@@ -61,42 +100,43 @@ public class Profile extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * onClick method when the user clicks the Edit Profile button
-     *
-     * @param view
-     */
-    public void saveInformation(View view) {
-        // Just to get ready if more things are added
-        if (view.getId() == R.id.profile_save_button) {
-            new Thread(new Runnable() {
-                public void run() {
-                    Map m1 = new HashMap();
-                    String tempName = fullName.getText().toString();
-                    String tempEmail = email.getText().toString();
-                    String tempNumber = phoneNumber.getText().toString();
-                    test1 = tempName;
-                    test2 = tempEmail;
-                    test3 = tempNumber;
-                    //String tempUsername = userName.getText().toString();
-                    m1.put("given_name", tempName);
-                    m1.put("email", tempEmail);
-                    m1.put("phone_number", tempNumber);
-//                    m1.put("preferred_username", tempUsername); //LATER
-                    try {
-                        System.out.println("ADDING");
-                        AWSMobileClient.getInstance().updateUserAttributes(m1);
-                        currentUser.name = test1;
-                        currentUser.email = test2;
-                        currentUser.phone = test3;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            finish();
-        }
-    }
+//    /**
+//     * onClick method when the user clicks the Edit Profile button
+//     *
+//     * @param view
+//     */
+//    public void saveInformation(View view) {
+//        // Just to get ready if more things are added
+//        if (view.getId() == R.id.profile_save_button) {
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    Map m1 = new HashMap();
+//                    String tempName = fullName.getText().toString();
+//                    String tempEmail = email.getText().toString();
+//                    String tempNumber = phoneNumber.getText().toString();
+//                    test1 = tempName;
+//                    test2 = tempEmail;
+//                    test3 = tempNumber;
+//                    //String tempUsername = userName.getText().toString();
+//                    m1.put("given_name", tempName);
+//                    m1.put("email", tempEmail);
+//                    m1.put("phone_number", tempNumber);
+////                    m1.put("preferred_username", tempUsername); //LATER
+//                    try {
+//                        System.out.println("ADDING");
+//                        AWSMobileClient.getInstance().updateUserAttributes(m1);
+//                        //AWSMobileClient.getInstance().changePassword(oldPassword, newPassword);
+//                        currentUser.name = test1;
+//                        currentUser.email = test2;
+//                        currentUser.phone = test3;
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//            finish();
+//        }
+//    }
 
     public void EditInformation(View view) {
         editProductName = findViewById(R.id.profile_name);

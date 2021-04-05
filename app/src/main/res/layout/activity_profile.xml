@@ -229,7 +229,6 @@
                     android:textColor="@color/colorWhite" />
             </RelativeLayout>
 
-
             <Button
                 android:id="@+id/profile_save_button"
                 android:layout_width="wrap_content"

@@ -30,6 +30,12 @@ public class Item implements Parcelable {
         this.quantity = quantity;
     }
 
+    public Item(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     protected Item(Parcel in) {
         id = in.readInt();
         name = in.readString();

@@ -12,5 +12,4 @@ public class currentUser {
     public static String id;
     public static String phone;
     public static String email;
-
 }

@@ -20,6 +20,7 @@ import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.myapplication.Profile.Profile;
+import com.example.myapplication.ShoppingCart.ShoppingCart;
 
 import javax.annotation.Nonnull;
 
@@ -29,21 +30,6 @@ public class CustomerMenu extends AppCompatActivity {
     private ListView employeeMenu_listView;
     private Toolbar employee_toolbar;
 
-    private final String[] employeeMenu = {
-            "Manage Inventory",
-            "Ordering List",
-            "Shift Management",
-            "Suppliers",
-            "Customers"
-    };
-
-    private final int[] employeeMenuImage = {
-            R.drawable.employee_mainmenu_manage_inventory,
-            R.drawable.employee_mainmenu_orderlist,
-            R.drawable.employee_mainmenu_shift_management,
-            R.drawable.employee_mainmenu_supplier,
-            R.drawable.employee_mainmenu_customer
-    };
     // Mutation callback code
     private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
         @Override
@@ -160,9 +146,8 @@ public class CustomerMenu extends AppCompatActivity {
      */
     public void getToSCR(View view) {
         if (view.getId() == R.id.customer_menu_shopping_cart) {
-//            Intent toEmployeeMainMenuIntent = new Intent(this, ShoppingCart.class);
-//            startActivity(toEmployeeMainMenuIntent);
-            displayToast("Shopping Cart button clicked");
+            Intent toEmployeeMainMenuIntent = new Intent(this, ShoppingCart.class);
+            startActivity(toEmployeeMainMenuIntent);
         }
         else if(view.getId() == R.id.customer_menu_report) {
             displayToast("Report button clicked");

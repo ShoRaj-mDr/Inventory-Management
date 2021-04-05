@@ -11,4 +11,12 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_customer_menu">CustomerMenu</string>
 
+    <!-- String values for Shopping Cart -->
+    <string name="price">Price</string>
+
+    <!-- String values for Add Item -->
+    <string name="productPrice">ProductPrice</string>
+    <string name="productDescription">ProductDescription</string>
+    <string name="productID">ProductID</string>
+
 </resources>
