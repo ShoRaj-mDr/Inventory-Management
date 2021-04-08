@@ -50,7 +50,7 @@ public class OrderList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
 
-        addProductTextView = findViewById(R.id.orderlist_addProductText);
+        //addProductTextView = findViewById(R.id.orderlist_addProductText);
         fab1_main = findViewById(R.id.orderlist_FAB1);
 
         recyclerView = findViewById(R.id.rv_itemDisplay);
