@@ -22,63 +22,62 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/orderlist_cardview_display"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/orderlist_appbar_layout">
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:id="@+id/orderlist_cardview_display"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_below="@id/orderlist_appbar_layout">-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="12dp">
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_margin="12dp">-->
 
-                <TextView
-                    android:id="@+id/test1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18sp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Account ID: 123456789"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/test1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="18sp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:text="Account ID: 123456789"-->
+<!--                    android:textSize="18sp" />-->
 
-                <TextView
-                    android:id="@+id/test2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/test1"
-                    android:layout_marginBottom="8dp"
-                    android:text="Account Name: Bossy Edward"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/test2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/test1"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:text="Account Name: Bossy Edward"-->
+<!--                    android:textSize="18sp" />-->
 
-                <TextView
-                    android:id="@+id/test3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/test2"
-                    android:layout_marginBottom="8dp"
-                    android:text="Order Date: mm/dd/yyyy"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/test3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/test2"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:text="Order Date: mm/dd/yyyy"-->
+<!--                    android:textSize="18sp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="5dp"
-                    android:text="Total: $9,990"
-                    android:textSize="20sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:text="Total: $9,990"-->
+<!--                    android:textSize="20sp" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
 
-        </com.google.android.material.card.MaterialCardView>
+<!--        </com.google.android.material.card.MaterialCardView>-->
 
         <LinearLayout
             android:id="@+id/orderlist_headerBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/orderlist_cardview_display"
-            android:layout_centerInParent="true"
+            android:layout_below="@+id/orderlist_appbar_layout"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -129,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="25dp"
             android:text="Confirm Order"
             android:textColor="@color/colorWhite" />
 
@@ -152,36 +151,5 @@
             app:pressedTranslationZ="12dp"
             app:srcCompat="@drawable/ic_baseline_add" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/orderlist_FAB2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/orderlist_FAB1"
-            android:layout_alignEnd="@+id/orderlist_FAB1"
-            android:layout_marginTop="10dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:elevation="6dp"
-            android:focusable="true"
-            android:onClick="fab2_addProduct_onClick"
-            android:visibility="invisible"
-            app:backgroundTint="#ffffff"
-            app:hoveredFocusedTranslationZ="2dp"
-            app:pressedTranslationZ="12dp"
-            app:srcCompat="@drawable/ic_baseline_add" />
-
-        <TextView
-            android:id="@+id/orderlist_addProductText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/orderlist_FAB1"
-            android:layout_alignEnd="@+id/orderlist_FAB2"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/cardview_dark_background"
-            android:padding="8dp"
-            android:text="Add Product"
-            android:textColor="#ffffff"
-            android:visibility="invisible" />
 
 </RelativeLayout>

@@ -98,7 +98,7 @@ public class DisplayItems extends Activity {
         else {
             String strStreet = "";
 
-            Button b = (Button) findViewById(R.id.button1);
+            Button b = findViewById(R.id.button1);
             name.setText(itemName);
             name.setFocusable(true);
             name.setClickable(true);
@@ -157,7 +157,7 @@ public class DisplayItems extends Activity {
     private void update(String id) {
         final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
         final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
-        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
+        final double price = Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
         final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
 
         UpdateItemsInput input= UpdateItemsInput.builder().id(id).name(name).description(description).price(price).quantity(quantity).build();
@@ -167,7 +167,7 @@ public class DisplayItems extends Activity {
     }
 
     // Mutation callback code
-    private GraphQLCall.Callback<UpdateItemsMutation.Data> mutateCallback3 = new GraphQLCall.Callback<UpdateItemsMutation.Data>() {
+    private final GraphQLCall.Callback<UpdateItemsMutation.Data> mutateCallback3 = new GraphQLCall.Callback<UpdateItemsMutation.Data>() {
         @Override
         public void onResponse(@Nonnull final Response<UpdateItemsMutation.Data> response) {
             runOnUiThread(new Runnable() {
@@ -202,7 +202,7 @@ public class DisplayItems extends Activity {
     }
 
     // Mutation callback code
-    private GraphQLCall.Callback<DeleteItemsMutation.Data> mutateCallback2 = new GraphQLCall.Callback<DeleteItemsMutation.Data>() {
+    private final GraphQLCall.Callback<DeleteItemsMutation.Data> mutateCallback2 = new GraphQLCall.Callback<DeleteItemsMutation.Data>() {
         @Override
         public void onResponse(@Nonnull final Response<DeleteItemsMutation.Data> response) {
             runOnUiThread(new Runnable() {
@@ -248,7 +248,7 @@ public class DisplayItems extends Activity {
     }
 
     // Mutation callback code
-    private GraphQLCall.Callback<CreateItemsMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateItemsMutation.Data>() {
+    private final GraphQLCall.Callback<CreateItemsMutation.Data> mutateCallback = new GraphQLCall.Callback<CreateItemsMutation.Data>() {
         @Override
         public void onResponse(@Nonnull final Response<CreateItemsMutation.Data> response) {
             runOnUiThread(new Runnable() {

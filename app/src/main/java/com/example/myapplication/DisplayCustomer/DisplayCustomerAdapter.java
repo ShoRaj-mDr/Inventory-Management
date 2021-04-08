@@ -44,14 +44,14 @@ public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomer
 
         private final TextView customerNum;
         private final TextView customerName;
-        private final TextView customerAmount;
+//        private final TextView customerAmount;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             customerNum = itemView.findViewById(R.id.customer_number);
             customerName = itemView.findViewById(R.id.customer_name);
-            customerAmount = null;
+//            customerAmount = null;
         }
 
         @Override

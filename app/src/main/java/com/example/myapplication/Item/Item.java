@@ -5,17 +5,6 @@ import android.os.Parcelable;
 
 public class Item implements Parcelable {
 
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
-        @Override
-        public Item createFromParcel(Parcel in) {
-            return new Item(in);
-        }
-
-        @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
-        }
-    };
     private int id;
     private String name;
     private String description;
@@ -107,6 +96,18 @@ public class Item implements Parcelable {
         parcel.writeDouble(price);
         parcel.writeInt(quantity);
     }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
 }
 

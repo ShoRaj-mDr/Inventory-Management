@@ -43,7 +43,7 @@ public class AddSupplier extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 0);
-        viewPagerAdapter.addFragment(registerSupplierFragment, "Register");
+        viewPagerAdapter.addFragment(registerSupplierFragment, "Add");
         viewPagerAdapter.addFragment(displaySupplierFragment, "Display");
         viewPager.setAdapter(viewPagerAdapter);
 

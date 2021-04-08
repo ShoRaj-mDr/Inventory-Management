@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,16 @@ public class CreateItem extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = Integer.parseInt(itemID.getText().toString());
+//                int id = Integer.parseInt(itemID.getText().toString());     // get an error in this
+                int id = 0;
+
+                try {       // make this so can catch any error for all
+                    id = Integer.parseInt(itemID.getText().toString());
+                } catch (NumberFormatException nfe) {
+                    // Handle the condition when str is not a number.
+                    Log.i("Error in CreateItem ", " Parsing String to Integer Error");
+                }
+
                 String name = itemName.getText().toString();
                 String descr = itemDescr.getText().toString();
                 double price = Double.parseDouble(itemPrice.getText().toString());

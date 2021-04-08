@@ -7,10 +7,24 @@
     android:baselineAligned="false"
     tools:context=".Supplier.DisplaySupplierFragment">
 
-    <ListView
-        android:id="@+id/supplier_display_listview"
+<!--    <ListView-->
+<!--        android:id="@+id/supplier_display_listview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/supplier_display_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/supplier_display_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 
 </LinearLayout>

@@ -79,8 +79,9 @@ dependencies {
     implementation 'com.basgeekball:awesome-validation:4.2'         // Awesome Validation from github used in Register to check invalid inputs
     implementation 'com.google.android.material:material:<version>' // Material Design from github for better UI design
 
-    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'
+    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'        // recyclerview scroll design
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'   // swipe refresh layout to refresh items in recyclerview
 
     //JWT
     implementation 'com.auth0:java-jwt:3.14.0'

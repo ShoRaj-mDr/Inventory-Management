@@ -39,17 +39,23 @@
         <activity android:name=".myItems" />
         <activity
             android:name=".EmployeeMenu"
-            android:label="Employee Menu" />
-        <activity android:name=".DisplayCustomer.DisplayCustomer" />
-        <activity
-            android:name=".AuthenticationActivity"
-            android:label="@string/app_name"
-            android:noHistory="true">
+            android:label="Employee Menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".DisplayCustomer.DisplayCustomer" />
+        <activity
+            android:name=".AuthenticationActivity"
+            android:label="@string/app_name"
+            android:noHistory="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />

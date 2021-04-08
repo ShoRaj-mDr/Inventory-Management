@@ -26,35 +26,8 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 
 public class RegisterSupplierFragment extends Fragment {
 
-    private final GraphQLCall.Callback<CreateSuppliersMutation.Data> mutateCallbackSupplier = new GraphQLCall.Callback<CreateSuppliersMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<CreateSuppliersMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-//                    Toast.makeText(this, "Added Supplier", Toast.LENGTH_SHORT).show();
-                    //shiftActivity.this.finish();
-                    displayToast("Added Supplier");
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform AddSupplierMutation", e);
-//                    Toast.makeText(registration_main.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                    displayToast("Failed to add supplier");
-                    //shiftActivity.this.finish();
-                }
-            });
-        }
-    };
     private TextView supplierName, supplierEmail, supplierAddress, supplierPhone;
     private Button addSupplierBtn;
-
 
     public RegisterSupplierFragment() { }
 
@@ -95,6 +68,33 @@ public class RegisterSupplierFragment extends Fragment {
 
         return view;
     }
+
+    private final GraphQLCall.Callback<CreateSuppliersMutation.Data> mutateCallbackSupplier = new GraphQLCall.Callback<CreateSuppliersMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreateSuppliersMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+//                    Toast.makeText(this, "Added Supplier", Toast.LENGTH_SHORT).show();
+                    //shiftActivity.this.finish();
+                    displayToast("Added Supplier");
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddSupplierMutation", e);
+//                    Toast.makeText(registration_main.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                    displayToast("Failed to add supplier");
+                    //shiftActivity.this.finish();
+                }
+            });
+        }
+    };
 
     private void addSupplier(String name, String email, String addr, String phone) {
         CreateSuppliersInput input = CreateSuppliersInput.builder().name(name).email(email).address(addr).phone(phone).build();

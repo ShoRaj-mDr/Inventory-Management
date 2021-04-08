@@ -29,6 +29,8 @@ public class ManageInventory extends AppCompatActivity {
     private InventoryAdapter mAdapter;
 
     private final String TAG = myItems.class.getSimpleName();
+    //    String s = "something";
+
     private final GraphQLCall.Callback<ListItemssQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemssQuery.Data>() {
         @Override
         public void onResponse(@Nonnull Response<ListItemssQuery.Data> response) {
@@ -58,7 +60,7 @@ public class ManageInventory extends AppCompatActivity {
         recyclerView = findViewById(R.id.manageInventory_recyclerView);
 
         ClientFactory.init(this);
-        s = getIntent().getStringExtra("cogUser");
+//        s = getIntent().getStringExtra("cogUser");
 
     }
 
@@ -69,8 +71,6 @@ public class ManageInventory extends AppCompatActivity {
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
     }
-    String s = "something";
-
 
     public void displayInventory(List<ListItemssQuery.Item> items) {
 
