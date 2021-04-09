@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.EmployeeMenu;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,10 +20,16 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.AuthenticationActivity;
+import com.example.myapplication.ClientFactory;
 import com.example.myapplication.DisplayCustomer.DisplayCustomer;
+import com.example.myapplication.DisplayItems;
+import com.example.myapplication.EmployeeMenuAdapter;
 import com.example.myapplication.Inventory.ManageInventory;
 import com.example.myapplication.Orderlist.OrderList;
+import com.example.myapplication.R;
 import com.example.myapplication.Supplier.AddSupplier;
+import com.example.myapplication.currentUser;
 
 import javax.annotation.Nonnull;
 
@@ -51,34 +57,6 @@ public class EmployeeMenu extends AppCompatActivity {
             R.drawable.employee_mainmenu_customer
     };
 
-    // Mutation callback code
-    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(EmployeeMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
-                    //DisplayItems.this.finish();
-                    moveToAuthentication();
-
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform UpdateItemMutation", e);
-                    Toast.makeText(EmployeeMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -91,40 +69,35 @@ public class EmployeeMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_menu);
 
-        employeeMenu_listView = findViewById(R.id.employee_listView);
         employee_toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(employee_toolbar);
 
-        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
-        employeeMenu_listView.setAdapter(adapter);
-        employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (i == 0) {           // Manage Inventory
-//                    Intent startManageInventory = new Intent(EmployeeMenu.this, myItems.class);
-                    Intent startManageInventory = new Intent(EmployeeMenu.this, ManageInventory.class);
-                    startActivity(startManageInventory);
-
-                } else if (i == 1) {   // Order List
-                    Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
-                    startActivity(startOrderList);
-
-                } else if (i == 2) {   // Shift Management
-                    displayToast("Shift Management Clicked! ");
-
-                } else if (i == 3) {   // Suppliers
-                    Intent startAddSupplier = new Intent(EmployeeMenu.this, AddSupplier.class);
-                    startActivity(startAddSupplier);
-
-                } else if (i == 4) {   // Customers
-                    Intent startCustomer = new Intent(EmployeeMenu.this, DisplayCustomer.class);
-                    startActivity(startCustomer);
-                }
-            }
-        });
-
     }
+
+    public void onClickInventoryManagement(View view) {
+        Intent startManageInventory = new Intent(EmployeeMenu.this, ManageInventory.class);
+        startActivity(startManageInventory);
+    }
+
+    public void onClickOrderList(View view) {
+        Intent startOrderList = new Intent(EmployeeMenu.this, OrderList.class);
+        startActivity(startOrderList);
+    }
+
+    public void onClickShiftManagement(View view) {
+        displayToast("Shift Management Clicked! ");
+    }
+
+    public void onClickSuppliers(View view) {
+        Intent startAddSupplier = new Intent(EmployeeMenu.this, AddSupplier.class);
+        startActivity(startAddSupplier);
+    }
+
+    public void onClickCustomers(View view) {
+        Intent startCustomer = new Intent(EmployeeMenu.this, DisplayCustomer.class);
+        startActivity(startCustomer);
+    }
+
 
     /**
      * Displays a Toast with the message.
@@ -148,6 +121,34 @@ public class EmployeeMenu extends AppCompatActivity {
         UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
     }
+
+    // Mutation callback code
+    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(EmployeeMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
+                    // DisplayItems.this.finish();
+//                    moveToAuthentication();
+
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform UpdateItemMutation", e);
+                    Toast.makeText(EmployeeMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
 
     @SuppressLint("NonConstantResourceId")
     @Override

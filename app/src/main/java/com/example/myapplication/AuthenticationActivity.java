@@ -4,54 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.amazonaws.amplify.generated.graphql.CreateItemsMutation;
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.GetCustomersQuery;
 import com.amazonaws.amplify.generated.graphql.GetEmployeesQuery;
 import com.amazonaws.amplify.generated.graphql.GetPetQuery;
-import com.amazonaws.amplify.generated.graphql.ListItemssQuery;
-import com.amazonaws.amplify.generated.graphql.UpdateItemsMutation;
-import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
-import com.amazonaws.mobile.auth.core.IdentityManager;
-import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.SignInUIOptions;
 import com.amazonaws.mobile.client.UserStateDetails;
-import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
-import com.amazonaws.mobileconnectors.appsync.sigv4.BasicCognitoUserPoolsAuthProvider;
-import com.amazonaws.mobileconnectors.appsync.sigv4.CognitoUserPoolsAuthProvider;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.tokens.CognitoAccessToken;
-import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentity;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
-import com.auth0.jwt.interfaces.RSAKeyProvider;
+import com.example.myapplication.EmployeeMenu.EmployeeMenu;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import type.CreateItemsInput;
 import type.CreatePetInput;
-import type.UpdateItemsInput;
-import type.UpdatePetInput;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
