@@ -73,50 +73,62 @@
 
 <!--        </com.google.android.material.card.MaterialCardView>-->
 
-        <LinearLayout
-            android:id="@+id/orderlist_headerBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/orderlist_appbar_layout"
-            android:gravity="center"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/orderlist_headerBar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_below="@+id/orderlist_appbar_layout"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="4"
-                android:text="Item Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#58595d"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_weight="4"-->
+<!--                android:text="Item Name"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--                android:textColor="#58595d"-->
+<!--                android:textSize="18sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Quantity"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#58595d"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="4"-->
+<!--                android:text="Quantity"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--                android:textColor="#58595d"-->
+<!--                android:textSize="18sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Price"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#58595d"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="4"-->
+<!--                android:text="Price"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--                android:textColor="#58595d"-->
+<!--                android:textSize="18sp" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
+    <TextView
+        android:id="@+id/orderlist_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="25dp"
+        android:layout_below="@+id/orderlist_appbar_layout"
+        android:layout_centerHorizontal="true"
+        android:text="Add Items to Orderlist"
+        android:textColor="#303F9F"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_itemDisplay"
+            android:id="@+id/orderlist_itemDisplay_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/orderlist_confirm_button"
-            android:layout_below="@id/orderlist_headerBar"
+            android:layout_below="@id/orderlist_txt"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="16dp"

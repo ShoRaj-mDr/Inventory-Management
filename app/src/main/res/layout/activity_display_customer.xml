@@ -20,13 +20,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-<!--    <ListView-->
-<!--        android:id="@+id/customer_listview"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/customer_appbar"-->
-<!--        android:smoothScrollbar="true" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customer_recyclerview"
         android:layout_width="match_parent"

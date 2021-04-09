@@ -32,7 +32,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Inflate the item layout
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.list_item, parent, false);
+//                inflate(R.layout.list_item, parent, false);
+            inflate(R.layout.list_manage_inventory, parent, false); // changed this layout to list_manage_inventory cuz list_item looks ugly :)
         return new ViewHolder(view);
     }
 
@@ -69,9 +70,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            itemName = itemView.findViewById(R.id.item_name);
-            itemQuantity = itemView.findViewById(R.id.item_quantity);
-            itemPrice = itemView.findViewById(R.id.item_price);
+//            itemName = itemView.findViewById(R.id.item_name);
+//            itemQuantity = itemView.findViewById(R.id.item_quantity);
+//            itemPrice = itemView.findViewById(R.id.item_price);
+            itemName = itemView.findViewById(R.id.manageInventory_itemName);
+            itemQuantity = itemView.findViewById(R.id.manageInventory_itemQuantity);
+            itemPrice = itemView.findViewById(R.id.manageInventory_itemPrice);
         }
 
         @Override

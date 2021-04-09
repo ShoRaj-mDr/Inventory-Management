@@ -1,5 +1,6 @@
 package com.example.myapplication.DisplayCustomer;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amazonaws.amplify.generated.graphql.ListCustomerssQuery;
 import com.example.myapplication.R;
 
 import java.util.List;
 
 public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomerAdapter.ViewHolder> {
 
-    private final List<String> customers;
+    private final List<ListCustomerssQuery.Item> customers;
 
-    public DisplayCustomerAdapter(List<String> list) {
+    public DisplayCustomerAdapter(List<ListCustomerssQuery.Item> list) {
         this.customers = list;
     }
 
@@ -28,11 +30,13 @@ public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomer
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull DisplayCustomerAdapter.ViewHolder holder, int position) {
-        String str = customers.get(position);
-        holder.customerNum.setText(Integer.toString(position + 1));
-        holder.customerName.setText(str);
+        ListCustomerssQuery.Item customer = customers.get(position);
+        String customerinfo = customer.name() + " (" + customer.email() + ")";
+        holder.customerNum.setText(Integer.toString(position + 1) + ".");
+        holder.customerName.setText(customerinfo);
     }
 
     @Override
@@ -44,14 +48,11 @@ public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomer
 
         private final TextView customerNum;
         private final TextView customerName;
-//        private final TextView customerAmount;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             customerNum = itemView.findViewById(R.id.customer_number);
             customerName = itemView.findViewById(R.id.customer_name);
-//            customerAmount = null;
         }
 
         @Override

@@ -29,7 +29,24 @@ public class ManageInventory extends AppCompatActivity {
     private InventoryAdapter mAdapter;
 
     private final String TAG = myItems.class.getSimpleName();
-    //    String s = "something";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_manage_inventory);
+
+        recyclerView = findViewById(R.id.manageInventory_recyclerView);
+        ClientFactory.init(this);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(queryCallback);
+    }
 
     private final GraphQLCall.Callback<ListItemssQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemssQuery.Data>() {
         @Override
@@ -51,34 +68,12 @@ public class ManageInventory extends AppCompatActivity {
         }
     };
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_inventory);
-
-        recyclerView = findViewById(R.id.manageInventory_recyclerView);
-
-        ClientFactory.init(this);
-//        s = getIntent().getStringExtra("cogUser");
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
-                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
-                .enqueue(queryCallback);
-    }
-
     public void displayInventory(List<ListItemssQuery.Item> items) {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new InventoryAdapter(mItems);
         recyclerView.setAdapter(mAdapter);
     }
-
 
 
     /**

@@ -50,11 +50,10 @@ public class OrderList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
 
-        //addProductTextView = findViewById(R.id.orderlist_addProductText);
         fab1_main = findViewById(R.id.orderlist_FAB1);
-
-        recyclerView = findViewById(R.id.rv_itemDisplay);
+        recyclerView = findViewById(R.id.orderlist_itemDisplay_recyclerview);
         // recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerView.setLayoutManager(new VegaLayoutManager());
         mAdapter = new ItemAdapter(items);
         new ItemTouchHelper(new SwipeToDeleteCallback(mAdapter)).attachToRecyclerView(recyclerView);
@@ -70,8 +69,6 @@ public class OrderList extends AppCompatActivity {
                         addItemToDB(i);
                     }
                 }
-//                items.add(new Item(1231, "Wintermelon", "This is boba wintermelo", 5.46, 5 ));
-//                addItemToDB(new Item(1231, "Wintermelon", "This is boba wintermelo", 5.46, 5 ));
             }
         });
 
@@ -94,17 +91,6 @@ public class OrderList extends AppCompatActivity {
     public void fab1_main_onClick(View view) {
         Intent intentOrderItem = new Intent(this, CreateItem.class);
         startActivityForResult(intentOrderItem, 1);
-    }
-
-
-    /**
-     * Displays a Toast with the message.
-     *
-     * @param message Message to display
-     */
-    public void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message,
-                Toast.LENGTH_SHORT).show();
     }
 
 
@@ -131,7 +117,7 @@ public class OrderList extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                     displayToast("Added Item");
+//                    displayToast("Added Item");
                     Log.e("TAG: ", "Item Successfully added to database");
                     OrderList.this.finish();
                 }
@@ -144,12 +130,22 @@ public class OrderList extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.e("", "Failed to perform AddPetMutation", e);
-                    Toast.makeText(OrderList.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(OrderList.this, "Failed to add item", Toast.LENGTH_SHORT).show();
                     OrderList.this.finish();
                 }
             });
         }
     };
+
+    /**
+     * Displays a Toast with the message.
+     *
+     * @param message Message to display
+     */
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message,
+                Toast.LENGTH_SHORT).show();
+    }
 
 
 }
