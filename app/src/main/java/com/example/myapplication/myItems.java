@@ -193,10 +193,10 @@ public class myItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_items);
-        expenseMain = findViewById(R.id.textView);
-        savingsGoal = findViewById(R.id.txtSavingsGoal);
+//        expenseMain = findViewById(R.id.textView);
+//        savingsGoal = findViewById(R.id.txtSavingsGoal);
         nameMain = findViewById(R.id.textView2);
-        txtDailySavings = findViewById(R.id.txtDailySavings);
+//        txtDailySavings = findViewById(R.id.txtDailySavings);
 
         ClientFactory.init(this);
         s = getIntent().getStringExtra("cogUser");

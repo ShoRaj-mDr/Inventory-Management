@@ -23,97 +23,89 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome "
-            android:textSize="29sp"
+            android:text="Inventory"
             android:textColor="@color/cardview_light_background"
+            android:textSize="29sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/mainLayout3"
-        android:layout_below="@id/mainLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/mainLayout3"-->
+<!--        android:layout_below="@id/mainLayout1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="22dp">-->
 
-        <TextView
-            android:id="@+id/txtSavingsGoal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:text="Today's Budget: "
-            android:textColor="#F264E612"
-            android:textSize="20sp"
-            tools:ignore="RtlHardcoded" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/txtSavingsGoal"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="right"-->
+<!--            android:text="Today's Budget: "-->
+<!--            android:textColor="#F264E612"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:ignore="RtlHardcoded" />-->
+<!--    </LinearLayout>-->
 
-    <View
-        android:layout_below="@+id/mainLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="1.5dp"
-        android:background="#FFFFFF" />
+<!--    <View-->
+<!--        android:layout_below="@+id/mainLayout3"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="1.5dp"-->
+<!--        android:background="#FFFFFF" />-->
 
-    <LinearLayout
-        android:id="@+id/mainLayout2"
-        android:layout_below="@id/mainLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/mainLayout2"-->
+<!--        android:layout_below="@id/mainLayout3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="22dp">-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Today's Expense: "
-            android:textColor="#F0E62128"
-            android:textSize="20sp"
-            tools:ignore="RtlHardcoded" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/textView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="right"-->
+<!--            android:text="Today's Expense: "-->
+<!--            android:textColor="#F0E62128"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:ignore="RtlHardcoded" />-->
+<!--    </LinearLayout>-->
 
-    <View
-        android:layout_below="@+id/mainLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="1.5dp"
-        android:background="#FFFFFF" />
+<!--    <View-->
+<!--        android:layout_below="@+id/mainLayout2"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="1.5dp"-->
+<!--        android:background="#FFFFFF" />-->
 
-    <LinearLayout
-        android:id="@+id/mainLayout4"
-        android:layout_below="@id/mainLayout2"
-        android:gravity="end"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/mainLayout4"-->
+<!--        android:layout_below="@id/mainLayout2"-->
+<!--        android:gravity="end"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="22dp">-->
 
-        <TextView
-            android:id="@+id/txtDailySavings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="Daily Savings: "
-            android:textColor="#F7B5891C"
-            android:textSize="20sp"
-            tools:ignore="RtlHardcoded" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtDailySavings"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="right"-->
+<!--            android:text="Daily Savings: "-->
+<!--            android:textColor="#F7B5891C"-->
+<!--            android:textSize="20sp"-->
+<!--            tools:ignore="RtlHardcoded" />-->
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/lineLayout"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/mainLayout4"
-        android:layout_width="fill_parent"
-        android:layout_height="1.5dp"
-        android:background="#FFFFFF"/>
+<!--    </LinearLayout>-->
 
     <ListView
         android:id="@+id/listView1"
-        android:layout_below="@id/lineLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DAD1C4"
+        android:layout_below="@id/mainLayout1"
         android:layout_marginTop="3dp"
+        android:background="#DAD1C4"
         tools:ignore="NestedScrolling" />
 
 </RelativeLayout>

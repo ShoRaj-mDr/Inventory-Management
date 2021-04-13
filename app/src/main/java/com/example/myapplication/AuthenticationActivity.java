@@ -154,41 +154,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
                 }
             });
-       // }
-//        new CountDownTimer(5000, 1000) {
-//
-//            public void onTick(long millisUntilFinished) {
-//                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-//                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
-//
-//            }
-//
-//            public void onFinish() {
-//                //mTextField.setText("done!");
-//                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
-//
-//            }
-//        }.start();
-//
-//        }
-//        if(currentUser.hasData) {
-//            Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivity.class);
-//            startActivity(intent);
-//        }
-//        final Timer t = new java.util.Timer();
-//        t.schedule(
-//                new java.util.TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        // your code here
-//                        // close the thread
-//                        Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivity.class);
-//                        startActivity(intent);
-//                        t.cancel();
-//                    }
-//                },
-//                5000
-//        );
         }
     //======================================================================================showSignIn
     //This function is called when the user is signed out.
@@ -198,107 +163,11 @@ public class AuthenticationActivity extends AppCompatActivity {
             currentUser.loggingIn=true;
             AWSMobileClient.getInstance().showSignIn(this,
                     SignInUIOptions.builder().nextActivity(AuthenticationActivityLoading.class).build());
-//            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-//            ProcessPhoenix.triggerRebirth(AuthenticationActivity.this, nextIntent);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
     }
     //======================================================================================showSignIn
-    private void showSignIn3() {
-        try {
-            currentUser.loggingIn=true;
-            AWSMobileClient.getInstance().showSignIn(this,
-                    SignInUIOptions.builder().nextActivity(AdminMenu.class).build());
-//            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-//            ProcessPhoenix.triggerRebirth(AuthenticationActivity.this, nextIntent);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-    }
-
-
-    public void waitAndSignIn(){
-        if(getCognitoStatus()) {
-            AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
-                @Override
-                public void onResult(UserStateDetails userStateDetails) {
-                    loggedIn = true;
-                    Log.i(TAG, userStateDetails.getUserState().toString());
-                    Log.i("[p]p2][p2][p2][p2][p2][2][][][][][][][]", "$$$$$$$$$$$$$$$");
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    Log.e(TAG, e.toString());
-                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "$$$$$$$$$$$$$$$");
-                }
-            });
-
-
-                            if (!currentUser.hasData) {
-                try {
-                    //Pull user data from Cognito and save it locally.
-                    pullUserData();
-//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
-//                                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        new CountDownTimer(10000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
-
-            }
-
-            public void onFinish() {
-                //mTextField.setText("done!");
-                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
-                String ss=""+getCognitoStatus();
-                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
-
-                currentUser.loggingIn=false;
-                if(getCognitoStatus()){
-
-
-                    if (!currentUser.hasData) {
-//                        try {
-//                            //Pull user data from Cognito and save it locally.
-//                            pullUserData();
-////                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
-////                                    startActivity(intent);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-
-//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
-//                                startActivity(i2);
-
-                        //Check our 3 DB tables to see what type of user is logging in.
-                        Log.i("MAIN MENU", "WE ARE BACK");
-
-                        isAdmin(currentUser.id);
-
-                        isEmployee(currentUser.id);
-
-                        isCustomer(currentUser.id);
-                    }
-
-
-
-
-                }
-//                Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivity.class);
-//                startActivity(intent);
-
-            }
-        }.start();
-    }
-
 
     //======================================================================================isAdmin
     //Check to see if the current user is in the admin table.
@@ -474,10 +343,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
             AWSMobileClient.getInstance().showSignIn(this,
                     SignInUIOptions.builder().nextActivity(AuthenticationActivityAddCustomer.class).build());
-           // AuthenticationActivity.this.finish();
-            //SignInUIOptions.builder().build().nextActivity().
-//            AWSMobileClient.getInstance().showSignIn(this,
-//                    SignInUIOptions.builder().nextActivity(AuthenticationActivity.class).build());
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             Log.i("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ","AS ADMIN");
@@ -493,22 +358,16 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     //=============================================================================CREATE
     private void save() {
-//        final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
-//        final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
-//        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
-//        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
+
 
         CreatePetInput input = CreatePetInput.builder()
                 .id(currentUser.id)
                 .name(currentUser.name)
                 .description("admin")
                 .build();
-        //CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
         CreatePetMutation addPetMutation = CreatePetMutation.builder()
                 .input(input)
                 .build();
-        //CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
-        //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
         ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
     }
 

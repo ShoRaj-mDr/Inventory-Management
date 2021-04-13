@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AuthenticationActivityLoading"></activity>
+        <activity android:name=".DisplayItemsEmployee"></activity>
+        <activity android:name=".AuthenticationActivityLoading" />
         <activity android:name=".AuthenticationActivityAddCustomer" />
         <activity android:name=".Inventory.ManageInventory" />
         <activity android:name=".ShoppingCart.AddItem" />

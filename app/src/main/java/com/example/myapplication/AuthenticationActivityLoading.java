@@ -48,20 +48,6 @@ public class AuthenticationActivityLoading extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//                new CountDownTimer(5000, 1000) {
-//
-//                    public void onTick(long millisUntilFinished) {
-//                        //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-//                        Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
-//
-//                    }
-//
-//                    public void onFinish() {
-//                        //mTextField.setText("done!");
-//                        Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
-//
-//                    }
-//                }.start();
                 Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
                 String ss = "" + getCognitoStatus();
                 Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
@@ -96,140 +82,8 @@ public class AuthenticationActivityLoading extends AppCompatActivity {
             }
         }
     };
-    public void waitForID() {
-        Log.i("MAIN MENU333333333", "WE ARE BACK");
-
-        while(!hasID) {
-            new CountDownTimer(5000, 1000) {
-
-                public void onTick(long millisUntilFinished) {
-                    //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
-
-                }
-
-                public void onFinish() {
-                    //mTextField.setText("done!");
-                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
-                    String ss = "" + getCognitoStatus();
-                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
-                    String s2 = "";
-                    Log.i("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", s2);
-
-                    try {
-                        s2 = getCognitoID();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (!s2.equals("")) {
-                        Log.i("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", s2);
-
-                        //currentUser.loggingIn = false;
-                        hasID = true;
-                        id = s2;
-
-                        try {
-                            //Pull user data from Cognito and save it locally.
-                            pullUserData();
-//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
-//                                    startActivity(intent);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
-//                                startActivity(i2);
-
-                            //Check our 3 DB tables to see what type of user is logging in.
-                            Log.i("MAIN MENU", "WE ARE BACK");
-
-                            isAdmin(currentUser.id);
-
-                            isEmployee(currentUser.id);
-
-                            isCustomer(currentUser.id);
 
 
-                    }
-                }
-            }.start();
-        }
-    }
-    public void waitAndSignIn(){
-        if(getCognitoStatus()) {
-            AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
-                @Override
-                public void onResult(UserStateDetails userStateDetails) {
-                    //loggedIn = true;
-                   /// Log.i(TAG, userStateDetails.getUserState().toString());
-                    Log.i("[p]p2][p2][p2][p2][p2][2][][][][][][][]", "$$$$$$$$$$$$$$$");
-                }
-
-                @Override
-                public void onError(Exception e) {
-                   // Log.e(TAG, e.toString());
-                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "$$$$$$$$$$$$$$$");
-                }
-            });
-
-
-            if (!currentUser.hasData) {
-                try {
-                    //Pull user data from Cognito and save it locally.
-                    pullUserData();
-//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
-//                                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        new CountDownTimer(10000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
-
-            }
-
-            public void onFinish() {
-                //mTextField.setText("done!");
-                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
-                String ss=""+getCognitoStatus();
-                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
-
-                currentUser.loggingIn=false;
-                if(getCognitoStatus()){
-
-
-                    if (!currentUser.hasData) {
-//                        try {
-//                            //Pull user data from Cognito and save it locally.
-//                            pullUserData();
-////                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
-////                                    startActivity(intent);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-
-//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
-//                                startActivity(i2);
-
-                        //Check our 3 DB tables to see what type of user is logging in.
-                        Log.i("MAIN MENU", "WE ARE BACK");
-
-                        isAdmin(currentUser.id);
-
-                        isEmployee(currentUser.id);
-
-                        isCustomer(currentUser.id);
-                    }
-
-                }
-
-            }
-        }.start();
-    }
     //======================================================================================isAdmin
     //Check to see if the current user is in the admin table.
     //Im using the "Pet" table for now, will replace later. So pet==admin
@@ -404,3 +258,147 @@ public class AuthenticationActivityLoading extends AppCompatActivity {
     //======================================================================================pullUserData
 
 }
+
+/*
+public void waitAndSignIn(){
+        if(getCognitoStatus()) {
+            AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
+                @Override
+                public void onResult(UserStateDetails userStateDetails) {
+                    //loggedIn = true;
+                   /// Log.i(TAG, userStateDetails.getUserState().toString());
+                    Log.i("[p]p2][p2][p2][p2][p2][2][][][][][][][]", "$$$$$$$$$$$$$$$");
+                }
+
+                @Override
+                public void onError(Exception e) {
+                   // Log.e(TAG, e.toString());
+                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "$$$$$$$$$$$$$$$");
+                }
+            });
+
+
+            if (!currentUser.hasData) {
+                try {
+                    //Pull user data from Cognito and save it locally.
+                    pullUserData();
+//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+//                                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
+
+            }
+
+            public void onFinish() {
+                //mTextField.setText("done!");
+                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
+                String ss=""+getCognitoStatus();
+                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
+
+                currentUser.loggingIn=false;
+                if(getCognitoStatus()){
+
+
+                    if (!currentUser.hasData) {
+//                        try {
+//                            //Pull user data from Cognito and save it locally.
+//                            pullUserData();
+////                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+////                                    startActivity(intent);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+
+//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
+//                                startActivity(i2);
+
+                        //Check our 3 DB tables to see what type of user is logging in.
+                        Log.i("MAIN MENU", "WE ARE BACK");
+
+                        isAdmin(currentUser.id);
+
+                        isEmployee(currentUser.id);
+
+                        isCustomer(currentUser.id);
+                    }
+
+                }
+
+            }
+        }.start();
+    }
+ */
+
+
+
+
+/*
+ public void waitForID() {
+        Log.i("MAIN MENU333333333", "WE ARE BACK");
+
+        while(!hasID) {
+            new CountDownTimer(5000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
+
+                }
+
+                public void onFinish() {
+                    //mTextField.setText("done!");
+                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
+                    String ss = "" + getCognitoStatus();
+                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
+                    String s2 = "";
+                    Log.i("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", s2);
+
+                    try {
+                        s2 = getCognitoID();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (!s2.equals("")) {
+                        Log.i("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", s2);
+
+                        //currentUser.loggingIn = false;
+                        hasID = true;
+                        id = s2;
+
+                        try {
+                            //Pull user data from Cognito and save it locally.
+                            pullUserData();
+//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+//                                    startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
+//                                startActivity(i2);
+
+                            //Check our 3 DB tables to see what type of user is logging in.
+                            Log.i("MAIN MENU", "WE ARE BACK");
+
+                            isAdmin(currentUser.id);
+
+                            isEmployee(currentUser.id);
+
+                            isCustomer(currentUser.id);
+
+
+                    }
+                }
+            }.start();
+        }
+    }
+
+ */
