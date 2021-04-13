@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.GetCustomersQuery;
@@ -20,8 +20,10 @@ import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.myapplication.EmployeeMenu.EmployeeMenu;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.util.Map;
+import java.util.Timer;
 
 import javax.annotation.Nonnull;
 
@@ -30,12 +32,8 @@ import type.CreatePetInput;
 public class AuthenticationActivity extends AppCompatActivity {
 
     private final String TAG = AuthenticationActivity.class.getSimpleName();
-    private GetEmployeesQuery emp;
+    boolean loggedIn=false;
 
-//    boolean admin;
-//    boolean customer=false;
-//    boolean employee=false;
-//    String adminView="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,68 +43,102 @@ public class AuthenticationActivity extends AppCompatActivity {
         //The following will forward the admin to the desired view
         //In the final app version well probably make the admin logout to go back to admin view.
         //That way the customer/employee menu does'nt have "View as..." options in its toolbar.
+        Log.i("[][][][][][][][][][][][][][]","$$$$$$$$$$$$$$$");
+//        showSignIn();
+        if(currentUser.loggingIn) {
+
+        }
+
+
         if(currentUser.admin){
             Log.i("ADMIN$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$","$$$$$$$$$$$$$$$");
 
             if(currentUser.customer){
-                Log.i("ADMIN//CUST$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$","$$$$$$$$$$$$$$$$$");
-
-                Intent i2 = new Intent(AuthenticationActivity.this, CustomerMenu.class);
                 //currentUser.customer=false;
-                startActivity(i2);
-                this.finish();
+                logInAsCustomer();
             }
             else if(currentUser.employee){
-                Log.i("ADMIN//EMP$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$","$$$$$$$$$$$$$$$$$$$");
-
-                Intent i = new Intent(AuthenticationActivity.this, EmployeeMenu.class);
                 //currentUser.employee=false;
-                startActivity(i);
-                this.finish();
+                logInAsEmployee();
             }
             else {
-                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
-                startActivity(i2);
-                this.finish();
+                logInAsAdmin();
             }
 
         }
-            ClientFactory.init(this);
+        Log.i("[1][1][1][1][1][1][1][][][][][][][]","$$$$$$$$$$$$$$$");
+        ClientFactory.init(this);
+        Log.i("[4][4][4][4][4][4][4][][][][][][][]","$$$$$$$$$$$$$$$");
+        if(currentUser.loggingOut){
+            Log.i("ADMIN$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$","$$$$$$$$$$$$$$$");
+            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+            ProcessPhoenix.triggerRebirth(AuthenticationActivity.this, nextIntent);
+            //showSignIn2();
+        }
+        //while(!loggedIn) {
+        //if(!loggedIn) {
             AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
                 @Override
                 public void onResult(UserStateDetails userStateDetails) {
+                    //showSignIn3();
+
+                    loggedIn = true;
                     Log.i(TAG, userStateDetails.getUserState().toString());
+                    Log.i("[2][2][2][2][2][2][2][][][][][][][]", "$$$$$$$$$$$$$$$");
+
                     switch (userStateDetails.getUserState()) {
                         case SIGNED_IN:
                             //Only pull data if it is our first time logging in.
-                            if(!currentUser.hasData) {
+//                            if(currentUser.admin){
+//                                Log.i("ADMIN$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$","$$$$$$$$$$$$$$$");
+//
+//                                if(currentUser.customer){
+//                                    //currentUser.customer=false;
+//                                    logInAsCustomer();
+//                                }
+//                                else if(currentUser.employee){
+//                                    //currentUser.employee=false;
+//                                    logInAsEmployee();
+//                                }
+//                                else {
+//                                    logInAsAdmin();
+//                                }
+//
+//                            }
+                            if (!currentUser.hasData) {
                                 try {
                                     //Pull user data from Cognito and save it locally.
                                     pullUserData();
+//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+//                                    startActivity(intent);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-//                                Map m2= new HashMap();
-//                                m2.put("given_name","cesar2");
-//                                try {
-//                                    AWSMobileClient.getInstance().updateUserAttributes(m2);
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
+
 //                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
 //                                startActivity(i2);
 
                                 //Check our 3 DB tables to see what type of user is logging in.
+                                Log.i("MAIN MENU", "WE ARE BACK");
 
                                 isAdmin(currentUser.id);
 
                                 isEmployee(currentUser.id);
 
                                 isCustomer(currentUser.id);
+
                             }
                             break;
                         case SIGNED_OUT:
-                            showSignIn();
+//                            currentUser.hasData = false;
+//                            currentUser.admin = false;
+//                            currentUser.employee = false;
+//                            currentUser.customer = false;
+                            Log.i("++++++++++++++++++++++++++++++++++++++++++++++++++++", "$$$$$$$$$$$$$$$");
+
+                            showSignIn2();
+                            //finish();
+                            //AuthenticationActivity.this.finish();
                             break;
                         default:
                             AWSMobileClient.getInstance().signOut();
@@ -118,42 +150,185 @@ public class AuthenticationActivity extends AppCompatActivity {
                 @Override
                 public void onError(Exception e) {
                     Log.e(TAG, e.toString());
+                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "$$$$$$$$$$$$$$$");
+
                 }
             });
+       // }
+//        new CountDownTimer(5000, 1000) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+//                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
+//
+//            }
+//
+//            public void onFinish() {
+//                //mTextField.setText("done!");
+//                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
+//
+//            }
+//        }.start();
+//
+//        }
+//        if(currentUser.hasData) {
+//            Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivity.class);
+//            startActivity(intent);
+//        }
+//        final Timer t = new java.util.Timer();
+//        t.schedule(
+//                new java.util.TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        // your code here
+//                        // close the thread
+//                        Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivity.class);
+//                        startActivity(intent);
+//                        t.cancel();
+//                    }
+//                },
+//                5000
+//        );
         }
+    //======================================================================================showSignIn
+    //This function is called when the user is signed out.
+    //The .nextActivity() might need to be this activity, so the user info can be viewed.
+    private void showSignIn2() {
+        try {
+            currentUser.loggingIn=true;
+            AWSMobileClient.getInstance().showSignIn(this,
+                    SignInUIOptions.builder().nextActivity(AuthenticationActivityLoading.class).build());
+//            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//            ProcessPhoenix.triggerRebirth(AuthenticationActivity.this, nextIntent);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+    //======================================================================================showSignIn
+    private void showSignIn3() {
+        try {
+            currentUser.loggingIn=true;
+            AWSMobileClient.getInstance().showSignIn(this,
+                    SignInUIOptions.builder().nextActivity(AdminMenu.class).build());
+//            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//            ProcessPhoenix.triggerRebirth(AuthenticationActivity.this, nextIntent);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+
+    public void waitAndSignIn(){
+        if(getCognitoStatus()) {
+            AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
+                @Override
+                public void onResult(UserStateDetails userStateDetails) {
+                    loggedIn = true;
+                    Log.i(TAG, userStateDetails.getUserState().toString());
+                    Log.i("[p]p2][p2][p2][p2][p2][2][][][][][][][]", "$$$$$$$$$$$$$$$");
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.e(TAG, e.toString());
+                    Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "$$$$$$$$$$$$$$$");
+                }
+            });
+
+
+                            if (!currentUser.hasData) {
+                try {
+                    //Pull user data from Cognito and save it locally.
+                    pullUserData();
+//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+//                                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + millisUntilFinished / 1000);
+
+            }
+
+            public void onFinish() {
+                //mTextField.setText("done!");
+                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "seconds remaining: " + "done!");
+                String ss=""+getCognitoStatus();
+                Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", ss);
+
+                currentUser.loggingIn=false;
+                if(getCognitoStatus()){
+
+
+                    if (!currentUser.hasData) {
+//                        try {
+//                            //Pull user data from Cognito and save it locally.
+//                            pullUserData();
+////                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+////                                    startActivity(intent);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+
+//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
+//                                startActivity(i2);
+
+                        //Check our 3 DB tables to see what type of user is logging in.
+                        Log.i("MAIN MENU", "WE ARE BACK");
+
+                        isAdmin(currentUser.id);
+
+                        isEmployee(currentUser.id);
+
+                        isCustomer(currentUser.id);
+                    }
 
 
 
 
+                }
+//                Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivity.class);
+//                startActivity(intent);
+
+            }
+        }.start();
+    }
 
 
     //======================================================================================isAdmin
     //Check to see if the current user is in the admin table.
     //Im using the "Pet" table for now, will replace later. So pet==admin
     public void isAdmin(String myID) {
+        Log.i("##########################################", "ADMIN");
         ClientFactory.appSyncClient().query(GetPetQuery.builder().id(myID).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback3);
     }
     private GraphQLCall.Callback<GetPetQuery.Data>queryCallback3=new GraphQLCall.Callback<GetPetQuery.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<GetPetQuery.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(AuthenticationActivity.this, "Updated admin view AUTH ACTIVITY", Toast.LENGTH_LONG).show();
+        @Override //final after nonnull
+        public void onResponse(@Nonnull Response<GetPetQuery.Data> response) {
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+                    //Toast.makeText(AuthenticationActivity.this, "Updated admin view AUTH ACTIVITY", Toast.LENGTH_LONG).show();
                     //DisplayItems.this.finish();
                     Log.i("AUTHACT QUERY/////////////////////////////////////////////////", "RESPONSE RECIEVED");
                     Log.i("ADMIN", response.data().toString());
                     if(response.data().getPet()!=null) {
                         //admin = true;
-                        currentUser.admin=true;
-                        Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
-                        startActivity(i2);
-
+                        if(currentUser.admin==false) {
+                            Log.i("ADMIN", "###LEAVING");
+                            currentUser.admin = true;
+                            logInAsAdmin();
+                        }
                     }
-                }
-            });
+//                }
+//            });
 
         }
 
@@ -165,14 +340,10 @@ public class AuthenticationActivity extends AppCompatActivity {
     };
     //======================================================================================isAdmin
 
-
-
     //======================================================================================isEmployee
     //Check to see if the current user is in the employee table.
     public void isEmployee(String myID) {
-//        ClientFactory.appSyncClient().query(GetEmployeesQuery.builder().id("e2c0cfcc-78aa-4eda-bee9-da6fb1b2973e").build())
-//                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
-//                .enqueue(queryCallback);
+        Log.i("##########################################", "EMP");
         ClientFactory.appSyncClient().query(GetEmployeesQuery.builder().id(myID).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
@@ -183,18 +354,13 @@ public class AuthenticationActivity extends AppCompatActivity {
             Log.i("AUTHACT QUERY", "RESPONSE RECIEVED");
             Log.i("EMPLOYEE", response.data().toString());
             if(response.data().getEmployees()!=null) {
-                //employee=true;
                 currentUser.employee=true;
-                Intent e = new Intent(AuthenticationActivity.this, EmployeeMenu.class);
-                startActivity(e);
+                logInAsEmployee();
             }
             else{
                 Log.i("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "Not Employee");
-
             }
-
         }
-
         @Override
         public void onFailure(@Nonnull ApolloException e) {
             Log.i("AUTHACT QUERY", "RESPONSE not RECIEVED");
@@ -203,14 +369,14 @@ public class AuthenticationActivity extends AppCompatActivity {
     };
     //======================================================================================isEmployee
 
-
-
     //======================================================================================isCustomer
     //Check to see if the current user is in the customer table.
     public void isCustomer(String myID) {
 //        ClientFactory.appSyncClient().query(GetCustomersQuery.builder().id("59a0f631-452c-4db7-a11f-6e5ef8adc1f6").build())
 //                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
 //                .enqueue(queryCallback2);
+        Log.i("##########################################", "Customer");
+
         ClientFactory.appSyncClient().query(GetCustomersQuery.builder().id(myID).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback2);
@@ -221,13 +387,19 @@ public class AuthenticationActivity extends AppCompatActivity {
             Log.i("AUTHACT QUERY", "RESPONSE RECIEVED");
             Log.i("CUSTOMER", response.data().toString());
             if(response.data().getCustomers()!=null) {
-                //customer=true;
                 currentUser.customer=true;
-                Intent c = new Intent(AuthenticationActivity.this, CustomerMenu.class);
-                startActivity(c);
+                logInAsCustomer();
             }
             else{
                 Log.i("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "Not Customer");
+                if(!currentUser.admin){
+                    if(!currentUser.employee){
+                        if(!currentUser.customer){
+                            Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
 
             }
         }
@@ -240,32 +412,49 @@ public class AuthenticationActivity extends AppCompatActivity {
     };
     //======================================================================================isCustomer
 
-
+    public void logInAsCustomer(){
+        Log.i("LOGING IN ","AS CUSTOMER");
+        Intent intent = new Intent(AuthenticationActivity.this, CustomerMenu.class);
+        startActivity(intent);
+    }
+    public void logInAsEmployee(){
+        Log.i("LOGING IN ","AS EMPLOYEE");
+        Intent intent = new Intent(AuthenticationActivity.this, EmployeeMenu.class);
+        startActivity(intent);
+    }
+    public void logInAsAdmin(){
+        Log.i("LOGING IN ","AS ADMIN");
+        Intent intent = new Intent(AuthenticationActivity.this, AdminMenu.class);
+        startActivity(intent);
+    }
     //======================================================================================pullUserData
     //All of these functions are used to pull user information from AWS Cognito.
     public void pullUserData() throws Exception {
-        currentUser.name=myFunc2();
-        currentUser.id=myFunc3();
-        currentUser.phone=myFunc4();
-        currentUser.email=myFunc5();
+        currentUser.name= getCognitoName();
+        currentUser.id= getCognitoID();
+        currentUser.phone= getCognitoPhoneNumber();
+        currentUser.email= getCognitoEmail();
         currentUser.hasData=true;
         Log.i("===========:", "User ID: "+currentUser.id+"\nName: "+currentUser.name+"\nPhone: "+currentUser.phone+"\nEmail: "+currentUser.email);
         //Run once to be an admin.
         //save();
     }
-    public String myFunc2() throws Exception {
+    public boolean getCognitoStatus(){
+        return AWSMobileClient.getInstance().isSignedIn();
+    }
+    public String getCognitoName() throws Exception {
         Map m1=AWSMobileClient.getInstance().getUserAttributes();
         return m1.get("given_name").toString();
     }
-    public String myFunc3() throws Exception {
+    public String getCognitoID() throws Exception {
         Map m1=AWSMobileClient.getInstance().getUserAttributes();
         return m1.get("sub").toString();
     }
-    public String myFunc4() throws Exception {
+    public String getCognitoPhoneNumber() throws Exception {
         Map m1=AWSMobileClient.getInstance().getUserAttributes();
         return m1.get("phone_number").toString();
     }
-    public String myFunc5() throws Exception {
+    public String getCognitoEmail() throws Exception {
         Map m1=AWSMobileClient.getInstance().getUserAttributes();
         return m1.get("email").toString();
     }
@@ -277,10 +466,22 @@ public class AuthenticationActivity extends AppCompatActivity {
     //The .nextActivity() might need to be this activity, so the user info can be viewed.
     private void showSignIn() {
         try {
+            if(currentUser.hasData) {
+                currentUser.loggingIn = true;
+            }
+            currentUser.loggingIn = true;
+            currentUser.hasData=false;
+
             AWSMobileClient.getInstance().showSignIn(this,
-                    SignInUIOptions.builder().nextActivity(AuthenticationActivity.class).build());
+                    SignInUIOptions.builder().nextActivity(AuthenticationActivityAddCustomer.class).build());
+           // AuthenticationActivity.this.finish();
+            //SignInUIOptions.builder().build().nextActivity().
+//            AWSMobileClient.getInstance().showSignIn(this,
+//                    SignInUIOptions.builder().nextActivity(AuthenticationActivity.class).build());
         } catch (Exception e) {
             Log.e(TAG, e.toString());
+            Log.i("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ","AS ADMIN");
+
         }
     }
     //======================================================================================showSignIn
@@ -349,6 +550,17 @@ public class AuthenticationActivity extends AppCompatActivity {
 
 
 
+
+
+
+//Update user attributes
+//                                Map m2= new HashMap();
+//                                m2.put("given_name","cesar2");
+//                                try {
+//                                    AWSMobileClient.getInstance().updateUserAttributes(m2);
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
 
 
 

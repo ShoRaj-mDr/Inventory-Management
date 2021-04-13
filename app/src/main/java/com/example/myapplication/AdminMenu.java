@@ -18,6 +18,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
@@ -25,6 +28,7 @@ import com.example.myapplication.DisplayCustomer.DisplayCustomer;
 import com.example.myapplication.Orderlist.OrderList;
 import com.example.myapplication.Profile.Profile;
 import com.example.myapplication.Supplier.AddSupplier;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import javax.annotation.Nonnull;
 
@@ -127,13 +131,35 @@ public class AdminMenu extends AppCompatActivity {
                 return true;
 
             case R.id.item4:
-                //Toast.makeText(myItems.this, "Bye2", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminMenu.this, "Bye2", Toast.LENGTH_LONG).show();
                 AWSMobileClient.getInstance().signOut();
+                //item.notifyAll();
+                //AWSMobileClient.getInstance().signOut(SignOut)
+//                AWSMobileClient.getInstance().signOut(SignOutOptions.builder().signOutGlobally(true).build(), new Callback<Void>() {
+//                    @Override
+//                    public void onResult(final Void result) {
+//                        Log.d("dddddd", "signed-out");
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        Log.e(TAG, "sign-out error", e);
+//                    }
+//                });
+
+               // AWSMobileClient.getInstance().get
+                currentUser.admin=false;
+                currentUser.loggingOut=true;
                 //Bundle dataBundle = new Bundle();
                 //dataBundle.putInt("id", 1);
                 Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                //intent.putExtras(dataBundle);
+//                //intent.putExtras(dataBundle);
                 startActivity(i);
+                //ProcessPhoenix.triggerRebirth(AuthenticationActivity.class);
+
+//                Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//                        ProcessPhoenix.triggerRebirth(AdminMenu.this, nextIntent);
+                //moveToAuthentication();
                 //IdentityManager.getDefaultIdentityManager().signOut();
 
                 return true;

@@ -191,6 +191,8 @@ public class EmployeeMenu extends AppCompatActivity {
                 AWSMobileClient.getInstance().signOut();
                 //Bundle dataBundle = new Bundle();
                 //dataBundle.putInt("id", 1);
+                currentUser.admin=false;
+                currentUser.loggingOut=true;
                 Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
                 //intent.putExtras(dataBundle);
                 startActivity(i);
