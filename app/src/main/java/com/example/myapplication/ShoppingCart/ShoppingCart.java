@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Checkout.Checkout;
 import com.example.myapplication.Item.Item;
 import com.example.myapplication.Orderlist.ItemAdapter;
 import com.example.myapplication.Orderlist.SwipeToDeleteCallback;
@@ -59,13 +60,14 @@ public class ShoppingCart extends AppCompatActivity {
     }
 
     public void toCheckout(View view) {
-        // Just to get ready if more things are added
         if (view.getId() == R.id.shopping_cart_button) {
-            // Goes to Edit Profile Activity
-//            Intent checkout = new Intent(this, Checkout.class);
-//            checkout.putExtra("shoppingList", arrayList);
-//            startActivityForResult(checkout, 2);
             displayToast("Clicked checkout button");
+            ArrayList<Item> stringArrayList = (ArrayList<Item>) items;
+            System.out.println(stringArrayList);
+            Intent checkout = new Intent(this, Checkout.class);
+            checkout.putExtra("shoppingList", stringArrayList);
+            startActivityForResult(checkout, 2);
+
         }
     }
 
@@ -78,7 +80,7 @@ public class ShoppingCart extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK && data.getParcelableExtra("item") != null) {
+        if(requestCode == 1 && resultCode == RESULT_OK && data.getParcelableExtra("item") != null) {
             Item item = data.getParcelableExtra("item");
             items.add(item);
             mAdapter.notifyDataSetChanged();

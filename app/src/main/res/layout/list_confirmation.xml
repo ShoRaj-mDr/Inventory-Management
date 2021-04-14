@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:weightSum="100">
+
+    <TextView
+        android:id="@+id/itemView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="33.3"
+        android:gravity="center"
+        android:singleLine="false"
+        android:text="TextView1"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/quantityView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="TextView1"
+        android:layout_weight="33.3"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/priceView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="TextView1"
+        android:textAlignment="center"
+        android:layout_weight="33.3"
+        android:textColor="#000000"
+        />
+
+</LinearLayout>

@@ -19,4 +19,15 @@
     <string name="productDescription">ProductDescription</string>
     <string name="productID">ProductID</string>
 
+    <!-- String values for Confirmation Fragment -->
+    <string name="subtotal">SubTotal</string>
+    <string name="tax">Tax</string>
+    <string name="total">Total</string>
+
+    <!-- String values for Checkout -->
+    <string name="title_activity_checkout">Checkout</string>
+    <string name="tab_text_1">Shipping</string>
+    <string name="tab_text_2">Payment</string>
+    <string name="tab_text_3">Confirmation</string>
+
 </resources>

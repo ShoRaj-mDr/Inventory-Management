@@ -152,6 +152,10 @@ public class AddItem extends AppCompatActivity {
         });
     }
 
+    public void backToMenu(View view) {
+        finish();
+    }
+
     /**
      * Method that handles the onClick of decreasing the quantity
      */

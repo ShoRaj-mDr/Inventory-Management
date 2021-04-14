@@ -239,3 +239,78 @@ subscription OnDeleteSuppliers {
     updatedAt
   }
 }
+subscription OnCreateShipping {
+  onCreateShipping {
+    id
+    userID
+    name
+    phone
+    address
+    city
+    zip
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateShipping {
+  onUpdateShipping {
+    id
+    userID
+    name
+    phone
+    address
+    city
+    zip
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteShipping {
+  onDeleteShipping {
+    id
+    userID
+    name
+    phone
+    address
+    city
+    zip
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreatePayment {
+  onCreatePayment {
+    id
+    userID
+    name
+    ccNumber
+    exp
+    cvv
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdatePayment {
+  onUpdatePayment {
+    id
+    userID
+    name
+    ccNumber
+    exp
+    cvv
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeletePayment {
+  onDeletePayment {
+    id
+    userID
+    name
+    ccNumber
+    exp
+    cvv
+    createdAt
+    updatedAt
+  }
+}
