@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Checkout.Checkout" />
+        <activity android:name=".DisplayItemsEmployee"/>
+        <activity android:name=".AuthenticationActivityLoading" />
+        <activity android:name=".AuthenticationActivityAddCustomer" />
         <activity android:name=".Inventory.ManageInventory" />
         <activity android:name=".ShoppingCart.AddItem" />
         <activity android:name=".ShoppingCart.ShoppingCart" />
