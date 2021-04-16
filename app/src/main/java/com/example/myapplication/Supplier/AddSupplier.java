@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.myapplication.R;
 import com.google.android.material.tabs.TabLayout;
@@ -34,6 +35,14 @@ public class AddSupplier extends AppCompatActivity {
         toolbar = findViewById(R.id.supplier_toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         viewPager = findViewById(R.id.supplier_viewpager);
         tabLayout = findViewById(R.id.supplier_tablayout);
 
@@ -43,13 +52,13 @@ public class AddSupplier extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 0);
-        viewPagerAdapter.addFragment(registerSupplierFragment, "Add");
+        viewPagerAdapter.addFragment(registerSupplierFragment, "Add Supplier");
         viewPagerAdapter.addFragment(displaySupplierFragment, "Display");
         viewPager.setAdapter(viewPagerAdapter);
 
         // change this image in the tab bar for supplier
-        tabLayout.getTabAt(0).setIcon(R.drawable.bottom_bg);
-        tabLayout.getTabAt(1).setIcon(R.drawable.bottom_bg);
+        tabLayout.getTabAt(0).setIcon(R.drawable.supplier_add_image);
+        tabLayout.getTabAt(1).setIcon(R.drawable.employee_mainmenu_supplier);
 
     }
 

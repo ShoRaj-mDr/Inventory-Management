@@ -2,9 +2,11 @@ package com.example.myapplication.Inventory;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,7 @@ public class ManageInventory extends AppCompatActivity {
     private ArrayList<ListItemssQuery.Item> mItems;
     private RecyclerView recyclerView;
     private InventoryAdapter mAdapter;
+    private Toolbar toolbar;
 
     private final String TAG = myItems.class.getSimpleName();
 
@@ -34,6 +37,18 @@ public class ManageInventory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_inventory);
+
+
+        toolbar = findViewById(R.id.manageInventory_toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         recyclerView = findViewById(R.id.manageInventory_recyclerView);
         ClientFactory.init(this);

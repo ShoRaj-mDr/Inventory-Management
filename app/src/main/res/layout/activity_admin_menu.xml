@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AdminMenu">
 
-    <com.google.android.material.appbar.AppBarLayout
+   <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/employee_appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,18 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/create_item_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize">
+
+        </androidx.appcompat.widget.Toolbar>
+
+<!--       <ImageView-->
+<!--           android:id="@+id/back"-->
+<!--           android:layout_width="65dp"-->
+<!--           android:layout_height="65dp"-->
+<!--           android:clickable="true"-->
+<!--           android:gravity="center"-->
+<!--           android:onClick="backButton"-->
+<!--           android:src="@drawable/profile_exit_foreground" />-->
 
     </com.google.android.material.appbar.AppBarLayout>
 

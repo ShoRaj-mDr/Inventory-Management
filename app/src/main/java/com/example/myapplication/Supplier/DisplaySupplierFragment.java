@@ -87,7 +87,7 @@ public class DisplaySupplierFragment extends Fragment {
                 @Override
                 public void run() {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    mAdapter = new DisplaySupplierAdapter(supplierList);
+                    mAdapter = new DisplaySupplierAdapter(supplierList, getActivity());
                     recyclerView.setAdapter(mAdapter);
                 }
             });

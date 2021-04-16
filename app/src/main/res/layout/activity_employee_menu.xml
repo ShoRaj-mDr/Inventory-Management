@@ -36,6 +36,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
+            app:cardBackgroundColor="#09A9FF"
             android:layout_gravity="fill"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -50,14 +51,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/employee_mainmenu_manage_inventory" />
+                    android:src="@drawable/employee_mainmenu_inventory" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Inventory \n Management"
+                    android:textColor="@color/colorWhite"
                     android:textAlignment="center"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -71,6 +73,7 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
+            app:cardBackgroundColor="#EDF8D51C"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -105,6 +108,7 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
+            app:cardBackgroundColor="#0A9B88"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -139,6 +143,7 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
+            app:cardBackgroundColor="#673BB7"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -160,6 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Suppliers"
+                    android:textColor="@color/colorWhite"
                     android:textAlignment="center"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -173,6 +179,7 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
+            app:cardBackgroundColor="#3E51B1"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -194,6 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Customers"
+                    android:textColor="@color/colorWhite"
                     android:textAlignment="center"
                     android:textStyle="bold" />
             </LinearLayout>
