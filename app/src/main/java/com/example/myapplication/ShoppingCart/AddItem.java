@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -55,6 +56,7 @@ public class AddItem extends AppCompatActivity {
                 tempList.add(mItems.get(i).id());
                 tempList.add(mItems.get(i).description());
                 tempList.add(String.valueOf(mItems.get(i).price()));
+                tempList.add(String.valueOf(mItems.get(i).quantity()));
                 items.add(tempList);
             }
 
@@ -113,6 +115,10 @@ public class AddItem extends AppCompatActivity {
                 productDescription.setText(description);
                 productId.setText(id);
                 price = Double.parseDouble(items.get(itemPosition).get(3));
+
+                //Hides keyboard
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
         });
 
@@ -166,6 +172,9 @@ public class AddItem extends AppCompatActivity {
             quantityText.setText(String.valueOf(quantity));
             newPrice = "$" + String.format("%.02f", (price * quantity));
             productPrice.setText(newPrice);
+
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
@@ -175,8 +184,15 @@ public class AddItem extends AppCompatActivity {
     public void increaseQuantity(View view) {
         quantity = Integer.parseInt(quantityText.getText().toString());
         quantity++;
-        quantityText.setText(String.valueOf(quantity));
-        newPrice = "$" + String.format("%.02f", (price * quantity));
-        productPrice.setText(newPrice);
+        if(quantity <= Integer.parseInt(items.get(itemPosition).get(4))) {
+            quantityText.setText(String.valueOf(quantity));
+            newPrice = "$" + String.format("%.02f", (price * quantity));
+            productPrice.setText(newPrice);
+
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } else {
+            quantity--;
+        }
     }
 }

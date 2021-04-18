@@ -6,12 +6,22 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
@@ -22,6 +32,8 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.example.myapplication.Profile.Profile;
 import com.example.myapplication.ShoppingCart.ShoppingCart;
 
+import org.w3c.dom.Text;
+
 import javax.annotation.Nonnull;
 
 import type.UpdatePetInput;
@@ -29,6 +41,9 @@ import type.UpdatePetInput;
 public class CustomerMenu extends AppCompatActivity {
     private ListView employeeMenu_listView;
     private Toolbar employee_toolbar;
+    View popupView;
+    PopupWindow popupWindow;
+    LayoutInflater reportInflater;
 
     // Mutation callback code
     private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
@@ -151,9 +166,61 @@ public class CustomerMenu extends AppCompatActivity {
         }
         else if(view.getId() == R.id.customer_menu_report) {
             displayToast("Report button clicked");
+            // inflate the layout of the report window
+            reportInflater = (LayoutInflater) getSystemService((LAYOUT_INFLATER_SERVICE));
+            popupView = reportInflater.inflate(R.layout.report_window, (ViewGroup) findViewById(R.id.popupLayout));
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+            boolean focusable = true;
+            popupWindow = new PopupWindow(popupView, (int)(width*.8), (int)(height*.6), focusable);
+
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+            Button reportBtn = (Button) popupView.findViewById(R.id.report_button);
+            reportBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("Send email", "");
+
+                    TextView report = (TextView) popupView.findViewById(R.id.report_txt);
+
+                    String subject = "Report from " + currentUser.name;
+                    String issue = report.getText().toString();
+                    String[] TO = {"teamBlueWMS@gmail.com"};
+//        String[] CC = {};
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+//        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, issue);
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                        finish();
+                        Log.i("Finished sending email...", "");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        displayToast("There is no email client installed.");
+                    }
+                    popupWindow.dismiss();
+                }
+            });
+
+            TextView exitReport = (TextView) popupView.findViewById(R.id.exitReport);
+            exitReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popupWindow.dismiss();
+                }
+            });
         }
     }
-
 
     private void moveToAuthentication() {
         Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
