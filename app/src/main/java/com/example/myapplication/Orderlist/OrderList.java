@@ -1,6 +1,7 @@
 package com.example.myapplication.Orderlist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,10 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.myapplication.ClientFactory;
-import com.example.myapplication.DisplayItems;
 import com.example.myapplication.Item.Item;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,6 +40,7 @@ public class OrderList extends AppCompatActivity {
     // Initializing Fab variables
     private TextView addProductTextView;
     private FloatingActionButton fab1_main;
+    private Toolbar toolbar;
 
 
     @Override
@@ -50,10 +48,25 @@ public class OrderList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
 
+
+
+        toolbar = findViewById(R.id.orderlist_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
+
         fab1_main = findViewById(R.id.orderlist_FAB1);
         recyclerView = findViewById(R.id.orderlist_itemDisplay_recyclerview);
-        // recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new VegaLayoutManager());
         mAdapter = new ItemAdapter(items);
         new ItemTouchHelper(new SwipeToDeleteCallback(mAdapter)).attachToRecyclerView(recyclerView);

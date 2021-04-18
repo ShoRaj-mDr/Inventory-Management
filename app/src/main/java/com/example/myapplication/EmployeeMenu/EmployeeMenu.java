@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,7 +23,6 @@ import com.example.myapplication.AuthenticationActivity;
 import com.example.myapplication.ClientFactory;
 import com.example.myapplication.DisplayCustomer.DisplayCustomer;
 import com.example.myapplication.DisplayItems;
-import com.example.myapplication.EmployeeMenuAdapter;
 import com.example.myapplication.Inventory.ManageInventory;
 import com.example.myapplication.Orderlist.OrderList;
 import com.example.myapplication.R;
@@ -39,7 +37,7 @@ import type.UpdatePetInput;
 public class EmployeeMenu extends AppCompatActivity {
 
     private ListView employeeMenu_listView;
-    private Toolbar employee_toolbar;
+    private Toolbar toolbar;
 
     private final String[] employeeMenu = {
             "Manage Inventory",
@@ -69,8 +67,16 @@ public class EmployeeMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_menu);
 
-        employee_toolbar = findViewById(R.id.create_item_toolbar);
-        setSupportActionBar(employee_toolbar);
+        toolbar = findViewById(R.id.create_item_toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 

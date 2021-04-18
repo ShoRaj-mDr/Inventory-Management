@@ -231,6 +231,7 @@ public class AdminMenu extends AppCompatActivity {
             });
         }
 
+
         @Override
         public void onFailure(@Nonnull final ApolloException e) {
             runOnUiThread(new Runnable() {
@@ -258,6 +259,14 @@ public class AdminMenu extends AppCompatActivity {
         employeeMenu_listView = findViewById(R.id.employee_listView);
         employee_toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(employee_toolbar);
+
+        employee_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        employee_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //save();
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);

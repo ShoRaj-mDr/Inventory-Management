@@ -16,8 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".SplashScreen.SplashScreen">
+<!--            <action android:name="android.intent.action.MAIN" />-->
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+        </activity>
+
         <activity android:name=".Checkout.Checkout" />
-        <activity android:name=".DisplayItemsEmployee"/>
+        <activity android:name=".DisplayItemsEmployee" />
         <activity android:name=".AuthenticationActivityLoading" />
         <activity android:name=".AuthenticationActivityAddCustomer" />
         <activity android:name=".Inventory.ManageInventory" />
@@ -35,10 +41,6 @@
         <activity
             android:name=".CustomerMenu"
             android:label="" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
         <activity android:name=".DisplayItems" />
         <activity android:name=".myItems" />
         <activity
@@ -50,17 +52,13 @@
             android:label="@string/app_name"
             android:noHistory="true">
             <intent-filter>
+<!--                Made Splash Screen launcher-->
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
-
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:label="@string/app_name" />-->
     </application>
 
 </manifest>

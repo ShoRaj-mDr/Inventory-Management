@@ -2,9 +2,11 @@ package com.example.myapplication.DisplayCustomer;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,7 @@ public class DisplayCustomer extends AppCompatActivity {
     private List<ListCustomerssQuery.Item> customerList;
     private RecyclerView recyclerView;
     private DisplayCustomerAdapter mAdapter;
+    private Toolbar toolbar;
 
     private final String TAG = DisplayCustomer.class.getSimpleName();
 
@@ -34,6 +37,17 @@ public class DisplayCustomer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_customer);
+
+        toolbar = findViewById(R.id.customer_toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         recyclerView = findViewById(R.id.customer_recyclerview);
         ClientFactory.init(this);
@@ -58,7 +72,7 @@ public class DisplayCustomer extends AppCompatActivity {
                 @Override
                 public void run() {
                     recyclerView.setLayoutManager(new LinearLayoutManager(DisplayCustomer.this));
-                    mAdapter = new DisplayCustomerAdapter(customerList);
+                    mAdapter = new DisplayCustomerAdapter(customerList, getApplicationContext());
                     recyclerView.setAdapter(mAdapter);
                 }
             });

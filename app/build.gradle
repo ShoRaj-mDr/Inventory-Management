@@ -52,7 +52,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     //implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-//    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.3'
@@ -70,24 +69,38 @@ dependencies {
 
     // Mobile Client for initializing the SDK
     implementation('com.amazonaws:aws-android-sdk-mobile-client:2.8.+@aar') { transitive = true }
-// Cognito UserPools for SignIn
+    // Cognito UserPools for SignIn
     implementation('com.amazonaws:aws-android-sdk-auth-userpools:2.8.+@aar') { transitive = true }
-// Sign in UI Library
+    // Sign in UI Library
     implementation('com.amazonaws:aws-android-sdk-auth-ui:2.8.+@aar') { transitive = true }
 
-    implementation 'androidx.cardview:cardview:1.0.0'               // CardView used in Login Design
-    implementation 'com.basgeekball:awesome-validation:4.2'         // Awesome Validation from github used in Register to check invalid inputs
-    implementation 'com.google.android.material:material:<version>' // Material Design from github for better UI design
+    // CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
 
-    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'        // recyclerview scroll design
+    // Awesome Validation from github used in Register to check invalid inputs
+    implementation 'com.basgeekball:awesome-validation:4.2'
+
+    // Material Design from github for better UI design
+    implementation 'com.google.android.material:material:<version>'
+
+    // recyclerview scroll design
+    compile 'com.stone.vega.library:VegaLayoutManager:1.0.6'
+
+    // Vega Layout for Recyclerview design
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'   // swipe refresh layout to refresh items in recyclerview
+
+    // swipe refresh layout to refresh items in recyclerview
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+    // Material Dialog Library
+    implementation 'dev.shreyaspatil.MaterialDialog:MaterialDialog:2.1.1'
 
     //JWT
     implementation 'com.auth0:java-jwt:3.14.0'
     implementation 'com.auth0:jwks-rsa:0.4.0'
 
+    // https://github.com/JakeWharton/ProcessPhoenix
     implementation 'com.jakewharton:process-phoenix:2.0.0'
-//https://github.com/JakeWharton/ProcessPhoenix
+
 
 }
