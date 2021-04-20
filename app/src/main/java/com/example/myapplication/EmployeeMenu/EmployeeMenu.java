@@ -70,13 +70,14 @@ public class EmployeeMenu extends AppCompatActivity {
         toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        // Removing back button navigation from all main menu
+        /* toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        }); */
 
     }
 

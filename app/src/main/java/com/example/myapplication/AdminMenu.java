@@ -56,34 +56,6 @@ public class AdminMenu extends AppCompatActivity {
             R.drawable.employee_mainmenu_customer
     };
 
-    // Mutation callback code
-    private final GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
-                    // DisplayItems.this.finish();
-                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                    currentUser.admin=true;
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform AddPetMutation", e);
-                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -218,6 +190,44 @@ public class AdminMenu extends AppCompatActivity {
         //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
         ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
     }
+
+    // Mutation callback code
+    private final GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
+                    // DisplayItems.this.finish();
+                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                    currentUser.admin=true;
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddPetMutation", e);
+                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
+
+    //============================================================================================= CREATE
+    //======================================================================================== UPDATE
+    private void setAdminView(String id, String view) {
+        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
+        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
+    }
+
+
     // Mutation callback code
     private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
         @Override
@@ -244,13 +254,7 @@ public class AdminMenu extends AppCompatActivity {
             });
         }
     };
-    //============================================================================================= CREATE
     //======================================================================================== UPDATE
-    private void setAdminView(String id, String view) {
-        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
-        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
-        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -260,15 +264,16 @@ public class AdminMenu extends AppCompatActivity {
         employee_toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(employee_toolbar);
 
-        employee_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        // Removing back button navigation from all main menu
+        /* employee_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
         employee_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
 
-        //save();
+        // save();
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
         employeeMenu_listView.setAdapter(adapter);
         employeeMenu_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

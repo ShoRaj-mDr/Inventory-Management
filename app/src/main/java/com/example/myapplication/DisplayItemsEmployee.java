@@ -3,11 +3,8 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,31 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.amplify.generated.graphql.CreateItemsMutation;
-import com.amazonaws.amplify.generated.graphql.CreateItemzMutation;
-import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
-import com.amazonaws.amplify.generated.graphql.CreateShiftMutation;
 import com.amazonaws.amplify.generated.graphql.DeleteItemsMutation;
-import com.amazonaws.amplify.generated.graphql.DeleteItemzMutation;
 import com.amazonaws.amplify.generated.graphql.UpdateItemsMutation;
-import com.amazonaws.amplify.generated.graphql.UpdateItemzMutation;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.myapplication.Inventory.ManageInventory;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.annotation.Nonnull;
 
 import type.CreateItemsInput;
-import type.CreateItemzInput;
-import type.CreatePetInput;
-import type.CreateShiftInput;
 import type.DeleteItemsInput;
-import type.DeleteItemzInput;
 import type.UpdateItemsInput;
-import type.UpdateItemzInput;
 
 public class DisplayItemsEmployee extends Activity {
     //All the fields
@@ -99,7 +83,7 @@ public class DisplayItemsEmployee extends Activity {
         else {
             String strStreet = "";
 
-            Button b = findViewById(R.id.button1);
+            Button b = findViewById(R.id.updateItemButton);
             name.setText(itemName);
             name.setFocusable(true);
             name.setClickable(true);

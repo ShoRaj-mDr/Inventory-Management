@@ -3,61 +3,61 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.amazonaws.amplify.generated.graphql.CreateItemsMutation;
-import com.amazonaws.amplify.generated.graphql.CreateItemzMutation;
-import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
-import com.amazonaws.amplify.generated.graphql.CreateShiftMutation;
 import com.amazonaws.amplify.generated.graphql.DeleteItemsMutation;
-import com.amazonaws.amplify.generated.graphql.DeleteItemzMutation;
 import com.amazonaws.amplify.generated.graphql.UpdateItemsMutation;
-import com.amazonaws.amplify.generated.graphql.UpdateItemzMutation;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.annotation.Nonnull;
 
 import type.CreateItemsInput;
-import type.CreateItemzInput;
-import type.CreatePetInput;
-import type.CreateShiftInput;
 import type.DeleteItemsInput;
-import type.DeleteItemzInput;
 import type.UpdateItemsInput;
-import type.UpdateItemzInput;
 
 public class DisplayItems extends Activity {
-    //All the fields
+
+    // Initialize all the fields
     private TextView name ;
     private TextView descriptiontxt;
     private TextView currentExpense;
     private TextView newExpense;
 
-    String itemID;
-    String itemName;
-    String itemDescription;
-    int itemQuantity;
-    double itemPrice;
+    private String itemID;
+    private String itemName;
+    private String itemDescription;
+    private int itemQuantity;
+    private double itemPrice;
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_items);
-        //Initialize Fields
+
+        // This thing will crash the app, cuz both employee menu and admin menu uses this with different layouts
+         /* toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        }); */
+
+
+        // Initialize Fields
         name = findViewById(R.id.editTextName);
         descriptiontxt = findViewById(R.id.editTextPhone);
         currentExpense = findViewById(R.id.editTextStreet);
@@ -98,7 +98,7 @@ public class DisplayItems extends Activity {
         else {
             String strStreet = "";
 
-            Button b = findViewById(R.id.button1);
+            Button b = findViewById(R.id.updateItemButton);
             name.setText(itemName);
             name.setFocusable(true);
             name.setClickable(true);

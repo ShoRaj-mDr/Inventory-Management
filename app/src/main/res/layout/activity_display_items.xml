@@ -1,194 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:background="#1B1B1B"
-    tools:context=".DisplayItems" >
+    tools:context=".DisplayItems">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/display_item_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/display_item_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/display_item_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="18sp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@id/display_item_appbar"
+        android:text="Update Product"
+        android:textColor="#303F9F"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/itemRelativeLayout7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/display_item_textview"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="12dp"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="149dp"
+            android:layout_marginTop="5dp"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextStreet"
+            android:layout_alignStart="@+id/editTextStreet"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="number"
+            tools:ignore="PrivateResource,TextFields" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/editTextName"
+            android:layout_alignParentStart="true"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            tools:ignore="PrivateResource" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView1"
+            android:layout_alignBottom="@+id/editTextEmail"
+            android:text="Quantity"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView1"
+            android:layout_alignBottom="@+id/editTextPhone"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editTextEmail"
+            android:layout_alignStart="@+id/textView5"
+            android:text="Price"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/editTextStreet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextPhone"
+            android:layout_alignStart="@+id/editTextName"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="number|numberDecimal">
+            <requestFocus />
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextName"
+            android:layout_alignStart="@+id/editTextStreet"
+            android:layout_marginTop="10dp"
+            android:autofillHints="Specify what type of item this is"
+            android:ems="10"
+            android:inputType=""
+            tools:ignore="LabelFor,PrivateResource,TextFields" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
-
-        <LinearLayout
-            android:id="@+id/itemLayout10"
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="item"
-                android:textColor="@color/cardview_light_background"
-                android:textSize="40sp"
-                android:gravity="center"
-                tools:ignore="PrivateResource" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_below="@+id/itemLayout10"
-            android:layout_width="fill_parent"
-            android:layout_height="1.5dp"
-            android:layout_marginTop="5dp"
-            android:background="#FFFFFF"/>
-
-        <RelativeLayout
-            android:id="@+id/itemRelativeLayout7"
-            android:layout_width="wrap_content"
-            android:layout_height="290dp"
-            android:layout_marginTop="35dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:background="#DAD1C4"
-            android:layout_below="@id/itemLayout10" >
-
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="149dp"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:importantForAutofill="no"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/editTextStreet"
-                android:layout_below="@+id/editTextStreet"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="number"
-                tools:ignore="PrivateResource,TextFields" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/editTextName"
-                android:layout_alignParentStart="true"
-                android:text="Name"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                tools:ignore="PrivateResource" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textView1"
-                android:layout_alignBottom="@+id/editTextEmail"
-                android:text="Quantity"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textView1"
-                android:layout_alignBottom="@+id/editTextPhone"
-                android:text="Description"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/editTextEmail"
-                android:layout_alignStart="@+id/textView5"
-                android:text="Price"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/editTextStreet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextPhone"
-                android:layout_alignStart="@+id/editTextName"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="number|numberDecimal">
-
-                <requestFocus />
-            </EditText>
-
-            <EditText
-                android:id="@+id/editTextPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextName"
-                android:layout_alignStart="@+id/editTextStreet"
-                android:layout_marginTop="10dp"
-                android:autofillHints="Specify what type of item this is"
-                android:ems="10"
-                android:inputType=""
-                tools:ignore="LabelFor,PrivateResource,TextFields" />
-
-        </RelativeLayout>
+        android:gravity="center"
+        android:layout_margin="30dp"
+        android:layout_below="@+id/itemRelativeLayout7">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/updateItemButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/itemRelativeLayout7"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="45dp"
             android:background="#5BC3EB"
             android:onClick="run"
-            android:text="save" />
+            android:text="Update" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/itemRelativeLayout7"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="47dp"
-            android:layout_toEndOf="@+id/button1"
+            android:layout_toEndOf="@+id/updateItemButton"
+            android:layout_marginStart="50dp"
             android:background="#E55812"
             android:onClick="run2"
             android:text="Delete" />
 
-        <Button
-            android:id="@+id/addBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/itemRelativeLayout7"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_toEndOf="@+id/button"
-            android:onClick="add"
-            android:text="+" />
-
-        <Button
-            android:id="@+id/subBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/addBTN"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/button"
-            android:onClick="sub"
-            android:text="-" />
-
     </RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>
