@@ -27,3 +27,104 @@
     </group>
 
 </vector>
+<!--<vector-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:aapt="http://schemas.android.com/aapt"-->
+<!--    android:width="400dp"-->
+<!--    android:height="400dp"-->
+<!--    android:viewportWidth="246"-->
+<!--    android:viewportHeight="246"-->
+<!--    >-->
+
+<!--    <group>-->
+
+<!--        <clip-path-->
+<!--            android:pathData="M15 0H231C239.284 0 246 6.71573 246 15V231C246 239.284 239.284 246 231 246H15C6.71573 246 0 239.284 0 231V15C0 6.71573 6.71573 0 15 0Z"-->
+<!--            />-->
+
+<!--        <group-->
+<!--            android:translateX="0.5"-->
+<!--            android:translateY="-0.427"-->
+<!--            android:pivotX="123"-->
+<!--            android:pivotY="123"-->
+<!--            android:scaleX="2.621"-->
+<!--            android:scaleY="2.621"-->
+<!--            android:rotation="45"-->
+<!--            >-->
+
+<!--            <path-->
+<!--                android:pathData="M0 0V246H246V0"-->
+<!--                >-->
+
+<!--                <aapt:attr name="android:fillColor">-->
+
+<!--                    <gradient-->
+<!--                        android:type="radial"-->
+<!--                        android:centerX="123"-->
+<!--                        android:centerY="123"-->
+<!--                        android:gradientRadius="61.5"-->
+<!--                        >-->
+
+<!--                        <item-->
+<!--                            android:color="#FF5C00"-->
+<!--                            android:offset="0.036"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#C4847C52"-->
+<!--                            android:offset="0.156"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#755CF942"-->
+<!--                            android:offset="0.286"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#00D1FF"-->
+<!--                            android:offset="0.427"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#D5E4760B"-->
+<!--                            android:offset="0.552"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#D5C6FC2D"-->
+<!--                            android:offset="0.677"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#D56BC1F2"-->
+<!--                            android:offset="0.807"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#D50BE4BD"-->
+<!--                            android:offset="0.927"-->
+<!--                            />-->
+
+<!--                        <item-->
+<!--                            android:color="#D50385BC"-->
+<!--                            android:offset="1"-->
+<!--                            />-->
+
+<!--                    </gradient>-->
+
+<!--                </aapt:attr>-->
+
+<!--            </path>-->
+
+<!--        </group>-->
+
+<!--        <path-->
+<!--            android:pathData="M15 0H231C239.284 0 246 6.71573 246 15V231C246 239.284 239.284 246 231 246H15C6.71573 246 0 239.284 0 231V15C0 6.71573 6.71573 0 15 0Z"-->
+<!--            android:strokeWidth="2"-->
+<!--            android:strokeColor="#000000"-->
+<!--            />-->
+
+<!--    </group>-->
+
+<!--</vector>-->
+

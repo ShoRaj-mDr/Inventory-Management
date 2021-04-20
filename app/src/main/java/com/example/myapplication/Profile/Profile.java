@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,7 @@ public class Profile extends AppCompatActivity {
 
     private TextInputLayout password;
     private EditText userName, email, fullName, phoneNumber;
+    private Toolbar profile_toolbar;
 
     String test1, test2, test3;
 
@@ -37,6 +39,17 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        profile_toolbar = findViewById(R.id.profile_toolbar);
+        setSupportActionBar(profile_toolbar);
+
+        profile_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        profile_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         System.out.println("TEST");
 

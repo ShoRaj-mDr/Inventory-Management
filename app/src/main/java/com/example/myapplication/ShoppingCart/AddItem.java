@@ -1,6 +1,7 @@
 package com.example.myapplication.ShoppingCart;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class AddItem extends AppCompatActivity {
     private double price, totalPrice;
     private EditText quantityText, productPrice, productDescription, productId;
     private Button button;
+    private Toolbar add_item_toolbar;
 
     private ArrayList<ListItemssQuery.Item> mItems;
     private ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -78,6 +80,18 @@ public class AddItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        add_item_toolbar = findViewById(R.id.add_item_toolbar);
+        setSupportActionBar(add_item_toolbar);
+
+        add_item_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        add_item_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)

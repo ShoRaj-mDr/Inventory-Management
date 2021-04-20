@@ -21,25 +21,26 @@
             app:liftOnScroll="true">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/profile_toolbar"
+                android:id="@+id/add_item_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
-            android:id="@+id/back_to_menu"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:onClick="backToMenu"
-            android:src="@drawable/profile_exit_foreground" />
+<!--        <ImageView-->
+<!--            android:id="@+id/back_to_menu"-->
+<!--            android:layout_width="55dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:clickable="true"-->
+<!--            android:onClick="backToMenu"-->
+<!--            android:src="@drawable/profile_exit_foreground" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="7dp">
 
             <TextView
                 android:id="@+id/edit_profile_text"
@@ -48,7 +49,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Shopping Cart"
                 android:textColor="#FFFFFF"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -69,7 +70,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_item_product_name_text_input_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="66dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -83,10 +84,10 @@
         <AutoCompleteTextView
             android:id="@+id/add_item_auto_complete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_height="59dp"
             android:ems="10"
             android:hint="Product Name"
+            android:padding="16.5dp"
             android:singleLine="true"
             android:completionThreshold="1"/>
 
@@ -237,7 +238,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bottom_bg"
         android:text="Add to Shopping Cart"
         android:textColor="@color/colorWhite" />
 

@@ -7,41 +7,39 @@
     tools:context="Checkout.Checkout">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/profile_appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:liftOnScroll="true">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/checkout_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="?attr/actionBarSize">
 
             <TextView
-                android:id="@+id/checkout_title"
-                android:layout_width="285dp"
-                android:layout_height="62dp"
-                android:gravity="center"
-                android:layout_toRightOf="@id/back"
-                android:text="Checkout"
-                android:textSize="36sp"
+                android:id="@+id/edit_profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Shopping Cart"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:gravity="center"
-                android:clickable="true"
-                android:onClick="back"
-                android:src="@drawable/profile_exit_foreground" />
-
-        </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:background="?attr/colorPrimary"
+            app:tabBackground="?attr/colorPrimary"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabTextColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorAccent"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <!--    <androidx.viewpager.widget.ViewPager-->
@@ -55,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:id="@+id/fab"-->

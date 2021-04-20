@@ -155,7 +155,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:background="@drawable/bottom_bg"
                 android:text="Back to Shipping"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="10dp"
@@ -168,7 +167,6 @@
                 android:layout_weight="1"
                 android:text="Continue to Confirmation"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/bottom_bg"
                 android:textColor="@color/colorWhite"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="30dp" />

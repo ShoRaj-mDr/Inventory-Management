@@ -30,4 +30,11 @@
     <string name="tab_text_2">Payment</string>
     <string name="tab_text_3">Confirmation</string>
 
+    <!-- String values for Report Window -->
+    <string name="report_title"><u>Report Bugs/Issue</u></string>
+    <style name="Animation">
+        <item name="android:windowEnterAnimation">@anim/nav_default_pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/nav_default_pop_exit_anim</item>
+    </style>
+
 </resources>

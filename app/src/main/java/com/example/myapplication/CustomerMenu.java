@@ -40,7 +40,7 @@ import type.UpdatePetInput;
 
 public class CustomerMenu extends AppCompatActivity {
     private ListView employeeMenu_listView;
-    private Toolbar employee_toolbar;
+    private Toolbar customer_toolbar;
     View popupView;
     PopupWindow popupWindow;
     LayoutInflater reportInflater;
@@ -176,7 +176,8 @@ public class CustomerMenu extends AppCompatActivity {
             int width = size.x;
             int height = size.y;
             boolean focusable = true;
-            popupWindow = new PopupWindow(popupView, (int)(width*.8), (int)(height*.6), focusable);
+            popupWindow = new PopupWindow(popupView, (int)(width*.9), (int)(height*.55), focusable);
+            popupWindow.setAnimationStyle(R.style.Animation);
 
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
@@ -203,7 +204,7 @@ public class CustomerMenu extends AppCompatActivity {
 
                     try {
                         startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                        finish();
+//                        finish();
                         Log.i("Finished sending email...", "");
                     } catch (android.content.ActivityNotFoundException ex) {
                         displayToast("There is no email client installed.");
@@ -239,8 +240,11 @@ public class CustomerMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_menu);
 //        employeeMenu_listView = findViewById(R.id.employee_listView);
-        employee_toolbar = findViewById(R.id.create_item_toolbar);
-        setSupportActionBar(employee_toolbar);
+        customer_toolbar = findViewById(R.id.create_item_toolbar);
+        setSupportActionBar(customer_toolbar);
+
+        TextView intro = (TextView) findViewById(R.id.testtxt);
+        intro.setText("Hello, " + currentUser.name + "!");
 
 
 //        EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);

@@ -1,6 +1,7 @@
 package com.example.myapplication.Checkout;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,13 +60,27 @@ public class ShippingFragment extends Fragment {
                 String city = shippingCity.getText().toString();
                 String zip = shippingZip.getText().toString();
                 if(!name.equals("") && !addr.equals("") && !phone.equals("") && !city.equals("") && !zip.equals("")) {
-                    addShipping(customerID, name, addr, phone, city, zip);
-                    // TODO: Need to set up update so that only 1 user can have 1 item in the db table
+                    if (phone.length() == 10 && zip.length() == 5) {
+                        addShipping(customerID, name, addr, phone, city, zip);
+                        // TODO: Need to set up update so that only 1 user can have 1 item in the db table
 
-                    ViewPager viewPager = getActivity().findViewById(R.id.view_pager);
-                    viewPager.setCurrentItem(1);
+                        ViewPager viewPager = getActivity().findViewById(R.id.view_pager);
+                        viewPager.setCurrentItem(1);
+                    } else {
+                        if (phone.length() != 10) {
+                            shippingPhone.setError("Phone number does not exist!");
+                        }
+                        if (zip.length() != 5) {
+                            shippingZip.setError("Zip Code does not exist!");
+                        }
+                    }
                 } else {
-                    displayToast("Information is missing");
+//                    displayToast("Information is missing");
+                    textviewEmpty(shippingName, name, "Name");
+                    textviewEmpty(shippingAddress, addr, "Address");
+                    textviewEmpty(shippingPhone, phone, "Phone");
+                    textviewEmpty(shippingCity, city, "City");
+                    textviewEmpty(shippingZip, zip, "Zip-Code");
                 }
             }
         });
@@ -77,6 +92,14 @@ public class ShippingFragment extends Fragment {
         CreateShippingInput input = CreateShippingInput.builder().userID(userID).name(name).phone(phone).address(addr).city(city).zip(zip).build();
         CreateShippingMutation addShippingMutation = CreateShippingMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(addShippingMutation).enqueue(mutateCallbackShipping);
+    }
+
+    public void textviewEmpty(TextView tv, String s, String title) {
+        String Error = title + " is missing!";
+        if(TextUtils.isEmpty(s)) {
+            tv.setError(Error);
+            return;
+        }
     }
 
     // Create item in the table

@@ -6,7 +6,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#F28EDCD4</item>
+<!--        <item name="colorAccent">#F28EDCD4</item>-->
+        <item name="colorAccent">@color/colorAccent</item>
         <!-- Make menu's background light -->
         <item name="android:itemBackground">#FFFFFF</item>
         <!-- Make text of menu black -->
@@ -19,6 +20,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Button.Default" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <!-- Base application theme. -->
 <!--    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">-->

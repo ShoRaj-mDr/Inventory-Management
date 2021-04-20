@@ -142,7 +142,6 @@
             android:text="Continue to Payment"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:background="@drawable/bottom_bg"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>

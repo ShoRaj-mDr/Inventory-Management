@@ -3,6 +3,7 @@ package com.example.myapplication.ShoppingCart;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -31,13 +32,24 @@ public class ShoppingCart extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int totalPrice = 0;
     private TextView textViewToChange;
+    private Toolbar shopping_cart_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-        //Todo: Change Price to total price of the list
+        shopping_cart_toolbar = findViewById(R.id.shopping_cart_toolbar);
+        setSupportActionBar(shopping_cart_toolbar);
+
+        shopping_cart_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
+        shopping_cart_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         textViewToChange = (TextView) findViewById(R.id.price);
         textViewToChange.setText("0");
 
