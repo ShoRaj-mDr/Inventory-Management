@@ -25,6 +25,7 @@ import com.example.myapplication.Orderlist.ItemAdapter;
 import com.example.myapplication.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     private final ArrayList<Item> items;
     private String modifiedName, modifiedPrice, modifiedQuantity, newName;
-    private TextView modName, modPrice, modQuantity;
+    private TextView modName, modPrice, modQuantity, oldQuantity;
     PopupWindow popupWindow;
     View popupView;
     Button save, delete;
@@ -60,7 +61,6 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     public void onBindViewHolder(ShoppingCartAdapter.ViewHolder holder, int position) {
         item = items.get(position);
         modifiedName = item.getName();
-        pos = position;
         modifiedPrice = String.valueOf(item.getPrice());
         modifiedQuantity = String.valueOf(item.getQuantity());
 //        if (item.getName() != null) {
@@ -96,6 +96,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             LayoutInflater modInflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             popupView = modInflater.inflate(R.layout.modify_shopping_cart_item, (ViewGroup) view.findViewById(R.id.mod_popup_layout));
 
+            for(int i = 0; i < items.size(); i++) {
+                if(this.itemName.getText().equals(items.get(i).getName())) {
+                    pos = i;
+                }
+            }
+
             System.out.println(modifiedName + ", " + modifiedPrice + ", " + modifiedQuantity);
 
 //            Display display = view.getWindowManager().getDefaultDisplay();
@@ -117,7 +123,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             modPrice.setText(modifiedPrice);
             modQuantity.setText(modifiedQuantity);
             quant.setText(modifiedQuantity);
-            newMaxQuantity = items.get(pos).getMaxQuantity();
+
 
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
@@ -171,6 +177,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             inc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    newMaxQuantity = items.get(pos).getMaxQuantity();
                     newQuantity = Integer.parseInt(quant.getText().toString());
                     newQuantity++;
                     if(newQuantity <= newMaxQuantity) {

@@ -103,6 +103,20 @@ public class ShoppingCart extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        System.out.println("HELLOGUYSLOOKHERE");
+//        mAdapter.notifyDataSetChanged();
+//        double newTotalPrice = 0;
+//        for(int i = 0; i < items.size(); i++) {
+//            newTotalPrice += (items.get(i).getPrice() * items.get(i).getQuantity());
+//        }
+//        newTotalPrice *= 4;
+//        String newPrice = String.format("%.02f", newTotalPrice);
+//        textViewToChange.setText(newPrice);
+    }
+
     /**
      * Displays a Toast with the message.
      *
