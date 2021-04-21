@@ -37,4 +37,9 @@
         <item name="android:windowExitAnimation">@anim/nav_default_pop_exit_anim</item>
     </style>
 
+    <!-- String values for Modify Popup Window in Shopping Cart -->
+    <string name="mod_name">Name</string>
+    <string name="mod_price">Price</string>
+    <string name="mod_real_quantity">Quantity</string>
+
 </resources>

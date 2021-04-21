@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ShoppingCart extends AppCompatActivity {
 
-    private final List<Item> items = new ArrayList<>(); //Make this static so Checkout can access
+    private final ArrayList<Item> items = new ArrayList<>(); //Make this static so Checkout can access
     private ShoppingCartAdapter mAdapter;
     private RecyclerView recyclerView;
     private int totalPrice = 0;

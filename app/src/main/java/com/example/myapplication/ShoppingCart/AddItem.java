@@ -157,7 +157,7 @@ public class AddItem extends AppCompatActivity {
                 newPrice = String.format("%.02f", (price * quantity));
                 totalPrice = Double.parseDouble(newPrice);
                 if(totalPrice != 0 && item != null && quantity != 0) {
-                    Item tempItem = new Item(item, totalPrice, quantity);
+                    Item tempItem = new Item(item, totalPrice, quantity, Integer.parseInt(items.get(itemPosition).get(4)));
                     Intent intent = new Intent();
                     intent.putExtra("item", tempItem);
                     setResult(Activity.RESULT_OK, intent);

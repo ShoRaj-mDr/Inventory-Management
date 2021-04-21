@@ -10,6 +10,7 @@ public class Item implements Parcelable {
     private String description;
     private double price;
     private int quantity;
+    private int maxQuantity;
 
     public Item(int id, String name, String description, double price, int quantity) {
         this.id = id;
@@ -19,10 +20,11 @@ public class Item implements Parcelable {
         this.quantity = quantity;
     }
 
-    public Item(String name, double price, int quantity) {
+    public Item(String name, double price, int quantity, int maxQuantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.maxQuantity = maxQuantity;
     }
 
     protected Item(Parcel in) {
@@ -31,6 +33,7 @@ public class Item implements Parcelable {
         description = in.readString();
         price = in.readDouble();
         quantity = in.readInt();
+        maxQuantity = in.readInt();
     }
 
     public long getId() {
@@ -73,6 +76,10 @@ public class Item implements Parcelable {
         this.quantity = quantity;
     }
 
+    public int getMaxQuantity() { return maxQuantity; }
+
+    public void setMaxQuantity(int maxQuantity) { this.maxQuantity = maxQuantity; }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -80,6 +87,7 @@ public class Item implements Parcelable {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", max quantity=" + maxQuantity +
                 '}';
     }
 
@@ -95,6 +103,7 @@ public class Item implements Parcelable {
         parcel.writeString(description);
         parcel.writeDouble(price);
         parcel.writeInt(quantity);
+        parcel.writeInt(maxQuantity);
     }
 
     public static final Creator<Item> CREATOR = new Creator<Item>() {

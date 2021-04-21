@@ -37,8 +37,9 @@ public class ConfirmListAdapter extends ArrayAdapter<Item> {
         String name = getItem(position).getName();
         int quantity = getItem(position).getQuantity();
         double price = getItem(position).getPrice();
+        int maxQuant = getItem(position).getMaxQuantity();
 
-        Item item = new Item(name, price, quantity);
+        Item item = new Item(name, price, quantity, maxQuant);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
