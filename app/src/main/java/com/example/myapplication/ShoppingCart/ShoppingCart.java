@@ -87,18 +87,50 @@ public class ShoppingCart extends AppCompatActivity {
 
         if(requestCode == 1 && resultCode == RESULT_OK && data.getParcelableExtra("item") != null) {
             Item item = data.getParcelableExtra("item");
-            items.add(item);
-            mAdapter.notifyDataSetChanged();
-            double priceChange = Double.parseDouble(textViewToChange.getText().toString()) + item.getPrice();
-            String newPrice = String.format("%.02f", priceChange);
-            textViewToChange.setText(newPrice);
-            displayToast("Item added!");
+            System.out.println(item);
+            if(items.size() == 0) { // When there is no item in the arraylist
+                // Adds item in the arraylist
+                items.add(item);
+                mAdapter.notifyDataSetChanged();
+                double priceChange = Double.parseDouble(textViewToChange.getText().toString()) + item.getPrice();
+                String newPrice = String.format("%.02f", priceChange);
+                textViewToChange.setText(newPrice);
+                displayToast("Item added!");
+            } else {
+                boolean tester = false; // to make sure that item isn't in the arraylist
+                for(int i = 0; i < items.size(); i++) {
+                    // Checks if item is in the arraylist
+                    if((items.get(i).getName().equals(item.getName()))) {
+                        displayToast("Item is already in the Shopping Cart");
+                        tester = true; // item is in the arraylist
+                    }
+                }
+                if(!tester) { // Item isn't in the arraylist
+                    //Adds item in the arraylist
+                    System.out.println("Went into this loop false");
+                    items.add(item);
+                    mAdapter.notifyDataSetChanged();
+                    double priceChange = Double.parseDouble(textViewToChange.getText().toString()) + item.getPrice();
+                    String newPrice = String.format("%.02f", priceChange);
+                    textViewToChange.setText(newPrice);
+                    displayToast("Item added!");
+                }
+            }
         }
     }
 
     public void setNewPrice(double price){
         double newTotalPrice = Double.parseDouble(textViewToChange.getText().toString());
         String newPrice = String.format("%.02f", newTotalPrice - price);
+        textViewToChange.setText(newPrice);
+    }
+
+    public void changingPrice() {
+        double changePrice = 0;
+        for(int i = 0; i < items.size(); i++) {
+            changePrice += items.get(i).getPrice();
+        }
+        String newPrice = String.format("%.02f", changePrice);
         textViewToChange.setText(newPrice);
     }
 

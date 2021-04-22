@@ -31,23 +31,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/testtxt"
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:layout_below="@+id/employee_appbar_layout"
-        android:gravity="center"
-        android:text="Admin"
-        android:textSize="25dp" />
-
     <ListView
         android:id="@+id/employee_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/testtxt"
+        android:layout_below="@+id/employee_appbar_layout"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
         android:divider="#E9EAEC"
         android:dividerHeight="5dp" />
+
+
 
 </RelativeLayout>
