@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +34,7 @@ public class DisplaySupplierFragment extends Fragment {
     private ArrayList<ListSupplierssQuery.Item> supplierList;
     private RecyclerView recyclerView;
     private DisplaySupplierAdapter mAdapter;
-    private SwipeRefreshLayout refreshLayout;
+    // private SwipeRefreshLayout refreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,32 +49,30 @@ public class DisplaySupplierFragment extends Fragment {
 
         supplierList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.supplier_display_recyclerview);
-        refreshLayout = view.findViewById(R.id.supplier_display_refresh);
 
         ClientFactory.init(getActivity());
-
-        // When refreshing the recyclerview, get the query again
-        /*refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-//                ClientFactory.appSyncClient().query(ListSupplierssQuery.builder().build())
-//                        .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
-//                        .enqueue(queryCallback);
-                onResume();
-                mAdapter.notifyDataSetChanged();
-            }
-        });*/
 
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        Log.i(TAG, "onResumeFragment()");
+        // Toast.makeText(getActivity(), "onResume :" + TAG, Toast.LENGTH_SHORT).show();
+
         ClientFactory.appSyncClient().query(ListSupplierssQuery.builder().build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
     }
+
+    /*
+    private void fetchSuppliers(){
+        ClientFactory.appSyncClient().query(ListSupplierssQuery.builder().build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(queryCallback);
+    }*/
 
     private final GraphQLCall.Callback<ListSupplierssQuery.Data> queryCallback = new GraphQLCall.Callback<ListSupplierssQuery.Data>() {
         @Override
@@ -92,6 +91,8 @@ public class DisplaySupplierFragment extends Fragment {
                 }
             });
         }
+
+
 
         @Override
         public void onFailure(@Nonnull ApolloException e) {

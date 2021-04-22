@@ -1,12 +1,9 @@
 package com.example.myapplication.ShoppingCart;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -17,13 +14,10 @@ import android.widget.Toast;
 
 import com.example.myapplication.Checkout.Checkout;
 import com.example.myapplication.Item.Item;
-import com.example.myapplication.Orderlist.ItemAdapter;
-import com.example.myapplication.Orderlist.SwipeToDeleteCallback;
 import com.example.myapplication.R;
 import com.stone.vega.library.VegaLayoutManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingCart extends AppCompatActivity {
 
@@ -50,13 +44,13 @@ public class ShoppingCart extends AppCompatActivity {
             }
         });
 
-        textViewToChange = (TextView) findViewById(R.id.price);
+        textViewToChange = findViewById(R.id.price);
         textViewToChange.setText("0");
 
         recyclerView = findViewById(R.id.rv_view);
         // recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new VegaLayoutManager());
-        mAdapter = new ShoppingCartAdapter(items);
+        mAdapter = new ShoppingCartAdapter(items, getApplicationContext());
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
@@ -79,7 +73,6 @@ public class ShoppingCart extends AppCompatActivity {
             Intent checkout = new Intent(this, Checkout.class);
             checkout.putExtra("shoppingList", stringArrayList);
             startActivityForResult(checkout, 2);
-
         }
     }
 
@@ -103,18 +96,10 @@ public class ShoppingCart extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        System.out.println("HELLOGUYSLOOKHERE");
-//        mAdapter.notifyDataSetChanged();
-//        double newTotalPrice = 0;
-//        for(int i = 0; i < items.size(); i++) {
-//            newTotalPrice += (items.get(i).getPrice() * items.get(i).getQuantity());
-//        }
-//        newTotalPrice *= 4;
-//        String newPrice = String.format("%.02f", newTotalPrice);
-//        textViewToChange.setText(newPrice);
+    public void setNewPrice(double price){
+        double newTotalPrice = Double.parseDouble(textViewToChange.getText().toString());
+        String newPrice = String.format("%.02f", newTotalPrice - price);
+        textViewToChange.setText(newPrice);
     }
 
     /**

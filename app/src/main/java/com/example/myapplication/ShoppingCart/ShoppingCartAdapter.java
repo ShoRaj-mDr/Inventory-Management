@@ -16,19 +16,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amazonaws.amplify.generated.graphql.ListItemssQuery;
 import com.example.myapplication.Item.Item;
-import com.example.myapplication.Orderlist.ItemAdapter;
 import com.example.myapplication.R;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder> {
 
@@ -43,8 +38,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     private double newPrice;
     EditText quant;
 
-    public ShoppingCartAdapter(ArrayList<Item> itemList) {
+    private Context mContext;
+
+    public ShoppingCartAdapter(ArrayList<Item> itemList, Context mContext) {
         this.items = itemList;
+        this.mContext = mContext;
     }
 
     @NotNull
@@ -53,6 +51,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         // Inflate the item layout
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.list_shopping_cart, parent, false);
+        mContext = parent.getContext();
         return new ShoppingCartAdapter.ViewHolder(view);
     }
 
@@ -92,7 +91,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         @Override
         public void onClick(View view) {
             // Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.itemName.getText(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(view.getContext(), "Item: " + this.itemName.getText(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(view.getContext(), "Item: " + this.itemName.getText(), Toast.LENGTH_SHORT).show();
             LayoutInflater modInflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             popupView = modInflater.inflate(R.layout.modify_shopping_cart_item, (ViewGroup) view.findViewById(R.id.mod_popup_layout));
 
@@ -119,11 +118,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             modPrice = popupView.findViewById(R.id.mod_shoppping_cart_item_price);
             modQuantity = popupView.findViewById(R.id.mod_real_quantity);
             quant = popupView.findViewById(R.id.mod_quantity);
+
             modName.setText(modifiedName);
             modPrice.setText(modifiedPrice);
             modQuantity.setText(modifiedQuantity);
             quant.setText(modifiedQuantity);
-
 
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
@@ -163,6 +162,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    // cheating way :p
+                    ((ShoppingCart) mContext).setNewPrice(items.get(pos).getPrice());
+
                     items.remove(pos);
                     notifyItemRemoved(pos);
                     notifyItemRangeChanged(pos, items.size());

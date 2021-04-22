@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import com.amazonaws.amplify.generated.graphql.CreateSuppliersMutation;
 import com.apollographql.apollo.GraphQLCall;
@@ -57,16 +60,28 @@ public class RegisterSupplierFragment extends Fragment {
                 String addr = supplierAddress.getText().toString();
                 String phone = supplierPhone.getText().toString();
 
-                addSupplier(name, email, addr, phone);
+//                addSupplier(name, email, addr, phone);
 
                 supplierName.setText("");
                 supplierEmail.setText("");
                 supplierAddress.setText("");
                 supplierPhone.setText("");
+
+                ViewPager viewPager = getActivity().findViewById(R.id.supplier_viewpager);
+                viewPager.getAdapter().notifyDataSetChanged();
+                viewPager.setCurrentItem(1);
+
             }
         });
 
         return view;
+    }
+
+
+    private void addSupplier(String name, String email, String addr, String phone) {
+        CreateSuppliersInput input = CreateSuppliersInput.builder().name(name).email(email).address(addr).phone(phone).build();
+        CreateSuppliersMutation addSupplierMutation = CreateSuppliersMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(addSupplierMutation).enqueue(mutateCallbackSupplier);
     }
 
     private final GraphQLCall.Callback<CreateSuppliersMutation.Data> mutateCallbackSupplier = new GraphQLCall.Callback<CreateSuppliersMutation.Data>() {
@@ -75,7 +90,6 @@ public class RegisterSupplierFragment extends Fragment {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-//                    Toast.makeText(this, "Added Supplier", Toast.LENGTH_SHORT).show();
                     //shiftActivity.this.finish();
                     displayToast("Added Supplier");
                 }
@@ -88,7 +102,6 @@ public class RegisterSupplierFragment extends Fragment {
                 @Override
                 public void run() {
                     Log.e("", "Failed to perform AddSupplierMutation", e);
-//                    Toast.makeText(registration_main.this, "Failed to add item", Toast.LENGTH_SHORT).show();
                     displayToast("Failed to add supplier");
                     //shiftActivity.this.finish();
                 }
@@ -96,11 +109,6 @@ public class RegisterSupplierFragment extends Fragment {
         }
     };
 
-    private void addSupplier(String name, String email, String addr, String phone) {
-        CreateSuppliersInput input = CreateSuppliersInput.builder().name(name).email(email).address(addr).phone(phone).build();
-        CreateSuppliersMutation addSupplierMutation = CreateSuppliersMutation.builder().input(input).build();
-        ClientFactory.appSyncClient().mutate(addSupplierMutation).enqueue(mutateCallbackSupplier);
-    }
 
     /**
      * Displays a Toast with the message.
