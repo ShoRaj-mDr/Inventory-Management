@@ -25,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.regions.Regions;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
@@ -74,7 +76,16 @@ public class CustomerMenu extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.dbmain_menu, menu);
+        //getMenuInflater().inflate(R.menu.dbmain_menu, menu);
+        if(currentUser.admin) {
+            getMenuInflater().inflate(R.menu.dbmain_menu, menu);
+            System.out.println("????????????????????????ADMIN MENU");
+        }
+        else if(currentUser.customer){
+            getMenuInflater().inflate(R.menu.dbmain_menu_customer, menu);
+            System.out.println("????????????????????????CUSTOMER MENU");
+
+        }
         return true;
     }
 
@@ -120,8 +131,15 @@ public class CustomerMenu extends AppCompatActivity {
             case R.id.item4:
                 //Toast.makeText(myItems.this, "Bye2", Toast.LENGTH_LONG).show();
                 AWSMobileClient.getInstance().signOut();
-                //Bundle dataBundle = new Bundle();
-                //dataBundle.putInt("id", 1);
+                // initiate a credentials provider
+                CognitoCachingCredentialsProvider provider = new CognitoCachingCredentialsProvider(
+                        getApplicationContext(),
+                        "us-east-2_si1cYK2IO",
+                        Regions.US_EAST_2);
+                provider.clear();
+
+                currentUser.loggingOut=true;
+
                 Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
                 //intent.putExtras(dataBundle);
                 startActivity(i);

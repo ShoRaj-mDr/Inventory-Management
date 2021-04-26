@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 
+import com.amazonaws.amplify.generated.graphql.CreateCustomersMutation;
 import com.amazonaws.amplify.generated.graphql.GetCustomersQuery;
 import com.amazonaws.amplify.generated.graphql.GetEmployeesQuery;
 import com.amazonaws.amplify.generated.graphql.GetPetQuery;
@@ -22,6 +23,8 @@ import com.example.myapplication.EmployeeMenu.EmployeeMenu;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+
+import type.CreateCustomersInput;
 
 public class AuthenticationActivityLoading extends AppCompatActivity {
     String id="";
@@ -194,6 +197,7 @@ public class AuthenticationActivityLoading extends AppCompatActivity {
                         if(!currentUser.customer){
                             Intent intent = new Intent(AuthenticationActivityLoading.this, AuthenticationActivityAddCustomer.class);
                             startActivity(intent);
+                            //save(currentUser.id,currentUser.name,currentUser.email);
                         }
                     }
                 }
@@ -207,6 +211,66 @@ public class AuthenticationActivityLoading extends AppCompatActivity {
 
         }
     };
+
+    private void save(String id,String name,String email) {
+//        final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
+//        final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
+//        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
+//        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
+
+//        CreatePetInput input = CreatePetInput.builder()
+//                .id(currentUser.id)
+//                .name(currentUser.name)
+//                .description("admin")
+//                .build();
+        CreateCustomersInput input = CreateCustomersInput.builder()
+                .id(id)
+                .name(name)
+                .email(email)
+                .build();
+        //CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
+//        CreatePetMutation addPetMutation = CreatePetMutation.builder()
+//                .input(input)
+//                .build();
+
+        CreateCustomersMutation addCustomerMutation= CreateCustomersMutation.builder()
+                .input(input)
+                .build();
+        //CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
+        //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
+        //ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
+        ClientFactory.appSyncClient().mutate(addCustomerMutation).enqueue(mutateCallback22);
+    }
+
+    // Mutation callback code
+    private GraphQLCall.Callback<CreateCustomersMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreateCustomersMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreateCustomersMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
+                    // DisplayItems.this.finish();
+                    Log.i("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%", "Customer added to the DB table!");
+                    //backToAuth();
+                    Intent intent = new Intent(AuthenticationActivityLoading.this, CustomerMenu.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddCustomerMutation", e);
+
+                }
+            });
+        }
+    };
+    //=============================================================================================CREATE
     //======================================================================================isCustomer
 
     public void logInAsCustomer(){

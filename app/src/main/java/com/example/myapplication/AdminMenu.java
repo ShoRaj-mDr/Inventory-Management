@@ -17,10 +17,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.UpdatePetMutation;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
+import com.amazonaws.regions.Regions;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
@@ -59,7 +61,12 @@ public class AdminMenu extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.dbmain_menu, menu);
+        if(currentUser.admin) {
+            getMenuInflater().inflate(R.menu.dbmain_menu, menu);
+        }
+        if(currentUser.customer){
+            getMenuInflater().inflate(R.menu.dbmain_menu_customer, menu);
+        }
         return true;
     }
 
@@ -105,35 +112,16 @@ public class AdminMenu extends AppCompatActivity {
             case R.id.item4:
                 Toast.makeText(AdminMenu.this, "Bye2", Toast.LENGTH_LONG).show();
                 AWSMobileClient.getInstance().signOut();
-                //item.notifyAll();
-                //AWSMobileClient.getInstance().signOut(SignOut)
-//                AWSMobileClient.getInstance().signOut(SignOutOptions.builder().signOutGlobally(true).build(), new Callback<Void>() {
-//                    @Override
-//                    public void onResult(final Void result) {
-//                        Log.d("dddddd", "signed-out");
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        Log.e(TAG, "sign-out error", e);
-//                    }
-//                });
-
-               // AWSMobileClient.getInstance().get
+                CognitoCachingCredentialsProvider provider = new CognitoCachingCredentialsProvider(
+                        getApplicationContext(),
+                        "us-east-2_si1cYK2IO",
+                        Regions.US_EAST_2);
+                provider.clear();
                 currentUser.admin=false;
                 currentUser.loggingOut=true;
-                //Bundle dataBundle = new Bundle();
-                //dataBundle.putInt("id", 1);
+
                 Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-//                //intent.putExtras(dataBundle);
                 startActivity(i);
-                //ProcessPhoenix.triggerRebirth(AuthenticationActivity.class);
-
-//                Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-//                        ProcessPhoenix.triggerRebirth(AdminMenu.this, nextIntent);
-                //moveToAuthentication();
-                //IdentityManager.getDefaultIdentityManager().signOut();
-
                 return true;
 
             case R.id.item5:

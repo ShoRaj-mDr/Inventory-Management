@@ -11,11 +11,19 @@ import com.amazonaws.amplify.generated.graphql.CreatePetMutation;
 import com.amazonaws.amplify.generated.graphql.GetCustomersQuery;
 import com.amazonaws.amplify.generated.graphql.GetEmployeesQuery;
 import com.amazonaws.amplify.generated.graphql.GetPetQuery;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.auth.CognitoCredentialsProvider;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.Callback;
 import com.amazonaws.mobile.client.SignInUIOptions;
 import com.amazonaws.mobile.client.UserStateDetails;
+import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentityClient;
+import com.amazonaws.services.cognitoidentity.model.Credentials;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
@@ -38,6 +46,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+        //customer
+        //cust12345
         //There are 3 types of users -> admin/employee/customer
         //Admin can view the application as any type of user
         //The following will forward the admin to the desired view
@@ -45,6 +55,8 @@ public class AuthenticationActivity extends AppCompatActivity {
         //That way the customer/employee menu does'nt have "View as..." options in its toolbar.
         Log.i("[][][][][][][][][][][][][][]","$$$$$$$$$$$$$$$");
 //        showSignIn();
+        //AWSMobileClient.getInstance().signOut();
+
         if(currentUser.loggingIn) {
 
         }
@@ -80,7 +92,8 @@ public class AuthenticationActivity extends AppCompatActivity {
             AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
                 @Override
                 public void onResult(UserStateDetails userStateDetails) {
-                    //showSignIn3();
+
+                    //AWSMobileClient.getInstance().signOut();
 
                     loggedIn = true;
                     Log.i(TAG, userStateDetails.getUserState().toString());
@@ -89,34 +102,17 @@ public class AuthenticationActivity extends AppCompatActivity {
                     switch (userStateDetails.getUserState()) {
                         case SIGNED_IN:
                             //Only pull data if it is our first time logging in.
-//                            if(currentUser.admin){
-//                                Log.i("ADMIN$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$","$$$$$$$$$$$$$$$");
-//
-//                                if(currentUser.customer){
-//                                    //currentUser.customer=false;
-//                                    logInAsCustomer();
-//                                }
-//                                else if(currentUser.employee){
-//                                    //currentUser.employee=false;
-//                                    logInAsEmployee();
-//                                }
-//                                else {
-//                                    logInAsAdmin();
-//                                }
-//
-//                            }
+
                             if (!currentUser.hasData) {
                                 try {
                                     //Pull user data from Cognito and save it locally.
                                     pullUserData();
-//                                    Intent intent = new Intent(AuthenticationActivity.this, AuthenticationActivityAddCustomer.class);
-//                                    startActivity(intent);
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
-//                                Intent i2 = new Intent(AuthenticationActivity.this, AdminMenu.class);
-//                                startActivity(i2);
+
 
                                 //Check our 3 DB tables to see what type of user is logging in.
                                 Log.i("MAIN MENU", "WE ARE BACK");
@@ -130,10 +126,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                             }
                             break;
                         case SIGNED_OUT:
-//                            currentUser.hasData = false;
-//                            currentUser.admin = false;
-//                            currentUser.employee = false;
-//                            currentUser.customer = false;
+
                             Log.i("++++++++++++++++++++++++++++++++++++++++++++++++++++", "$$$$$$$$$$$$$$$");
 
                             showSignIn2();
@@ -151,6 +144,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                 public void onError(Exception e) {
                     Log.e(TAG, e.toString());
                     Log.i("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERORRR", "$$$$$$$$$$$$$$$");
+                    showSignIn2();
+
 
                 }
             });
@@ -160,6 +155,13 @@ public class AuthenticationActivity extends AppCompatActivity {
     //The .nextActivity() might need to be this activity, so the user info can be viewed.
     private void showSignIn2() {
         try {
+            CognitoCachingCredentialsProvider provider = new CognitoCachingCredentialsProvider(
+                    getApplicationContext(),
+                    "us-east-2_si1cYK2IO",
+                    Regions.US_EAST_2);
+            provider.clear();
+
+           // provider.refresh();
             currentUser.loggingIn=true;
             AWSMobileClient.getInstance().showSignIn(this,
                     SignInUIOptions.builder().nextActivity(AuthenticationActivityLoading.class).build());

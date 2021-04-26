@@ -32,26 +32,27 @@ public class AuthenticationActivityAddCustomer extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         Log.i("WELCOME ","TO THE BLANK ACTIVITY");
-        if(currentUser.loggingIn){
-            //AWSMobileClient.getInstance().initialize(AuthenticationActivityAddCustomer.this);
-            //backToAuth();
-            Log.i("WELCOME2 ","TO THE BLANK ACTIVITY");
-
-            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
-            ProcessPhoenix.triggerRebirth(AuthenticationActivityAddCustomer.this, nextIntent);
-
-        }
-        else {
-            try {
-                name = getCognitoName();
-                id = getCognitoID();
-                email = getCognitoEmail();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            save(id, name, email);
-            //AuthenticationActivity.class.
-        }
+//        if(currentUser.loggingIn){
+//            //AWSMobileClient.getInstance().initialize(AuthenticationActivityAddCustomer.this);
+//            //backToAuth();
+//            Log.i("WELCOME2 ","TO THE BLANK ACTIVITY");
+//
+//            Intent nextIntent = new Intent(getApplicationContext(), AuthenticationActivity.class);
+//            ProcessPhoenix.triggerRebirth(AuthenticationActivityAddCustomer.this, nextIntent);
+//
+//        }
+//        else {
+//            try {
+//                name = getCognitoName();
+//                id = getCognitoID();
+//                email = getCognitoEmail();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            save(id, name, email);
+//            //AuthenticationActivity.class.
+            save(currentUser.id,currentUser.name,currentUser.email);
+      //  }
     }
     public String getCognitoName() throws Exception {
         Map m1= AWSMobileClient.getInstance().getUserAttributes();
@@ -124,7 +125,7 @@ public class AuthenticationActivityAddCustomer extends AppCompatActivity {
     //=============================================================================================CREATE
     public void backToAuth(){
         Log.i("LOGING IN ","AS CUSTOMER");
-        Intent intent = new Intent(AuthenticationActivityAddCustomer.this, AuthenticationActivity.class);
+        Intent intent = new Intent(AuthenticationActivityAddCustomer.this, CustomerMenu.class);
         startActivity(intent);
     }
 }
