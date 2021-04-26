@@ -83,6 +83,7 @@ public class PaymentFragment extends Fragment {
                 paymentExp.setText(users.get(i).get(3));
                 paymentCvv.setText(users.get(i).get(4));
                 id = users.get(i).get(5);
+                break;
             } else { foundUser = false; }
         }
 
@@ -99,15 +100,7 @@ public class PaymentFragment extends Fragment {
                 if(!name.equals("") && !ccNum.equals("") && !exp.equals("") && !cvv.equals("")) {
                     if(ccNum.length() == 16 && cvv.length() == 3) {
                         if(foundUser) {
-                            UpdatePaymentInput input = UpdatePaymentInput
-                                    .builder()
-                                    .id(id)
-                                    .userID(customerID)
-                                    .name(name)
-                                    .ccNumber(ccNum)
-                                    .exp(exp)
-                                    .cvv(cvv)
-                                    .build();
+                            UpdatePaymentInput input = UpdatePaymentInput.builder().id(id).userID(customerID).name(name).ccNumber(ccNum).exp(exp).cvv(cvv).build();
 
                             UpdatePaymentMutation updatePaymentMutation = UpdatePaymentMutation.builder().input(input).build();
                             ClientFactory.appSyncClient().mutate(updatePaymentMutation).enqueue(mutateCallback3);

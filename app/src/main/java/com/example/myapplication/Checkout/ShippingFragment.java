@@ -85,6 +85,7 @@ public class ShippingFragment extends Fragment {
                 shippingCity.setText(users.get(i).get(4));
                 shippingZip.setText(users.get(i).get(5));
                 id = users.get(i).get(6);
+                break;
             } else { foundUser = false; }
         }
 
@@ -102,21 +103,12 @@ public class ShippingFragment extends Fragment {
                     if(phone.length() == 10 && zip.length() == 5) {
                         if(foundUser) {
                             //UpdateItemsInput input= UpdateItemsInput.builder().id(id).name(name).description(description).price(price).quantity(quantity).build();
-                            UpdateShippingInput input = UpdateShippingInput
-                                    .builder()
-                                    .id(id)
-                                    .userID(customerID)
-                                    .name(name)
-                                    .phone(phone)
-                                    .address(addr)
-                                    .city(city)
-                                    .zip(zip)
-                                    .build();
+                            UpdateShippingInput input = UpdateShippingInput.builder().id(id).userID(customerID).name(name).phone(phone).address(addr).city(city).zip(zip).build();
 
                             UpdateShippingMutation updateShippingMutation = UpdateShippingMutation.builder().input(input).build();
                             ClientFactory.appSyncClient().mutate(updateShippingMutation).enqueue(mutateCallback3);
                             System.out.println("SUCCESS Updated" + name);
-                        } else {
+                        } else if (!foundUser){
                             addShipping(customerID, name, phone, addr, city, zip);
                             System.out.println("Added User Information: " + customerID + ", " + name + ", " + phone + ", " + addr + ", " + city + ", " + zip);
                         }
