@@ -46,7 +46,7 @@ public class ShippingFragment extends Fragment {
     private EditText shippingName, shippingPhone, shippingAddress, shippingCity, shippingZip;
     Button from;
     private boolean foundUser;
-    String id;
+    private String id;
 
     private ArrayList<ListShippingsQuery.Item> mUsers;
     private ArrayList<ArrayList<String>> users = new ArrayList<ArrayList<String>>();
@@ -99,7 +99,7 @@ public class ShippingFragment extends Fragment {
                 String city = shippingCity.getText().toString();
                 String zip = shippingZip.getText().toString();
                 if(!name.equals("") && !addr.equals("") && !phone.equals("") && !city.equals("") && !zip.equals("")) {
-                    if (phone.length() == 10 && zip.length() == 5) {
+                    if(phone.length() == 10 && zip.length() == 5) {
                         if(foundUser) {
                             //UpdateItemsInput input= UpdateItemsInput.builder().id(id).name(name).description(description).price(price).quantity(quantity).build();
                             UpdateShippingInput input = UpdateShippingInput
