@@ -38,6 +38,7 @@
         <activity android:name=".Orderlist.OrderList" />
         <activity android:name=".Orderlist.CreateItem" />
         <activity android:name=".Supplier.AddSupplier" />
+        <activity android:name=".shiftActivity" />
         <activity
             android:name=".Profile.Profile"
             android:label="" />

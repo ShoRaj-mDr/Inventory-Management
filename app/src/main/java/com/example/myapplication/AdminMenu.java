@@ -279,6 +279,9 @@ public class AdminMenu extends AppCompatActivity {
                 } else if (i == 2) {   // Shift Management
                     displayToast("Shift Management Clicked! ");
 
+                    Intent startShiftActivity = new Intent(AdminMenu.this, shiftActivity.class);
+                    startActivity(startShiftActivity);
+
                 } else if (i == 3) {   // Suppliers
                     Intent startAddSupplier = new Intent(AdminMenu.this, AddSupplier.class);
                     startActivity(startAddSupplier);

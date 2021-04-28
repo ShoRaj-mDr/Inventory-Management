@@ -15,10 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.amplify.generated.graphql.CreateItemsMutation;
+import com.amazonaws.amplify.generated.graphql.ListItemssQuery;
+import com.amazonaws.amplify.generated.graphql.ListShiftsQuery;
+import com.amazonaws.amplify.generated.graphql.UpdateItemsMutation;
+import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.myapplication.ClientFactory;
+import com.example.myapplication.DisplayItems;
 import com.example.myapplication.Item.Item;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +35,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import type.CreateItemsInput;
+import type.UpdateItemsInput;
 
 public class OrderList extends AppCompatActivity {
 
@@ -42,6 +48,9 @@ public class OrderList extends AppCompatActivity {
     private FloatingActionButton fab1_main;
     private Toolbar toolbar;
 
+    private ArrayList<ListItemssQuery.Item> mItems;
+
+    boolean match = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,15 +86,87 @@ public class OrderList extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int count = 0;
                 if (!items.isEmpty()){
                     for (Item i: items){
+                        //search existing items
+                        // if "soda" exists already... then mItems(i).quantity() = mItems(i).quantity + items(i).getQuantity
+                        for (ListItemssQuery.Item t: mItems){
+                            if (i.getName().equalsIgnoreCase(t.name())){
+                                Log.i("matching item name","matching item name" );
+                                updateExistingItemQuantity(t.id(), t.quantity(), i.getQuantity());
+                                match = true;
+                                break;
+                            }
+                        }
+
+                        if(match == true){
+                            match = false;
+                            if(items.size() == 1){
+                                OrderList.this.finish();
+                                break;
+                            }
+                            else if(count == items.size()  ){
+                                OrderList.this.finish();
+                            }
+                            else{
+                                continue;
+                            }
+                        }
+
                         addItemToDB(i);
+                        count++;
                     }
                 }
             }
         });
 
+        aquireListOfPreExistingItems();
+
     }
+
+    private void updateExistingItemQuantity(String id, int num1, int num2) {
+
+        int total = num1 + num2;
+        UpdateItemsInput input= UpdateItemsInput.builder().id(id).quantity(total).build();
+
+        UpdateItemsMutation updateItemsMutation= UpdateItemsMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updateItemsMutation).enqueue(mutateCallbackItemUpdateOnOrderList);
+    }
+
+    // Mutation callback code
+    private final GraphQLCall.Callback<UpdateItemsMutation.Data> mutateCallbackItemUpdateOnOrderList = new GraphQLCall.Callback<UpdateItemsMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdateItemsMutation.Data> response) {
+            Log.e("update order to iterm"," updated item quantity");
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            Log.i("update order to iterm","failed to update");
+        }
+    };
+
+    private void aquireListOfPreExistingItems() {
+        ClientFactory.appSyncClient().query(ListItemssQuery.builder().build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(queryCallbackExistingItems);
+    }
+
+    private final GraphQLCall.Callback<ListItemssQuery.Data> queryCallbackExistingItems = new GraphQLCall.Callback<ListItemssQuery.Data>() {
+        @Override
+        public void onResponse(@Nonnull Response<ListItemssQuery.Data> response) {
+            mItems = new ArrayList<>(response.data().listItemss().items());
+            Log.i("mItemsInOrderlist", "Retrieved list items: " + mItems.toString());
+
+
+        }
+
+        @Override
+        public void onFailure(@Nonnull ApolloException e) {
+            Log.e("mItemsInOrderlist", e.toString());
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

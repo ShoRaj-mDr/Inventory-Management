@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amazonaws.amplify.generated.graphql.DeleteCustomersMutation;
 import com.amazonaws.amplify.generated.graphql.ListCustomerssQuery;
+import com.apollographql.apollo.GraphQLCall;
+import com.apollographql.apollo.api.Response;
+import com.apollographql.apollo.exception.ApolloException;
+import com.example.myapplication.ClientFactory;
 import com.example.myapplication.R;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import dev.shreyaspatil.MaterialDialog.MaterialDialog;
 import dev.shreyaspatil.MaterialDialog.interfaces.DialogInterface;
+import type.DeleteCustomersInput;
+import type.DeleteSuppliersInput;
 
 public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomerAdapter.ViewHolder> {
 
@@ -61,7 +71,7 @@ public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomer
         return customers.size();
     }
 
-    public void displayDialogBox(ListCustomerssQuery.Item customer) {
+    public void displayDialogBox(final ListCustomerssQuery.Item customer) {
         MaterialDialog mDialog = new MaterialDialog.Builder((Activity) mContext)
                 .setTitle(customer.name())
                 .setMessage("Customer ID: " + customer.id() + '\n'
@@ -74,9 +84,35 @@ public class DisplayCustomerAdapter extends RecyclerView.Adapter<DisplayCustomer
                         dialogInterface.dismiss();
                     }
                 })
+                .setPositiveButton("Remove", R.drawable.ic_baseline_close_24, new MaterialDialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        delete(customer.id());
+                        dialogInterface.dismiss();
+                    }
+                })
                 .build();
         mDialog.show();
     }
+
+    private void delete(String id) {
+        DeleteCustomersInput input =DeleteCustomersInput.builder().id(id).build();
+
+        DeleteCustomersMutation deleteCustomerMutation= DeleteCustomersMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(deleteCustomerMutation).enqueue(mutateCallbackDeleteCustomer);
+    }
+
+    private GraphQLCall.Callback<DeleteCustomersMutation.Data> mutateCallbackDeleteCustomer = new GraphQLCall.Callback<DeleteCustomersMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<DeleteCustomersMutation.Data> response) {
+            Log.d("Delete", "delete success");
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            Log.e("", "Failed to perform DeleteItemMutation", e);
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

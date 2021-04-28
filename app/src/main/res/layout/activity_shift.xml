@@ -1,9 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shiftActivity">
+    tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Add TextView to display the date -->
+    <TextView
+        android:id="@+id/date_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="425dp"
+        android:hint="Set the Date"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/timeStart_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="425dp"
+        android:hint="start"/>
+
+    <TextView
+        android:id="@+id/timeEnd_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="425dp"
+        android:hint="end"/>
+
+
+    <!-- Add CalenderView to display the Calender -->
+    <CalendarView
+        android:id="@+id/calender"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </CalendarView>
+
+    <EditText
+        android:id="@+id/employeeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="350dp"
+        android:hint="Employee Name" />
+
+
+    <Button
+        android:id="@+id/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="400dp"
+        android:text="Refresh"
+        android:onClick="pressedRefresh"/>
+
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_width="222dp"
+        android:layout_height="91dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="450dp"
+        android:timePickerMode="spinner" />
+
+    <TimePicker
+        android:id="@+id/timePicker2"
+        android:layout_width="222dp"
+        android:layout_height="94dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="540dp"
+        android:timePickerMode="spinner" />
+
+    <ListView
+        android:id="@+id/shift_list"
+        android:choiceMode="singleChoice"
+        android:listSelector="@android:color/darker_gray"
+        android:layout_width="156dp"
+        android:layout_height="193dp"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="450dp"
+        android:descendantFocusability="blocksDescendants"
+        ></ListView>
+
+    <Button
+        android:id="@+id/saveShiftButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="650dp"
+        android:text="Save"
+        android:onClick="pressedSave"/>
+
+    <Button
+        android:id="@+id/removeShiftButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="155dp"
+        android:layout_marginTop="650dp"
+        android:text="Remove"
+        android:onClick="pressedRemove"/>
+
+    <Button
+        android:id="@+id/editShiftButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="285dp"
+        android:layout_marginTop="650dp"
+        android:text="Edit"
+        android:onClick="pressedEdit"/>
+
+</RelativeLayout>
