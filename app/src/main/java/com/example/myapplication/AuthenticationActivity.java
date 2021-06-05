@@ -145,7 +145,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     //Check to see if the current user is in the admin table.
     //Im using the "Pet" table for now, will replace later. So pet==admin
     public void isAdmin(String myID) {
-        Log.i("##########################################", "ADMIN");
         ClientFactory.appSyncClient().query(GetPetQuery.builder().id(myID).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback3);
@@ -154,7 +153,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     private GraphQLCall.Callback<GetPetQuery.Data>queryCallback3=new GraphQLCall.Callback<GetPetQuery.Data>() {
         @Override //final after nonnull
         public void onResponse(@Nonnull Response<GetPetQuery.Data> response) {
-                    Log.i("AUTHACT QUERY/////////////////////////////////////////////////", "RESPONSE RECIEVED");
                     Log.i("ADMIN", response.data().toString());
                     if(response.data().getPet()!=null) {
                         //admin = true;
@@ -189,9 +187,6 @@ public class AuthenticationActivity extends AppCompatActivity {
             if(response.data().getEmployees()!=null) {
                 currentUser.employee=true;
                 logInAsEmployee();
-            }
-            else{
-                Log.i("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "Not Employee");
             }
         }
         @Override
@@ -332,8 +327,6 @@ public class AuthenticationActivity extends AppCompatActivity {
                 public void run() {
                     //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
                     // DisplayItems.this.finish();
-                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
-
                 }
             });
         }
@@ -344,8 +337,6 @@ public class AuthenticationActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.e("", "Failed to perform AddPetMutation", e);
-                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
                 }
             });
         }
