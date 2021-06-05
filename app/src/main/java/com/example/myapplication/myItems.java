@@ -32,6 +32,7 @@ import javax.annotation.Nonnull;
 import type.UpdatePetInput;
 
 public class myItems extends AppCompatActivity {
+
     public final static String EXTRA_MESSAGE = "MESSAGE";
     private ListView obj;
 
@@ -42,6 +43,20 @@ public class myItems extends AppCompatActivity {
 
     private ArrayList<ListItemssQuery.Item> mItems;
     private final String TAG = myItems.class.getSimpleName();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_items);
+
+        nameMain = findViewById(R.id.textView2);
+
+        ClientFactory.init(this);
+        s = getIntent().getStringExtra("cogUser");
+
+        Toast.makeText(myItems.this, s, Toast.LENGTH_SHORT).show();
+    }
+
     private final GraphQLCall.Callback<ListItemssQuery.Data> queryCallback = new GraphQLCall.Callback<ListItemssQuery.Data>() {
         @Override
         public void onResponse(@Nonnull Response<ListItemssQuery.Data> response) {
@@ -67,6 +82,7 @@ public class myItems extends AppCompatActivity {
             Log.e(TAG, e.toString());
         }
     };
+
     // Mutation callback code
     private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
         @Override
@@ -107,7 +123,6 @@ public class myItems extends AppCompatActivity {
     }
     String s = "something";
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -128,60 +143,41 @@ public class myItems extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 
-            case R.id.item3:    // report 1 pie chart
-                Toast.makeText(myItems.this, "33333333333", Toast.LENGTH_LONG).show();
+            case R.id.item3:
                 currentUser.customer=false;
                 currentUser.employee=false;
                 moveToAuthentication();
-
                 return true;
 
             case R.id.item6:    //Customer
-                //setAdminView(currentUser.id,"customer");
                 currentUser.customer=true;
                 currentUser.employee=false;
                 moveToAuthentication();
                 return true;
 
             case R.id.item7: // Employee
-                Toast.makeText(myItems.this, "77777777777777777777777777777", Toast.LENGTH_LONG).show();
-                //setAdminView(currentUser.id,"employee");
                 currentUser.employee=true;
                 currentUser.customer=false;
                 moveToAuthentication();
-
-
                 return true;
 
             case R.id.item4:
                 Toast.makeText(myItems.this, "Bye2", Toast.LENGTH_LONG).show();
                 AWSMobileClient.getInstance().signOut();
-                //Bundle dataBundle = new Bundle();
-                //dataBundle.putInt("id", 1);
                 Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                //intent.putExtras(dataBundle);
                 startActivity(i);
-                //IdentityManager.getDefaultIdentityManager().signOut();
-
                 return true;
-
-            case R.id.item5:
-
-
-//https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
-
-                return true;
-
-
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void moveToAuthentication(){
         Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
         startActivity(i);
     }
+
     //========================================================================================UPDATE
     private void setAdminView(String id,String view) {
         UpdatePetInput input=UpdatePetInput.builder().id(id).description(view).build();
@@ -189,23 +185,6 @@ public class myItems extends AppCompatActivity {
         ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_items);
-//        expenseMain = findViewById(R.id.textView);
-//        savingsGoal = findViewById(R.id.txtSavingsGoal);
-        nameMain = findViewById(R.id.textView2);
-//        txtDailySavings = findViewById(R.id.txtDailySavings);
-
-        ClientFactory.init(this);
-        s = getIntent().getStringExtra("cogUser");
-
-        Toast.makeText(myItems.this, s, Toast.LENGTH_SHORT).show();
-
-
-    }
-    //=============================================================================UPDATE
     public void myFunc(List<ListItemssQuery.Item> items) {
 
      //This loop will concatenate all our item names with their associated price.
@@ -213,7 +192,6 @@ public class myItems extends AppCompatActivity {
         for (int i = 0; i < items.size(); i++) {
             lastAL.add(i, items.get(i).name() + "    " + items.get(i).quantity());
         }
-
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lastAL);
 
@@ -258,4 +236,5 @@ public class myItems extends AppCompatActivity {
         }
         return super.onKeyDown(keycode, event);
     }
+
 }

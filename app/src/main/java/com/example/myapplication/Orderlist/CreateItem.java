@@ -70,7 +70,6 @@ public class CreateItem extends AppCompatActivity {
             }
         });
 
-
         toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(toolbar);
 
@@ -81,7 +80,6 @@ public class CreateItem extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     public void initialValueTextField(final EditText editText, final String text) {

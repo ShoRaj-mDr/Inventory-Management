@@ -6,8 +6,6 @@ public class currentUser {
     public static boolean loggingIn;
     public static boolean loggingOut;
 
-
-
     public static boolean admin;
     public static boolean customer;
     public static boolean employee;
@@ -23,4 +21,5 @@ public class currentUser {
         employee=false;
         hasData=false;
     }
+
 }

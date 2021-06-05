@@ -17,10 +17,6 @@ public class ClientFactory {
     public static synchronized void init(final Context context) {
         if (client == null) {
             final AWSConfiguration awsConfiguration = new AWSConfiguration(context);
-//            CognitoUserPoolsSignInProvider cognitoUserPoolsSignInProvider =
-//                    (CognitoUserPoolsSignInProvider) IdentityManager.getDefaultIdentityManager().getCurrentIdentityProvider();
-//            BasicCognitoUserPoolsAuthProvider basicCognitoUserPoolsAuthProvider =
-//                    new BasicCognitoUserPoolsAuthProvider(cognitoUserPoolsSignInProvider.getCognitoUserPool());
 
             client = AWSAppSyncClient.builder()
                     .context(context)
@@ -43,4 +39,5 @@ public class ClientFactory {
     public static synchronized AWSAppSyncClient appSyncClient() {
         return client;
     }
+
 }

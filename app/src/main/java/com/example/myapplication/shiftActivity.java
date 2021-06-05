@@ -34,18 +34,18 @@ import type.DeleteShiftInput;
 
 public class shiftActivity extends AppCompatActivity {
 
-    String itemIDglobal;
+    private String itemIDglobal;
     private ArrayList<ListShiftsQuery.Item> mShifts;
     private final String TAG = myItems.class.getSimpleName();
     private ListView listViewObj;
 
-    CalendarView calender;
-    TextView date_viewHere;
-    TimePicker timeStart;
-    TimePicker timeEnd;
+    private CalendarView calender;
+    private TextView date_viewHere;
+    private TimePicker timeStart;
+    private TimePicker timeEnd;
 
-    TextView startView;
-    TextView endView;
+    private TextView startView;
+    private TextView endView;
 
     boolean clickedRemove;
     boolean clickedEdit;
@@ -54,30 +54,13 @@ public class shiftActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shift);
-/*
-        Button removeBtn = (Button) findViewById(R.id.removeShiftButton);
-        removeBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                displayToast("listener remove");
-            }
-        });
 
-        Button editBtn = (Button) findViewById(R.id.editShiftButton);
-        removeBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                displayToast("edit remove");
-            }
-        });
-
-        // get the data from the textboxes
- */
         calender = (CalendarView)
                 findViewById(R.id.calender);  //calender from xml
         date_viewHere = (TextView)
                 findViewById(R.id.date_view); //date view from xml
 
-        calender
-                .setOnDateChangeListener(
+        calender.setOnDateChangeListener(
                         new CalendarView
                                 .OnDateChangeListener() {
                             @Override
@@ -120,11 +103,8 @@ public class shiftActivity extends AppCompatActivity {
 
                                 startView.setText(timeString);
                                 //displayToast(timeString);
-
                             }
                         }
-
-
                 );
 
         timeEnd = (TimePicker)
@@ -145,20 +125,13 @@ public class shiftActivity extends AppCompatActivity {
                             }
                         }
                 );
-
         query();
-
-
-
-
     }
-
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();
     }
-
 
     //-------------------------------------------------------------------------- ADD
     public void pressedSave(View view) {
@@ -167,10 +140,6 @@ public class shiftActivity extends AppCompatActivity {
     }
 
     private void addItem() {
-        //final string date = (TextView)findViewById(R.id.date_view).getText();   //error??
-        //TextView date = (TextView)findViewById(R.id.date_view);
-        //final String dateString = (String) date.getText();
-        //displayToast("final date:" + date.getText());
 
         final String date_string = ((TextView) findViewById(R.id.date_view)).getText().toString();
         final String time_start = ((TextView) findViewById(R.id.timeStart_view)).getText().toString();
@@ -178,23 +147,6 @@ public class shiftActivity extends AppCompatActivity {
 
         final String empName = ((EditText) findViewById(R.id.employeeTextView)).getText().toString();
         displayToast("final date:" + date_string + " " + time_start + " " + time_end);
-
-        /*
-        input CreateShiftInput {
-              id: ID
-              employeeID: Int
-              date: String
-              start: String
-              end: String
-            }
-         */
-
-        //        CreateShiftInput input = CreateShiftInput.builder()
-        //                .employeeID( ... )
-        //                .date(date_String)  -> column not updated...
-        //                .start(time_start)
-        //                .end(time_end)
-        //                .build();
 
         CreateShiftInput input = CreateShiftInput.builder().start(empName).end(date_string+" , "+ time_start+"-"+time_end).build();
         CreateShiftMutation addShiftMutation = CreateShiftMutation.builder().input(input).build();
@@ -229,8 +181,6 @@ public class shiftActivity extends AppCompatActivity {
             });
         }
     };
-    //-------------------------------------------------------------------------- ADD
-
 
     //-------------------------------------------------------------------------- REMOVE
     public void pressedRemove(View view) {
@@ -238,9 +188,7 @@ public class shiftActivity extends AppCompatActivity {
         delete(itemIDglobal);
     }
 
-
-    //-------------------------------------------------------------------------- REMOVE
-
+    //-------------------------------------------------------------------------- EDIT
     public void pressedEdit(View view) {
         displayToast("pressed edit");
         addItem();
@@ -250,25 +198,6 @@ public class shiftActivity extends AppCompatActivity {
     public void pressedRefresh(View view) {
         displayToast("pressed refresh");
         query();
-/*
-        listViewObj = findViewById(R.id.shift_list);
-        listViewObj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                String itemID = mShifts.get(position).id();
-                displayToast(itemID);
-
-                //Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
-
-
-                //startActivity(intent);
-            }
-        });
-
-
- */
-        // myFunc2(mShifts);
     }
 
     public void query() {
@@ -281,20 +210,12 @@ public class shiftActivity extends AppCompatActivity {
         @Override
         public void onResponse(@Nonnull Response<ListShiftsQuery.Data> response) {
 
-            //mPets = new ArrayList<>(response.data().listItemzs().items());
-
-
             mShifts = new ArrayList<>(response.data().listShifts().items());
-
-
             Log.i(TAG, "Retrieved list items: " + mShifts.toString());
-
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
                     myFunc2(mShifts);
-
                 }
             });
         }
@@ -313,7 +234,6 @@ public class shiftActivity extends AppCompatActivity {
             lastAL.add(i, items.get(i).start() + "    " + items.get(i).end());
         }
 
-
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lastAL);
 
         listViewObj = findViewById(R.id.shift_list);
@@ -321,32 +241,14 @@ public class shiftActivity extends AppCompatActivity {
         listViewObj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-
                 Bundle dataBundle = new Bundle();
                 String itemID=mShifts.get(position).id();
                 dataBundle.putInt("id", 0);
-
-                /*
-                Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
-                intent.putExtra("itemID",mItems.get(position).id());
-                intent.putExtra("itemName",mItems.get(position).name());
-                intent.putExtra("itemDes",mItems.get(position).description());
-                intent.putExtra("itemPrice",mItems.get(position).price());
-                intent.putExtra("itemQuantity",mItems.get(position).quantity());
-
-                intent.putExtras(dataBundle);
-                startActivity(intent);
-                */
-
             }
         });
     }
 
-
     //-------------------------------------------------------------------------- DISPLAY
-
-
-
     public void myFunc2(List<ListShiftsQuery.Item> items) {
 
         //This loop will concatenate all our item names with their associated price.
@@ -355,7 +257,6 @@ public class shiftActivity extends AppCompatActivity {
             lastAL.add(i, items.get(i).start() + "    " + items.get(i).end());
         }
 
-
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lastAL);
 
         listViewObj = findViewById(R.id.shift_list);
@@ -363,7 +264,6 @@ public class shiftActivity extends AppCompatActivity {
         listViewObj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-
                 Bundle dataBundle = new Bundle();
                 String itemID = mShifts.get(position).id();
                 //---------
@@ -378,7 +278,6 @@ public class shiftActivity extends AppCompatActivity {
 
     private void delete(String id) {
         DeleteShiftInput input =DeleteShiftInput.builder().id(id).build();
-
         DeleteShiftMutation deleteShiftMutation= DeleteShiftMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(deleteShiftMutation).enqueue(mutateCallback002);
     }
@@ -408,8 +307,5 @@ public class shiftActivity extends AppCompatActivity {
             });
         }
     };
-
-
-
 
 }

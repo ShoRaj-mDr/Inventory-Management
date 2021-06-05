@@ -70,180 +70,6 @@ public class AdminMenu extends AppCompatActivity {
         return true;
     }
 
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case R.id.item1:
-                Bundle dataBundle = new Bundle();
-                dataBundle.putInt("id", 1);
-                Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
-                intent.putExtras(dataBundle);
-                startActivity(intent);
-                return true;
-
-            case R.id.item3:    // report 1 pie chart
-                //Toast.makeText(myItems.this, "33333333333", Toast.LENGTH_LONG).show();
-                currentUser.customer=false;
-                currentUser.employee=false;
-                moveToAuthentication();
-
-                return true;
-
-            case R.id.item6:    //Customer
-                //setAdminView(currentUser.id,"customer");
-                currentUser.customer=true;
-                currentUser.employee=false;
-                moveToAuthentication();
-                return true;
-
-            case R.id.item7: // Employee
-                //Toast.makeText(myItems.this, "77777777777777777777777777777", Toast.LENGTH_LONG).show();
-                //setAdminView(currentUser.id,"employee");
-                currentUser.employee=true;
-                currentUser.customer=false;
-                moveToAuthentication();
-
-
-                return true;
-
-            case R.id.item4:
-                Toast.makeText(AdminMenu.this, "Bye2", Toast.LENGTH_LONG).show();
-                AWSMobileClient.getInstance().signOut();
-                CognitoCachingCredentialsProvider provider = new CognitoCachingCredentialsProvider(
-                        getApplicationContext(),
-                        "us-east-2_si1cYK2IO",
-                        Regions.US_EAST_2);
-                provider.clear();
-                currentUser.admin=false;
-                currentUser.loggingOut=true;
-
-                Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                startActivity(i);
-                return true;
-
-            case R.id.item5:
-                //Profile
-//                displayToast("ID = " + currentUser.id +
-//                        "\nUsername = " + currentUser.name +
-//                        "\nEmail = " + currentUser.email);
-                Intent profile = new Intent(getApplicationContext(), Profile.class);
-                startActivity(profile);
-
-
-//https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
-
-                return true;
-
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    /**
-     * Displays a Toast with the message.
-     *
-     * @param message Message to display
-     */
-    public void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message,
-                Toast.LENGTH_SHORT).show();
-    }
-
-
-    private void moveToAuthentication() {
-        Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-        startActivity(i);
-    }
-    //=============================================================================CREATE
-    private void save() {
-//        final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
-//        final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
-//        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
-//        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
-
-        CreatePetInput input = CreatePetInput.builder()
-                .id(currentUser.id)
-                .name(currentUser.name)
-                .description("admin")
-                .build();
-        //CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
-        CreatePetMutation addPetMutation = CreatePetMutation.builder()
-                .input(input)
-                .build();
-        //CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
-        //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
-        ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
-    }
-
-    // Mutation callback code
-    private final GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
-                    // DisplayItems.this.finish();
-                    Log.i("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS", "SSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                    currentUser.admin=true;
-                }
-            });
-        }
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform AddPetMutation", e);
-                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
-
-    //============================================================================================= CREATE
-    //======================================================================================== UPDATE
-    private void setAdminView(String id, String view) {
-        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
-        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
-        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
-    }
-
-
-    // Mutation callback code
-    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
-        @Override
-        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //Toast.makeText(CustomerMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-
-
-        @Override
-        public void onFailure(@Nonnull final ApolloException e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("", "Failed to perform UpdateItemMutation", e);
-                    //Toast.makeText(CustomerMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
-                    //DisplayItems.this.finish();
-                }
-            });
-        }
-    };
-    //======================================================================================== UPDATE
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -251,15 +77,6 @@ public class AdminMenu extends AppCompatActivity {
         employeeMenu_listView = findViewById(R.id.employee_listView);
         employee_toolbar = findViewById(R.id.create_item_toolbar);
         setSupportActionBar(employee_toolbar);
-
-        // Removing back button navigation from all main menu
-        /* employee_toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_button_24);
-        employee_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });*/
 
         // save();
         EmployeeMenuAdapter adapter = new EmployeeMenuAdapter(getApplicationContext(), employeeMenu, employeeMenuImage);
@@ -295,6 +112,159 @@ public class AdminMenu extends AppCompatActivity {
         });
 
     }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.item1:
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("id", 1);
+                Intent intent = new Intent(getApplicationContext(), DisplayItems.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+                return true;
+
+            case R.id.item3:
+                currentUser.customer=false;
+                currentUser.employee=false;
+                moveToAuthentication();
+
+                return true;
+
+            case R.id.item6:    //Customer
+                currentUser.customer=true;
+                currentUser.employee=false;
+                moveToAuthentication();
+                return true;
+
+            case R.id.item7: // Employee
+                //setAdminView(currentUser.id,"employee");
+                currentUser.employee=true;
+                currentUser.customer=false;
+                moveToAuthentication();
+                return true;
+
+            case R.id.item4:
+                Toast.makeText(AdminMenu.this, "Bye2", Toast.LENGTH_LONG).show();
+                AWSMobileClient.getInstance().signOut();
+                CognitoCachingCredentialsProvider provider = new CognitoCachingCredentialsProvider(
+                        getApplicationContext(),
+                        "us-east-2_si1cYK2IO",
+                        Regions.US_EAST_2);
+                provider.clear();
+                currentUser.admin=false;
+                currentUser.loggingOut=true;
+
+                Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
+                startActivity(i);
+                return true;
+
+            case R.id.item5:
+                //Profile
+                Intent profile = new Intent(getApplicationContext(), Profile.class);
+                startActivity(profile);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Displays a Toast with the message.
+     *
+     * @param message Message to display
+     */
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void moveToAuthentication() {
+        Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
+        startActivity(i);
+    }
+
+    private void save() {
+//        final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
+//        final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
+//        final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
+//        final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
+
+        CreatePetInput input = CreatePetInput.builder()
+                .id(currentUser.id)
+                .name(currentUser.name)
+                .description("admin")
+                .build();
+        //CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
+        CreatePetMutation addPetMutation = CreatePetMutation.builder()
+                .input(input)
+                .build();
+        //CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
+        //ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback22);
+        ClientFactory.appSyncClient().mutate(addPetMutation).enqueue(mutateCallback22);
+    }
+
+    // Mutation callback code
+    private final GraphQLCall.Callback<CreatePetMutation.Data> mutateCallback22 = new GraphQLCall.Callback<CreatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<CreatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(DisplayItems.this, "Added Item", Toast.LENGTH_SHORT).show();
+                    // DisplayItems.this.finish();
+                    currentUser.admin=true;
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform AddPetMutation", e);
+                    //Toast.makeText(DisplayItems.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
+
+    private void setAdminView(String id, String view) {
+        UpdatePetInput input = UpdatePetInput.builder().id(id).description(view).build();
+        UpdatePetMutation updatePetMutation = UpdatePetMutation.builder().input(input).build();
+        ClientFactory.appSyncClient().mutate(updatePetMutation).enqueue(mutateCallback4);
+    }
+
+    // Mutation callback code
+    private final GraphQLCall.Callback<UpdatePetMutation.Data> mutateCallback4 = new GraphQLCall.Callback<UpdatePetMutation.Data>() {
+        @Override
+        public void onResponse(@Nonnull final Response<UpdatePetMutation.Data> response) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(CustomerMenu.this, "Updated admin view", Toast.LENGTH_LONG).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(@Nonnull final ApolloException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("", "Failed to perform UpdateItemMutation", e);
+                    //Toast.makeText(CustomerMenu.this, "Failed to update item", Toast.LENGTH_SHORT).show();
+                    //DisplayItems.this.finish();
+                }
+            });
+        }
+    };
 
 }
 

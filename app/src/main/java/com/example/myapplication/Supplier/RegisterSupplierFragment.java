@@ -60,7 +60,7 @@ public class RegisterSupplierFragment extends Fragment {
                 String addr = supplierAddress.getText().toString();
                 String phone = supplierPhone.getText().toString();
 
-//                addSupplier(name, email, addr, phone);
+                addSupplier(name, email, addr, phone);
 
                 supplierName.setText("");
                 supplierEmail.setText("");
@@ -76,7 +76,6 @@ public class RegisterSupplierFragment extends Fragment {
 
         return view;
     }
-
 
     private void addSupplier(String name, String email, String addr, String phone) {
         CreateSuppliersInput input = CreateSuppliersInput.builder().name(name).email(email).address(addr).phone(phone).build();
@@ -119,8 +118,5 @@ public class RegisterSupplierFragment extends Fragment {
         Toast.makeText(getActivity(), message,
                 Toast.LENGTH_SHORT).show();
     }
-
-
-
 
 }

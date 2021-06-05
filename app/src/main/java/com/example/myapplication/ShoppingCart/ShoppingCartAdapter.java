@@ -55,18 +55,16 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         return new ShoppingCartAdapter.ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(ShoppingCartAdapter.ViewHolder holder, int position) {
         item = items.get(position);
         modifiedName = item.getName();
         modifiedPrice = String.valueOf(item.getPrice());
         modifiedQuantity = String.valueOf(item.getQuantity());
-//        if (item.getName() != null) {
+
         holder.itemName.setText(item.getName());
         holder.itemQuantity.setText(String.valueOf(item.getQuantity()));
         holder.itemPrice.setText("$ " + item.getPrice());
-//        }
     }
 
     @Override
@@ -173,7 +171,6 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             delete.setOnClickListener(new View.OnClickListener() { // When delete button is clicked
                 @Override
                 public void onClick(View view) {
-                    // cheating way :p
                     ((ShoppingCart) mContext).setNewPrice(items.get(pos).getPrice());
                     // Removes Item in the arraylist
                     items.remove(pos);

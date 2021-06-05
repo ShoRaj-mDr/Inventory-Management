@@ -8,7 +8,6 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
 
     private final ItemAdapter mAdapter;
 
-
     public SwipeToDeleteCallback(ItemAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.mAdapter = adapter;
@@ -24,7 +23,6 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
         int position = viewHolder.getAdapterPosition();
         mAdapter.deleteItem(position);
     }
-
 
 }
 

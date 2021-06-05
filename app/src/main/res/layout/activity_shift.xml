@@ -84,10 +84,9 @@
         android:listSelector="@android:color/darker_gray"
         android:layout_width="156dp"
         android:layout_height="193dp"
-        android:layout_marginLeft="240dp"
+        android:layout_marginStart="240dp"
         android:layout_marginTop="450dp"
-        android:descendantFocusability="blocksDescendants"
-        ></ListView>
+        android:descendantFocusability="blocksDescendants" />
 
     <Button
         android:id="@+id/saveShiftButton"

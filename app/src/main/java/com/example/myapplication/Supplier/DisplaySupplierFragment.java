@@ -30,7 +30,6 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 public class DisplaySupplierFragment extends Fragment {
 
     private final String TAG = DisplaySupplierFragment.class.getSimpleName();
-
     private ArrayList<ListSupplierssQuery.Item> supplierList;
     private RecyclerView recyclerView;
     private DisplaySupplierAdapter mAdapter;
@@ -44,7 +43,6 @@ public class DisplaySupplierFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_display_supplier, container, false);
 
         supplierList = new ArrayList<>();
@@ -61,18 +59,10 @@ public class DisplaySupplierFragment extends Fragment {
         super.onResume();
         Log.i(TAG, "onResumeFragment()");
         // Toast.makeText(getActivity(), "onResume :" + TAG, Toast.LENGTH_SHORT).show();
-
         ClientFactory.appSyncClient().query(ListSupplierssQuery.builder().build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(queryCallback);
     }
-
-    /*
-    private void fetchSuppliers(){
-        ClientFactory.appSyncClient().query(ListSupplierssQuery.builder().build())
-                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
-                .enqueue(queryCallback);
-    }*/
 
     private final GraphQLCall.Callback<ListSupplierssQuery.Data> queryCallback = new GraphQLCall.Callback<ListSupplierssQuery.Data>() {
         @Override
@@ -91,8 +81,6 @@ public class DisplaySupplierFragment extends Fragment {
                 }
             });
         }
-
-
 
         @Override
         public void onFailure(@Nonnull ApolloException e) {

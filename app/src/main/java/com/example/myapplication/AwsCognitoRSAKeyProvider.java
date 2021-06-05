@@ -29,6 +29,7 @@ public class AwsCognitoRSAKeyProvider implements RSAKeyProvider {
         }
         provider = new JwkProviderBuilder(aws_kid_store_url).build();
     }
+
     public void getter(String token){
 
         String aws_cognito_region = "us-east-2"; // Replace this with your aws cognito region
@@ -43,7 +44,6 @@ public class AwsCognitoRSAKeyProvider implements RSAKeyProvider {
         DecodedJWT jwt= jwtVerifier.verify(token);
 
     }
-
 
     @Override
     public RSAPublicKey getPublicKeyById(String kid) {

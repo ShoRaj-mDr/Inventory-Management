@@ -40,24 +40,20 @@ import type.UpdateItemsInput;
 public class OrderList extends AppCompatActivity {
 
     private final List<Item> items = new ArrayList<>();
+    private ArrayList<ListItemssQuery.Item> mItems;
     private ItemAdapter mAdapter;
     private RecyclerView recyclerView;
+    private boolean match = false;
 
     // Initializing Fab variables
     private TextView addProductTextView;
     private FloatingActionButton fab1_main;
     private Toolbar toolbar;
 
-    private ArrayList<ListItemssQuery.Item> mItems;
-
-    boolean match = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
-
-
 
         toolbar = findViewById(R.id.orderlist_toolbar);
         setSupportActionBar(toolbar);
@@ -68,9 +64,6 @@ public class OrderList extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
 
         fab1_main = findViewById(R.id.orderlist_FAB1);
         recyclerView = findViewById(R.id.orderlist_itemDisplay_recyclerview);
@@ -89,8 +82,6 @@ public class OrderList extends AppCompatActivity {
                 int count = 0;
                 if (!items.isEmpty()){
                     for (Item i: items){
-                        //search existing items
-                        // if "soda" exists already... then mItems(i).quantity() = mItems(i).quantity + items(i).getQuantity
                         for (ListItemssQuery.Item t: mItems){
                             if (i.getName().equalsIgnoreCase(t.name())){
                                 Log.i("matching item name","matching item name" );
@@ -122,7 +113,6 @@ public class OrderList extends AppCompatActivity {
         });
 
         aquireListOfPreExistingItems();
-
     }
 
     private void updateExistingItemQuantity(String id, int num1, int num2) {
@@ -187,7 +177,6 @@ public class OrderList extends AppCompatActivity {
         startActivityForResult(intentOrderItem, 1);
     }
 
-
     private void addItemToDB(Item item) {
         final String name = item.getName();
         // long id = item.getId();
@@ -211,7 +200,6 @@ public class OrderList extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-//                    displayToast("Added Item");
                     Log.e("TAG: ", "Item Successfully added to database");
                     OrderList.this.finish();
                 }
@@ -224,7 +212,6 @@ public class OrderList extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.e("", "Failed to perform AddPetMutation", e);
-//                    Toast.makeText(OrderList.this, "Failed to add item", Toast.LENGTH_SHORT).show();
                     OrderList.this.finish();
                 }
             });
@@ -240,7 +227,6 @@ public class OrderList extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();
     }
-
 
 }
 

@@ -64,7 +64,6 @@ public class DisplaySupplierAdapter extends RecyclerView.Adapter<DisplaySupplier
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Toast.makeText(view.getContext(), "Customer Name: " + customerinfo, Toast.LENGTH_SHORT).show();
                 displayDialogBox(item);
             }
         });
@@ -104,7 +103,6 @@ public class DisplaySupplierAdapter extends RecyclerView.Adapter<DisplaySupplier
 
     private void delete(String id) {
         DeleteSuppliersInput input =DeleteSuppliersInput.builder().id(id).build();
-
         DeleteSuppliersMutation deleteSupplierMutation= DeleteSuppliersMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(deleteSupplierMutation).enqueue(mutateCallbackDeleteSupplier);
     }
@@ -121,14 +119,11 @@ public class DisplaySupplierAdapter extends RecyclerView.Adapter<DisplaySupplier
         }
     };
 
-
-
     private void displayToast(String clicked_remove) {
             Toast.makeText(mContext.getApplicationContext(), clicked_remove,
                     Toast.LENGTH_SHORT).show();
 
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -149,7 +144,6 @@ public class DisplaySupplierAdapter extends RecyclerView.Adapter<DisplaySupplier
         public void onClick(View view) {
             Toast.makeText(view.getContext(), "Item: " + this.supplierName.getText(), Toast.LENGTH_SHORT).show();
         }
-
 
     }
 }

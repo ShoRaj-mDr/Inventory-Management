@@ -38,46 +38,4 @@
         android:textColor="#000000"
         />
 
-<!--    <TextView-->
-<!--        android:id="@+id/itemView"-->
-<!--        android:layout_width="240dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_weight="40"-->
-<!--        android:gravity="center"-->
-<!--        android:singleLine="false"-->
-<!--        android:text="Name"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="#000000" />-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:weightSum="60" >-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/priceView"-->
-<!--            android:layout_width="160dp"-->
-<!--            android:layout_height="25dp"-->
-<!--            android:layout_weight="30"-->
-<!--            android:gravity="center"-->
-<!--            android:singleLine="false"-->
-<!--            android:text="Price"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#000000" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/quantityView"-->
-<!--            android:layout_width="160dp"-->
-<!--            android:layout_height="25dp"-->
-<!--            android:layout_weight="30"-->
-<!--            android:gravity="center"-->
-<!--            android:singleLine="false"-->
-<!--            android:text="Quantity"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#000000" />-->
-
-<!--    </LinearLayout>-->
-
-
 </LinearLayout>

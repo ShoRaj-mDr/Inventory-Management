@@ -26,7 +26,7 @@ import type.DeleteItemsInput;
 import type.UpdateItemsInput;
 
 public class DisplayItemsEmployee extends Activity {
-    //All the fields
+
     private TextView name ;
     private TextView descriptiontxt;
     private TextView currentExpense;
@@ -42,6 +42,7 @@ public class DisplayItemsEmployee extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_items);
+
         //Initialize Fields
         name = findViewById(R.id.editTextName);
         descriptiontxt = findViewById(R.id.editTextPhone);
@@ -58,13 +59,11 @@ public class DisplayItemsEmployee extends Activity {
         itemPrice=getIntent().getDoubleExtra("itemPrice",0);
         itemQuantity=getIntent().getIntExtra("itemQuantity",0);
 
-
         //If Value > 0 we are creating an item
         //If Value == 0 we are updating an item
         int Value = extras.getInt("id");
         //We are creating a new item, all entries are blank.
         if (Value > 0) {
-
             name.setFocusable(true);
             name.setClickable(true);
 
@@ -104,16 +103,19 @@ public class DisplayItemsEmployee extends Activity {
         }
 
     }
+
     public void add(View view) { //+1
         itemQuantity++;//++ quantity, no DB update until save button is pressed.
         newExpense.setText(String.valueOf(itemQuantity));//Display new quantity
     }
+
     public void sub(View view) { //-1
         if(itemQuantity!=0) {//Make sure we don't have negative items.
             itemQuantity--;//--quantity, no DB update until save button is pressed.
             newExpense.setText(String.valueOf(itemQuantity));////Display new quantity
         }
     }
+
     //run and run2 are tied to the buttons in the layout file
     //Lines 154 and 167 in the activity_display_items.xml file
     public void run2(View view) { //DELETE ITEM
@@ -138,6 +140,7 @@ public class DisplayItemsEmployee extends Activity {
             startActivity(intent);
         }
     }
+
     //========================================================================================UPDATE
     private void update(String id) {
         final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
@@ -176,8 +179,6 @@ public class DisplayItemsEmployee extends Activity {
             });
         }
     };
-    //=============================================================================UPDATE
-
 
     //========================================================================================DELETE
     private void delete(String id) {
@@ -211,23 +212,16 @@ public class DisplayItemsEmployee extends Activity {
             });
         }
     };
-    //=============================================================================DELETE
 
     //=============================================================================CREATE
     private void save() {
+
         final String name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
         final String description = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
         final double price=Double.parseDouble(((EditText) findViewById(R.id.editTextStreet)).getText().toString());
         final int quantity=Integer.parseInt(((EditText) findViewById(R.id.editTextEmail)).getText().toString());
 
-//        CreatePetInput input = CreatePetInput.builder()
-//                .name(name)
-//                .description(description)
-//                .build();
         CreateItemsInput input = CreateItemsInput.builder().name(name).description(description).price(price).quantity(quantity).build();
-//        CreatePetMutation addPetMutation = CreatePetMutation.builder()
-//                .input(input)
-//                .build();
         CreateItemsMutation addItemMutation = CreateItemsMutation.builder().input(input).build();
         ClientFactory.appSyncClient().mutate(addItemMutation).enqueue(mutateCallback);
     }
@@ -257,5 +251,5 @@ public class DisplayItemsEmployee extends Activity {
             });
         }
     };
-//=============================================================================================CREATE
+
 }

@@ -8,14 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-//import com.example.warehousemanagmentsystem491b.R;
-
 public class EmployeeMenuAdapter extends BaseAdapter {
 
-    Context context;
-    String[] employeeMenu;
-    int[] employeeMenuImage;
-    LayoutInflater layoutInflater;
+    private Context context;
+    private String[] employeeMenu;
+    private int[] employeeMenuImage;
+    private LayoutInflater layoutInflater;
 
     public EmployeeMenuAdapter(Context applicationContext, String[] employeeMenu, int[] employeeMenuImage) {
         this.context = context;
@@ -48,4 +46,5 @@ public class EmployeeMenuAdapter extends BaseAdapter {
         mainmenuImage.setImageResource(employeeMenuImage[i]);
         return view;
     }
+
 }

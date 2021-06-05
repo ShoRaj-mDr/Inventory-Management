@@ -208,7 +208,6 @@ public class EmployeeMenu extends AppCompatActivity {
                 return true;
 
             case R.id.item5:
-// https://aws.amazon.com/blogs/mobile/using-android-sdk-with-amazon-cognito-your-user-pools/
                 return true;
 
 
@@ -217,7 +216,6 @@ public class EmployeeMenu extends AppCompatActivity {
         }
     }
 }
-//=============================================================================UPDATE
 
 /*
      Website Referenced:

@@ -35,7 +35,6 @@
         android:text="TextView1"
         android:textAlignment="center"
         android:layout_weight="33.3"
-        android:textColor="#000000"
-        />
+        android:textColor="#000000" />
 
 </LinearLayout>

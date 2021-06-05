@@ -60,8 +60,6 @@ public class Profile extends AppCompatActivity {
 
         String dataFullName = AWSMobileClient.getInstance().getUsername();
 
-        // TODO: PULL DB INFO
-        // STORE INFO IN ARRAYLIST or just a bunch of strings
         userName.setText(dataFullName);
         email.setText(currentUser.email);
         fullName.setText(currentUser.name);
@@ -112,44 +110,6 @@ public class Profile extends AppCompatActivity {
     public void backToMenu(View view) {
         finish();
     }
-
-//    /**
-//     * onClick method when the user clicks the Edit Profile button
-//     *
-//     * @param view
-//     */
-//    public void saveInformation(View view) {
-//        // Just to get ready if more things are added
-//        if (view.getId() == R.id.profile_save_button) {
-//            new Thread(new Runnable() {
-//                public void run() {
-//                    Map m1 = new HashMap();
-//                    String tempName = fullName.getText().toString();
-//                    String tempEmail = email.getText().toString();
-//                    String tempNumber = phoneNumber.getText().toString();
-//                    test1 = tempName;
-//                    test2 = tempEmail;
-//                    test3 = tempNumber;
-//                    //String tempUsername = userName.getText().toString();
-//                    m1.put("given_name", tempName);
-//                    m1.put("email", tempEmail);
-//                    m1.put("phone_number", tempNumber);
-////                    m1.put("preferred_username", tempUsername); //LATER
-//                    try {
-//                        System.out.println("ADDING");
-//                        AWSMobileClient.getInstance().updateUserAttributes(m1);
-//                        //AWSMobileClient.getInstance().changePassword(oldPassword, newPassword);
-//                        currentUser.name = test1;
-//                        currentUser.email = test2;
-//                        currentUser.phone = test3;
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//            finish();
-//        }
-//    }
 
     public void EditInformation(View view) {
         editProductName = findViewById(R.id.profile_name);

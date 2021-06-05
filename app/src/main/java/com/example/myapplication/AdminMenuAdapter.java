@@ -12,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AdminMenuAdapter extends BaseAdapter {
-    Context context;
-    String[] employeeMenu;
-    int[] employeeMenuImage;
-    LayoutInflater layoutInflater;
+
+    private Context context;
+    private String[] employeeMenu;
+    private int[] employeeMenuImage;
+    private LayoutInflater layoutInflater;
+
     public AdminMenuAdapter(Context applicationContext, String[] employeeMenu, int[] employeeMenuImage) {
         this.context = context;
         this.employeeMenu = employeeMenu;
@@ -42,9 +44,9 @@ public class AdminMenuAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.activity_admin_menu_adapter, null);
         TextView mainmenuText = view.findViewById(R.id.employee_mainmenu_textView);
         ImageView mainmenuImage = view.findViewById(R.id.employee_mainmenu_imageView);
-        ;
         mainmenuText.setText(employeeMenu[i]);
         mainmenuImage.setImageResource(employeeMenuImage[i]);
         return view;
     }
+
 }

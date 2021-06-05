@@ -64,89 +64,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="2dp"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/checkout_box"
-                />
+                android:background="@drawable/checkout_box" />
 
         </RelativeLayout>
+
     </LinearLayout>
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/subTotalLayout"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="20dp">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/Subtotal"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginRight="95dp"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:text="Subtotal"-->
-    <!--            android:textSize="30sp"-->
-    <!--            android:textColor="#000000"/>-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/subtotal_price"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:text="@string/subtotal"-->
-    <!--            android:textSize="30sp"-->
-    <!--            android:textColor="#000000"/>-->
-    <!--    </LinearLayout>-->
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/taxLayout"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="10dp">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tax"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginRight="215dp"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:text="Tax"-->
-    <!--            android:textSize="30sp"-->
-    <!--            android:textColor="#000000"/>-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tax_price"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:text="@string/tax"-->
-    <!--            android:textSize="30sp"-->
-    <!--            android:textColor="#000000"/>-->
-    <!--    </LinearLayout>-->
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/totalLayout"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="10dp">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/total"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginRight="190dp"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:text="Total"-->
-    <!--            android:textSize="30sp"-->
-    <!--            android:textColor="#000000"/>-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/total_price"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:text="@string/total"-->
-    <!--            android:textSize="30sp"-->
-    <!--            android:textColor="#000000"/>-->
-    <!--    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/totalPlace"
@@ -274,9 +196,5 @@
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>

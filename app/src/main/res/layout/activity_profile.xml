@@ -31,13 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/back_to_menu"-->
-<!--            android:layout_width="55dp"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:clickable="true"-->
-<!--            android:onClick="backToMenu"-->
-<!--            android:src="@drawable/profile_exit_foreground" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,17 +84,6 @@
                         android:text="JDoe" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!--                <Button-->
-                <!--                    android:id="@+id/userNameButton"-->
-                <!--                    android:layout_width="70dp"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_alignRight="@id/profile_username"-->
-                <!--                    android:layout_marginTop="15dp"-->
-                <!--                    android:layout_marginRight="6dp"-->
-                <!--                    android:onClick="EditInformation"-->
-                <!--                    android:text="Edit"-->
-                <!--                    android:textColor="@color/colorWhite" />-->
 
             </RelativeLayout>
 

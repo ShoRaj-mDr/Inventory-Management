@@ -38,7 +38,6 @@ public class ManageInventory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_inventory);
 
-
         toolbar = findViewById(R.id.manageInventory_toolbar);
         setSupportActionBar(toolbar);
 
