@@ -2,7 +2,7 @@
 # Inventory Management 
 Inventory Management is an android management application that allows users to store and keep track of items and products from their inventory. 
 
-#### Note: App no longer functional because AWS has been disconnected from it! 
+#### **Note: Not working! AWS has been disconnected from the app.
 
 ## Project Overview
 Inventory Management Application allows users to store and keep track of its products/items in its inventory. The primary users of this application are the employee and customers. Employees can add, remove and update items in the inventory. Customers can make new accounts and make orders from the app. Users will be able to create/order new items by using the OrderList. Item details include item name, price, quantity, and description. The items in the inventory can be updated or deleted from the AWS NoSQL database at any time. Additionally, Suppliers information, including supplier name, address and phone, can also be added and stored.  
